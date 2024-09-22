@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,6 @@ public class PlayerController : MonoBehaviour
     public GameObject currentPlayerObj;
 
     [SerializeField] RaycastHit rayHitInfo;
-    //[SerializeField] Transform currentCam;
 
     public static PlayerController Instance;
 
@@ -44,15 +44,15 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("Switching to " + rayHitInfo.collider.gameObject);
         }
-        
-        //Debug.Log("Ray hit: " + rayHitInfo.collider.gameObject);
     }
 
     void SwitchPlayerObject(GameObject objToSwitchTo)
     {
         // Avoids missing reference on scene start
-        if (currentPlayerObj != null)                
+        if (currentPlayerObj != null)
+        {
             currentPlayerObj.GetComponent<ControllableObject>().objCamera.enabled = false;
+        }
 
         currentPlayerObj = objToSwitchTo;
 

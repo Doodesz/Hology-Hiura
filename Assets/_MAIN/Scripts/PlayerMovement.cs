@@ -8,22 +8,14 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     public Rigidbody rb;
+    [SerializeField] Animator anim;
 
     [Header("Movement")]
     public float moveSpeed;
-
     public float groundDrag;
-
-/*    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
-    bool readyToJump;*/
 
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
-
-/*    [Header("Keybinds")]
-    public KeyCode jumpKey = KeyCode.Space;*/
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -37,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
+    ElectronicType thisElectronicType;
 
     PlayerController playerController;
 
@@ -46,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         playerController = PlayerController.Instance;
-        //readyToJump = true;
+
+        thisElectronicType = GetComponent<ControllableObject>().thisElectronicType;
     }
 
     private void Update()
@@ -57,11 +51,7 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         SpeedControl();
 
-        // handle drag
-        if (grounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
+        rb.drag = groundDrag;
     }
 
     private void FixedUpdate()
@@ -76,21 +66,24 @@ public class PlayerMovement : MonoBehaviour
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
 
-    /*        // when to jump
-            if (Input.GetKey(jumpKey) && readyToJump && grounded)
+            if (horizontalInput != 0 || verticalInput != 0)
             {
-                readyToJump = false;
-
-                Jump();
-
-                Invoke(nameof(ResetJump), jumpCooldown);
-            }*/
+                if (thisElectronicType == ElectronicType.Humanoid)
+                    anim.SetBool("isWalking", true);
+            }
+            else if (thisElectronicType == ElectronicType.Humanoid)
+            {
+                anim.SetBool("isWalking", false);
+            }
         }
 
         else
         {
             horizontalInput = 0;
             verticalInput = 0;
+
+            if (thisElectronicType == ElectronicType.Humanoid)
+                anim.SetBool("isWalking", false);
         }
 
     }
@@ -100,13 +93,7 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        // on ground
-        //if (grounded)
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-/*        // in air
-        else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);*/
     }
 
     private void SpeedControl()
@@ -120,16 +107,4 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }
-
-/*    private void Jump()
-    {
-        // reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-    }
-    private void ResetJump()
-    {
-        readyToJump = true;
-    }*/
 }
