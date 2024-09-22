@@ -48,15 +48,33 @@ public class PlayerController : MonoBehaviour
 
     void SwitchPlayerObject(GameObject objToSwitchTo)
     {
-        // Avoids missing reference on scene start
-        if (currentPlayerObj != null)
+        // Assigns first player object when scene starts
+        if (currentPlayerObj == null)
         {
-            currentPlayerObj.GetComponent<ControllableObject>().objCamera.enabled = false;
+            currentPlayerObj = initialPlayerObj;
         }
+
+        ControllableObject currPlayerObjScript = currentPlayerObj.GetComponent<ControllableObject>();
+        CinemachineFreeLook currPlayerObjCam = currPlayerObjScript.objCamera;
+
+        currPlayerObjCam.enabled = false;
 
         currentPlayerObj = objToSwitchTo;
 
-        currentPlayerObj.GetComponent<ControllableObject>().objCamera.enabled = true;
+        // Updates local variables
+        currPlayerObjScript = currentPlayerObj.GetComponent<ControllableObject>();
+        currPlayerObjCam = currentPlayerObj.GetComponent<ControllableObject>().objCamera;
+
+        currPlayerObjCam.enabled = true;
+
+        // Assigns correct y axis value for different electronic types
+        if (currPlayerObjScript.thisElectronicType == ElectronicType.Camera)
+        {
+            currPlayerObjCam.m_YAxis.Value = 0.55f;
+            currPlayerObjCam.m_XAxis.Value = 90f;
+        }
+        else
+            currPlayerObjCam.m_YAxis.Value = 0.55f;
 
         // Debugging
         Debug.Log("Currently controlling " + currentPlayerObj);
