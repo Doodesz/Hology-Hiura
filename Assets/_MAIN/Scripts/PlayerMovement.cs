@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[RequireComponent(typeof(ControllableObject))]
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("References")]
+    public Rigidbody rb;
+
     [Header("Movement")]
     public float moveSpeed;
 
@@ -33,23 +37,22 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
-    Rigidbody rb;
+
+    PlayerController playerController;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        playerController = PlayerController.Instance;
         //readyToJump = true;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f);
 
         MyInput();
         SpeedControl();
@@ -68,18 +71,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-
-/*        // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (playerController.currentPlayerObj == gameObject)
         {
-            readyToJump = false;
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
 
-            Jump();
+    /*        // when to jump
+            if (Input.GetKey(jumpKey) && readyToJump && grounded)
+            {
+                readyToJump = false;
 
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }*/
+                Jump();
+
+                Invoke(nameof(ResetJump), jumpCooldown);
+            }*/
+        }
+
+        else
+        {
+            horizontalInput = 0;
+            verticalInput = 0;
+        }
+
     }
 
     private void MovePlayer()
@@ -88,8 +101,8 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // on ground
-        if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        //if (grounded)
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
 /*        // in air
         else if (!grounded)
