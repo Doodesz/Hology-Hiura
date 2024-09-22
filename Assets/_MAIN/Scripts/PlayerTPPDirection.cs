@@ -11,6 +11,7 @@ public class PlayerTPPDirection : MonoBehaviour
     
     Rigidbody rb;
     PlayerController playerController;
+    ControllableObject controllableObject;
 
     [Header("Input Values")]
     public float rotationSpeed;
@@ -20,6 +21,7 @@ public class PlayerTPPDirection : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        controllableObject = GetComponent<ControllableObject>();
         playerController = PlayerController.Instance;
     }
 
@@ -36,7 +38,8 @@ public class PlayerTPPDirection : MonoBehaviour
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 inputDir = (orientation.forward * verticalInput) + (orientation.right * horizontalInput);
 
-        if ((inputDir != Vector3.zero) && playerController.currentPlayerObj == gameObject)
+        if ((inputDir != Vector3.zero) && playerController.currentPlayerObj == gameObject 
+            && controllableObject.thisElectronicType != ElectronicType.Camera)
         {
             playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
