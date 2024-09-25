@@ -46,14 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 30
-  angle: 70
-  target: {fileID: 0}
+  angle: 100
+  yAxisOffset: 2
   targetMask:
     serializedVersion: 2
     m_Bits: 128
   obstructionMask:
     serializedVersion: 2
     m_Bits: 512
+  target: {fileID: 0}
   canSeePlayer: 0
 --- !u!1001 &812570054337119758
 PrefabInstance:

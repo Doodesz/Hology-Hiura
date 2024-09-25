@@ -5,15 +5,18 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
+    [Header("Parameters")]
     public float radius;
     [Range(0, 360)]
     public float angle;
+    public float yAxisOffset;
 
-    public GameObject target = null;
-    
+    [Header("Masks")]
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
+    [Header("Debugging")]
+    public GameObject target = null;
     public bool canSeePlayer;
 
     private void Start()
@@ -34,7 +37,8 @@ public class FieldOfView : MonoBehaviour
 
     private void FieldOfViewCheck()
     {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
+        Vector3 originPoint = new Vector3(transform.position.x, transform.position.y + yAxisOffset, transform.position.z);
+        Collider[] rangeChecks = Physics.OverlapSphere(originPoint, radius, targetMask);
 
         // Converts the rangeChecks array to a transform array of that rangeChecks collider game objects
         GameObject[] targets = new GameObject[rangeChecks.Length];
