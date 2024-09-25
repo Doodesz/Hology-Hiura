@@ -215,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3863797611255878644}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3355523, y: 0.000000038545956, z: -0.000000027104534, w: 0.9420216}
+  m_LocalRotation: {x: 0.4718581, y: -5.121081e-15, z: 1.3325376e-15, w: 0.8816745}
   m_LocalPosition: {x: 0, y: 0.00000007009557, z: 0.00000022788161}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -421,7 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5997269512595883309}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14865264, y: -0.00000004167858, z: 0.000000006265245, w: 0.9888895}
+  m_LocalRotation: {x: 0.00000000886039, y: 0.000000009126575, z: 7.8267274e-16, w: 1}
   m_LocalPosition: {x: 0, y: 0.00000007009557, z: 0.00000022788161}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -640,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6071099962810910764}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5976788, y: -0.00000006721525, z: -0.000000047829502, w: 0.8017357}
+  m_LocalRotation: {x: -0.47185808, y: 0.000000008387628, z: 0.00000000448893, w: 0.8816745}
   m_LocalPosition: {x: 0, y: 0.00000007009557, z: 0.00000022788161}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 1927904257602888650}
   - component: {fileID: 5671480354475179614}
   - component: {fileID: 1092975240430544441}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MiniRoomba
   m_TagString: Untagged
   m_Icon: {fileID: 0}
