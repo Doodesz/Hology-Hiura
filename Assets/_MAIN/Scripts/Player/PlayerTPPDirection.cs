@@ -38,7 +38,7 @@ public class PlayerTPPDirection : MonoBehaviour
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 inputDir = (orientation.forward * verticalInput) + (orientation.right * horizontalInput);
 
-        if ((inputDir != Vector3.zero) && playerController.currentPlayerObj == gameObject 
+        if ((inputDir != Vector3.zero) && playerController.currPlayerObj == gameObject 
             && controllableObject.thisElectronicType != ElectronicType.Camera)
         {
             playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);

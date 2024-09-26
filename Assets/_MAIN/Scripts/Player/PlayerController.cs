@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Info")]
-    public GameObject currentPlayerObj;
+    public GameObject currPlayerObj;
 
     [SerializeField] RaycastHit rayHitInfo;
 
@@ -49,23 +49,33 @@ public class PlayerController : MonoBehaviour
     void SwitchPlayerObject(GameObject objToSwitchTo)
     {
         // Assigns first player object when scene starts
-        if (currentPlayerObj == null)
+        if (currPlayerObj == null)
         {
-            currentPlayerObj = initialPlayerObj;
+            currPlayerObj = initialPlayerObj;
         }
 
-        ControllableObject currPlayerObjScript = currentPlayerObj.GetComponent<ControllableObject>();
+        ControllableObject currPlayerObjScript = currPlayerObj.GetComponent<ControllableObject>();
         CinemachineFreeLook currPlayerObjCam = currPlayerObjScript.objCamera;
 
+        // Disables old cam
         currPlayerObjCam.enabled = false;
 
-        currentPlayerObj = objToSwitchTo;
+        // Sets offline animation on switched off minibot
+        if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid)
+            currPlayerObjScript.animator.SetBool("isOnline", false);
+        
+        // Switches controlled object
+        currPlayerObj = objToSwitchTo;
 
         // Updates local variables
-        currPlayerObjScript = currentPlayerObj.GetComponent<ControllableObject>();
-        currPlayerObjCam = currentPlayerObj.GetComponent<ControllableObject>().objCamera;
+        currPlayerObjScript = currPlayerObj.GetComponent<ControllableObject>();
+        currPlayerObjCam = currPlayerObj.GetComponent<ControllableObject>().objCamera;
 
         currPlayerObjCam.enabled = true;
+
+        // Sets online animation on switched in minibot
+        if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid)
+            currPlayerObjScript.animator.SetBool("isOnline", true);
 
         // Assigns correct y axis value for different electronic types
         if (currPlayerObjScript.thisElectronicType == ElectronicType.Camera)
@@ -77,6 +87,6 @@ public class PlayerController : MonoBehaviour
             currPlayerObjCam.m_YAxis.Value = 0.55f;
 
         // Debugging
-        Debug.Log("Currently controlling " + currentPlayerObj);
+        Debug.Log("Currently controlling " + currPlayerObj);
     }
 }

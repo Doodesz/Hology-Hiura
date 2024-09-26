@@ -9,4 +9,5 @@ public class ControllableObject : MonoBehaviour
 {
     public CinemachineFreeLook objCamera;
     public ElectronicType thisElectronicType;
+    public Animator animator;
 }

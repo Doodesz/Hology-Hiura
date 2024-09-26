@@ -29,7 +29,7 @@ public class GravityModifier : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.layer);
+        //Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == layerToReduceGrav)
         {
             gravityMultiplier = initGravMult / decreaseGravMultiplier;
@@ -38,7 +38,7 @@ public class GravityModifier : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        Debug.Log(collision.gameObject.layer);
+        //Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == layerToReduceGrav)
         {
             gravityMultiplier = initGravMult;

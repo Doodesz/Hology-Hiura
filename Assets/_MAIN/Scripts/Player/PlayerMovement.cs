@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
-        if (playerController.currentPlayerObj == gameObject)
+        if (playerController.currPlayerObj == gameObject)
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");

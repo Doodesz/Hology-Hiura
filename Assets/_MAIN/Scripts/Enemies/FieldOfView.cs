@@ -61,7 +61,7 @@ public class FieldOfView : MonoBehaviour
                     float distanceToTarget = Vector3.Distance(transform.position, playerObj.transform.position);
 
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask)
-                        && playerObj == PlayerController.Instance.currentPlayerObj)
+                        && playerObj == PlayerController.Instance.currPlayerObj)
                     {
                         canSeePlayer = true;
                         target = playerObj.gameObject;

@@ -711,7 +711,7 @@ GameObject:
   - component: {fileID: 1092975240430544441}
   m_Layer: 7
   m_Name: MiniRoomba
-  m_TagString: Untagged
+  m_TagString: Heavy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
