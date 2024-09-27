@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         if (currPlayerObjScript.thisElectronicType == ElectronicType.Camera)
         {
             currPlayerObjCam.m_YAxis.Value = 0.55f;
-            currPlayerObjCam.m_XAxis.Value = 90f;
+            currPlayerObjCam.m_XAxis.Value = currPlayerObj.GetComponent<ObserverCamFix>().xValueModifier + 90;
         }
         else
             currPlayerObjCam.m_YAxis.Value = 0.55f;

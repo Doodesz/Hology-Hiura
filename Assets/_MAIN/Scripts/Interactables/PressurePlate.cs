@@ -23,7 +23,7 @@ public class PressurePlate : MonoBehaviour
         // play sfx
         foreach (EventObject obj in objectsToTrigger)
         {
-            // call objects to trigger funs here
+            obj.TriggerObjectEvent();
         }
     }
 
