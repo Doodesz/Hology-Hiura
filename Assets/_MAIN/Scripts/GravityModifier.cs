@@ -11,7 +11,7 @@ public class GravityModifier : MonoBehaviour
     float initGravMult;
 
     [Header("Layer Reference")]
-    [SerializeField] int layerToReduceGrav;
+    [SerializeField] int layerToReduceGrav = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -27,21 +27,21 @@ public class GravityModifier : MonoBehaviour
         gravity.force = new Vector3(0.0f, -9.87f * gravityMultiplier, 0.0f);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         //Debug.Log(collision.gameObject.layer);
-        if (collision.gameObject.layer == layerToReduceGrav)
+        if (other.gameObject.layer == layerToReduceGrav)
         {
             gravityMultiplier = initGravMult / decreaseGravMultiplier;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
         //Debug.Log(collision.gameObject.layer);
-        if (collision.gameObject.layer == layerToReduceGrav)
+        if (other.gameObject.layer == layerToReduceGrav)
         {
             gravityMultiplier = initGravMult;
-        }
+        }        
     }
 }

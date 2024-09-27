@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100, Color.red, 0.001f, depthTest: true);
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out rayHitInfo, 100f)
-            && rayHitInfo.collider.gameObject.TryGetComponent(out ControllableObject controllableObject) 
+            && rayHitInfo.collider.gameObject.TryGetComponent(out ControllableElectronic controllableObject) 
             && Input.GetMouseButtonUp(1))
         {
             SwitchPlayerObject(rayHitInfo.collider.gameObject);
@@ -54,27 +54,30 @@ public class PlayerController : MonoBehaviour
             currPlayerObj = initialPlayerObj;
         }
 
-        ControllableObject currPlayerObjScript = currPlayerObj.GetComponent<ControllableObject>();
+        ControllableElectronic currPlayerObjScript = currPlayerObj.GetComponent<ControllableElectronic>();
         CinemachineFreeLook currPlayerObjCam = currPlayerObjScript.objCamera;
 
         // Disables old cam
         currPlayerObjCam.enabled = false;
 
         // Sets offline animation on switched off minibot
-        if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid)
+        if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
+            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba)
             currPlayerObjScript.animator.SetBool("isOnline", false);
         
         // Switches controlled object
         currPlayerObj = objToSwitchTo;
 
         // Updates local variables
-        currPlayerObjScript = currPlayerObj.GetComponent<ControllableObject>();
-        currPlayerObjCam = currPlayerObj.GetComponent<ControllableObject>().objCamera;
+        currPlayerObjScript = currPlayerObj.GetComponent<ControllableElectronic>();
+        currPlayerObjCam = currPlayerObj.GetComponent<ControllableElectronic>().objCamera;
 
+        // Enables old cam
         currPlayerObjCam.enabled = true;
 
         // Sets online animation on switched in minibot
-        if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid)
+        if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
+            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba) 
             currPlayerObjScript.animator.SetBool("isOnline", true);
 
         // Assigns correct y axis value for different electronic types

@@ -19,7 +19,7 @@ public class PressurePlate : MonoBehaviour
 
     private void TriggerEvent()
     {
-        Debug.Log("Pressure plate hit");
+        //Debug.Log("Pressure plate hit");
         // play sfx
         foreach (EventObject obj in objectsToTrigger)
         {

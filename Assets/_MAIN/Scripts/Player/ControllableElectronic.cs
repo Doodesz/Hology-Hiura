@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum ElectronicType { Roomba, Camera, Humanoid };
 [RequireComponent(typeof(PlayerTPPDirection))]
-public class ControllableObject : MonoBehaviour
+public class ControllableElectronic : MonoBehaviour
 {
     public CinemachineFreeLook objCamera;
     public ElectronicType thisElectronicType;

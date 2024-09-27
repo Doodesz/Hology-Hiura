@@ -11,7 +11,7 @@ public class PlayerTPPDirection : MonoBehaviour
     
     Rigidbody rb;
     PlayerController playerController;
-    ControllableObject controllableObject;
+    ControllableElectronic controllableObject;
 
     [Header("Input Values")]
     public float rotationSpeed;
@@ -21,7 +21,7 @@ public class PlayerTPPDirection : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        controllableObject = GetComponent<ControllableObject>();
+        controllableObject = GetComponent<ControllableElectronic>();
         playerController = PlayerController.Instance;
     }
 

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(ControllableObject))]
+[RequireComponent(typeof(ControllableElectronic))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     public Rigidbody rb;
+    public Transform orientation;
     [SerializeField] Animator anim;
 
     [Header("Movement")]
@@ -20,9 +21,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
-    bool grounded;
 
-    public Transform orientation;
+    [Header("Debugging")]
+    [SerializeField] bool grounded;
 
     float horizontalInput;
     float verticalInput;
@@ -40,13 +41,20 @@ public class PlayerMovement : MonoBehaviour
 
         playerController = PlayerController.Instance;
 
-        thisElectronicType = GetComponent<ControllableObject>().thisElectronicType;
+        thisElectronicType = GetComponent<ControllableElectronic>().thisElectronicType;
     }
 
     private void Update()
     {
         // ground check
-        //grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f);
+        if (thisElectronicType == ElectronicType.Humanoid)
+        {
+            if (grounded)
+                anim.SetBool("isFalling", false);
+            else
+                anim.SetBool("isFalling", true);
+        }
 
         MyInput();
         SpeedControl();
@@ -106,5 +114,17 @@ public class PlayerMovement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid)
+            anim.SetBool("isPushing", true);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid)
+            anim.SetBool("isPushing", false);
     }
 }
