@@ -18,6 +18,11 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] float spottingRate = 1f;
     [SerializeField] float despottingRate = 1f;
     [SerializeField] float unawareSpottingTimeout = 3f;
+
+    [SerializeField] Color unawareColor;
+    [SerializeField] Color alertColor;
+    [SerializeField] Color engagingColor;
+
     public float speed = 10f;
 
     [Header("Debugging")]
