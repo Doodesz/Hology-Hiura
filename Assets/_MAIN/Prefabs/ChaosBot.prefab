@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 355118866037831671}
+  - component: {fileID: 6988713581272234448}
+  - component: {fileID: 1448831706016909290}
   - component: {fileID: 6377965916785837053}
   - component: {fileID: 8015732956197355072}
   - component: {fileID: 7702171116620465983}
@@ -36,6 +38,49 @@ Transform:
   - {fileID: 2339354105669417783}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6988713581272234448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440428851255974154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f39f93301ff413a4da704448d5531867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov: {fileID: 0}
+  fovLight: {fileID: 0}
+  spotValue: 0
+  unawareSpotTime: 2
+  searchingSpotTime: 1
+  spottingRate: 1
+  despottingRate: 1
+  unawareSpottingTimeout: 3
+  speed: 5
+  playerSpotted: 0
+  currState: 0
+--- !u!114 &1448831706016909290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440428851255974154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6aa4b8cd409494698ed1a5f7f54478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaosBotScript: {fileID: 6988713581272234448}
+  fov: {fileID: 6377965916785837053}
+  modelObj: {fileID: 0}
+  patrolPoints: []
+  targetPoint: 0
+  rotationSpeed: 3
+  speed: 2
+  stopped: 0
 --- !u!114 &6377965916785837053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,7 +101,7 @@ MonoBehaviour:
     m_Bits: 128
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
   target: {fileID: 0}
   canSeePlayer: 0
 --- !u!114 &8015732956197355072
@@ -120,9 +165,9 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!1001 &2881660922336353500

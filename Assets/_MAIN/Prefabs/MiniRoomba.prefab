@@ -747,8 +747,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5671480354475179614}
+  orientation: {fileID: 3256284168255857582}
   anim: {fileID: 6803179878405863607}
-  moveSpeed: 35
+  moveSpeed: 30
   groundDrag: 5
   walkSpeed: 0
   sprintSpeed: 0
@@ -756,7 +757,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  orientation: {fileID: 3256284168255857582}
+  grounded: 0
 --- !u!114 &57981541633908062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,7 +813,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8541148098278607457}
   serializedVersion: 4
-  m_Mass: 2
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
