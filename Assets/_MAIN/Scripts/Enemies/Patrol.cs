@@ -7,7 +7,7 @@ public class Patrol : MonoBehaviour
     [Header("References")]
     public ChaosBot chaosBotScript;
     public FieldOfView fov;
-    [SerializeField] GameObject modelObj;
+    [SerializeField] Animator anim;
 
     [Header("Variables")]
     public Transform[] patrolPoints;
@@ -23,6 +23,8 @@ public class Patrol : MonoBehaviour
     {
         speed = chaosBotScript.speed;
         targetPoint = 0;
+
+        anim.SetBool("isMoving", true);
     }
 
     // Update is called once per frame
@@ -32,7 +34,9 @@ public class Patrol : MonoBehaviour
         Vector3 targetPos = new Vector3(patrolPoints[targetPoint].position.x, transform.position.y, 
             patrolPoints[targetPoint].position.z);
         if (transform.position == targetPos && !stopped)
+        {
             StartCoroutine(IncreaseTargetInt());
+        }
 
         // Move towards target patrol point
         Vector3 moveTowardsPos = new Vector3(patrolPoints[targetPoint].position.x,
@@ -40,28 +44,30 @@ public class Patrol : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, moveTowardsPos,
             speed * Time.deltaTime);
 
-
-    }
-
-    private void LateUpdate()
-    {
+        #region rotation 
         // Looks at target transform point
-        if (transform.position != patrolPoints[targetPoint].position && !stopped)
+        if (!stopped & transform.position != moveTowardsPos)
         {
-            Vector3 moveTowardsPos = new Vector3(patrolPoints[targetPoint].position.x,
-                transform.position.y, patrolPoints[targetPoint].position.z);
-
             var targetRotation = Quaternion.LookRotation(moveTowardsPos - transform.position);
 
-            // Smoothly rotate towards the target point.
+            // Smoothly rotate towards the target point
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
                 rotationSpeed * Time.deltaTime);
-        }        
+        }
+
+        else
+        {
+            // Smoothly rotate towards the target point
+            transform.rotation = Quaternion.Slerp(transform.rotation, patrolPoints[targetPoint].rotation,
+                rotationSpeed * Time.deltaTime);
+        }
+        #endregion
     }
 
     IEnumerator IncreaseTargetInt()
     {
         stopped = true;
+        anim.SetBool("isMoving", false);
 
         yield return new WaitForSeconds(3f);
 
@@ -71,5 +77,6 @@ public class Patrol : MonoBehaviour
         {
             targetPoint = 0;
         }
+        anim.SetBool("isMoving", true);
     }
 }

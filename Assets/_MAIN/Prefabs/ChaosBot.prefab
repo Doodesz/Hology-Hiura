@@ -76,9 +76,10 @@ MonoBehaviour:
   chaosBotScript: {fileID: 6988713581272234448}
   fov: {fileID: 6377965916785837053}
   modelObj: {fileID: 0}
+  anim: {fileID: 1369897733711754751}
   patrolPoints: []
   targetPoint: 0
-  rotationSpeed: 3
+  rotationSpeed: 10
   speed: 2
   stopped: 0
 --- !u!114 &6377965916785837053
