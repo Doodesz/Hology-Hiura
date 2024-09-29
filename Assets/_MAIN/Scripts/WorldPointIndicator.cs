@@ -59,6 +59,6 @@ public class WorldPointIndicator : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, minY + yMargin, maxY - yMargin);
 
         // Update the marker's position
-        icon.transform.position = pos;
+        icon.transform.position = Vector3.Slerp(icon.transform.position, pos, 5f);
     }
 }
