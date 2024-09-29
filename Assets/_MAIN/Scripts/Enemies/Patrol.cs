@@ -12,16 +12,18 @@ public class Patrol : MonoBehaviour
     [Header("Variables")]
     public Transform[] patrolPoints;
     public int targetPoint;
-    [SerializeField] float rotationSpeed = 0.2f;
+    [SerializeField] float turnSpeed;
 
     [Header("Debugging")]
     [SerializeField] float speed;
     [SerializeField] bool stopped = false;
+    public bool patrolInterrupted = false;
 
     // Start is called before the first frame update
     void Start()
     {
         speed = chaosBotScript.speed;
+        turnSpeed = chaosBotScript.turnSpeed;
         targetPoint = 0;
 
         anim.SetBool("isMoving", true);
@@ -30,41 +32,45 @@ public class Patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If reached target patrol point, change target patrol point
-        Vector3 targetPos = new Vector3(patrolPoints[targetPoint].position.x, transform.position.y, 
-            patrolPoints[targetPoint].position.z);
-        if (transform.position == targetPos && !stopped)
+        // When patrolling
+        if (!patrolInterrupted)
         {
-            StartCoroutine(IncreaseTargetInt());
+            // If reached target patrol point, change target patrol point
+            Vector3 targetPos = new Vector3(patrolPoints[targetPoint].position.x, transform.position.y, 
+                patrolPoints[targetPoint].position.z);
+            if (transform.position == targetPos && !stopped)
+            {
+                StartCoroutine(Wait());
+            }
+
+            // Move towards target patrol point
+            Vector3 moveTowardsPos = new Vector3(patrolPoints[targetPoint].position.x,
+                transform.position.y, patrolPoints[targetPoint].position.z);
+            transform.position = Vector3.MoveTowards(transform.position, moveTowardsPos,
+                speed * Time.deltaTime);
+
+            #region rotation 
+            // Looks at target transform point
+            if (!stopped & transform.position != moveTowardsPos)
+            {
+                var targetRotation = Quaternion.LookRotation(moveTowardsPos - transform.position);
+
+                // Smoothly rotate towards the target point
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
+                    turnSpeed * Time.deltaTime);
+            }
+
+            else
+            {
+                // Smoothly rotate towards the target point
+                transform.rotation = Quaternion.Slerp(transform.rotation, patrolPoints[targetPoint].rotation,
+                    turnSpeed * Time.deltaTime);
+            }
+            #endregion
         }
-
-        // Move towards target patrol point
-        Vector3 moveTowardsPos = new Vector3(patrolPoints[targetPoint].position.x,
-            transform.position.y, patrolPoints[targetPoint].position.z);
-        transform.position = Vector3.MoveTowards(transform.position, moveTowardsPos,
-            speed * Time.deltaTime);
-
-        #region rotation 
-        // Looks at target transform point
-        if (!stopped & transform.position != moveTowardsPos)
-        {
-            var targetRotation = Quaternion.LookRotation(moveTowardsPos - transform.position);
-
-            // Smoothly rotate towards the target point
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
-                rotationSpeed * Time.deltaTime);
-        }
-
-        else
-        {
-            // Smoothly rotate towards the target point
-            transform.rotation = Quaternion.Slerp(transform.rotation, patrolPoints[targetPoint].rotation,
-                rotationSpeed * Time.deltaTime);
-        }
-        #endregion
     }
 
-    IEnumerator IncreaseTargetInt()
+    IEnumerator Wait()
     {
         stopped = true;
         anim.SetBool("isMoving", false);
@@ -72,11 +78,30 @@ public class Patrol : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         stopped = false;
+        ChangeTargetPatrolPoint();
+        anim.SetBool("isMoving", true);
+    }
+
+    void ChangeTargetPatrolPoint()
+    {
         targetPoint++;
         if (targetPoint >= patrolPoints.Length)
         {
             targetPoint = 0;
         }
+    }
+
+    public void InterruptPatrol()
+    {
+        patrolInterrupted = true;
+        stopped = true;
+        anim.SetBool("isMoving", false);
+    }
+
+    public void ResumePatrol()
+    {
+        patrolInterrupted = false;
+        stopped = false;
         anim.SetBool("isMoving", true);
     }
 }

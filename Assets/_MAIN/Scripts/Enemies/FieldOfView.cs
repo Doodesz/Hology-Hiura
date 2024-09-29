@@ -5,17 +5,11 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] Light light;
-
     [Header("Parameters")]
     public float radius;
     [Range(0, 360)]
     public float angle;
     public float yAxisOffset;
-    [SerializeField] Color unawareColor;
-    [SerializeField] Color alertColor;
-    [SerializeField] Color engagingColor;
 
     [Header("Masks")]
     public LayerMask targetMask;
@@ -28,7 +22,6 @@ public class FieldOfView : MonoBehaviour
     private void Start()
     {
         StartCoroutine(FOVRoutine());
-        light.color = unawareColor;
     }
 
     private IEnumerator FOVRoutine()
@@ -71,7 +64,6 @@ public class FieldOfView : MonoBehaviour
                         && playerObj == PlayerController.Instance.currPlayerObj)
                     {
                         canSeePlayer = true;
-                        light.color = alertColor;
                         target = playerObj.gameObject;
                         // Call a attempt to kill player ienumerator function
 
@@ -80,21 +72,18 @@ public class FieldOfView : MonoBehaviour
                     else
                     {
                         canSeePlayer = false;
-                        light.color = unawareColor;
                     }
 
                 }
                 else
                 {
                     canSeePlayer = false;
-                    light.color = unawareColor;
                 }
             }
         }
         else if (canSeePlayer)
         {
             canSeePlayer = false;
-            light.color = unawareColor;
         }
     }
 }
