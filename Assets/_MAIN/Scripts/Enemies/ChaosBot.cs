@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
-public enum ChaosBotState { Patrolling, Spotting, Chasing, Engaging, Searching }
+public enum ChaosBotState { Patrolling, Chasing, Engaging, Searching }
 [RequireComponent(typeof(FieldOfView))]
 public class ChaosBot : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] Light fovLight;
     [SerializeField] Patrol patrolScript;
     [SerializeField] Animator anim;
+    [SerializeField] Image spotBar;
+    [SerializeField] TextMeshProUGUI spotIcon;
 
     [Header("Variables")]
     [SerializeField] float spotValue;
@@ -73,6 +77,7 @@ public class ChaosBot : MonoBehaviour
                 Debug.Log("Despotting player");
             }
 
+            // Spot player when exposed for a certain time
             if (spotValue >= unawareSpotTime)
             {
                 playerSpotted = true;
@@ -89,6 +94,7 @@ public class ChaosBot : MonoBehaviour
                     Debug.Log("Chasing player");
                 }
             }
+            // Resume patrol when player is out of view and spotting bar is 0
             else if (spotValue <= 0 && patrolScript.patrolInterrupted)
             {
                 patrolScript.ResumePatrol();
@@ -96,6 +102,24 @@ public class ChaosBot : MonoBehaviour
                 anim.SetBool("isAlerted", false);
                 Debug.Log("Disengaging player");
             }
+
+            // Update radial spotting bar
+            if (spotValue > 0)
+            {
+                float fillValue = spotValue / unawareSpotTime;
+                spotBar.fillAmount = fillValue;
+                spotIcon.enabled = true;
+            }
+            else
+            {
+                spotBar.fillAmount = 0;
+                spotIcon.enabled = false;
+            }
+        }
+
+        // Chasing state
+        if (currState == ChaosBotState.Chasing)
+        {
 
         }
 

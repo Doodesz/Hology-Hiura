@@ -875,7 +875,7 @@ MonoBehaviour:
   rb: {fileID: 8876212193691703550}
   orientation: {fileID: 8301746674136571264}
   anim: {fileID: 5620617193743589336}
-  moveSpeed: 35
+  moveSpeed: 38
   groundDrag: 5
   walkSpeed: 0
   sprintSpeed: 0

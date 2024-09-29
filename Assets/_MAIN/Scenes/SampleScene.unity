@@ -4598,6 +4598,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChaosBot (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3963795433582292656, guid: 8f4365a84d9bd8f4d8a2430eea85a016,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9633,6 +9638,16 @@ PrefabInstance:
     - target: {fileID: 1448831706016909290, guid: 8f4365a84d9bd8f4d8a2430eea85a016,
         type: 3}
       propertyPath: patrolPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1842745775}
+    - target: {fileID: 1448831706016909290, guid: 8f4365a84d9bd8f4d8a2430eea85a016,
+        type: 3}
+      propertyPath: patrolPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 1842745775}
+    - target: {fileID: 1448831706016909290, guid: 8f4365a84d9bd8f4d8a2430eea85a016,
+        type: 3}
+      propertyPath: patrolPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1842745775}
     - target: {fileID: 3440428851255974154, guid: 8f4365a84d9bd8f4d8a2430eea85a016,
