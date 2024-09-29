@@ -44,4 +44,15 @@ public class GravityModifier : MonoBehaviour
             gravityMultiplier = initGravMult;
         }        
     }
+
+    private void OnDisable()
+    {
+        gravity.enabled = false;
+    }
+
+    private void OnEnable()
+    {
+        if (gravity != null)
+            gravity.enabled = true;
+    }
 }

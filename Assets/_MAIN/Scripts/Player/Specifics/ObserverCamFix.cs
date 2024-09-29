@@ -10,7 +10,7 @@ public class ObserverCamFix : MonoBehaviour
 
     private void Start()
     {
-        Quaternion camRot = cam.gameObject.transform.rotation;
+        xValueModifier = transform.eulerAngles.y;
 
         cam.m_XAxis.Value = xValueModifier + 90;
         cam.m_XAxis.m_MaxValue = xValueModifier + 200;

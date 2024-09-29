@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Patrol : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Patrol : MonoBehaviour
     public ChaosBot chaosBotScript;
     public FieldOfView fov;
     [SerializeField] Animator anim;
+    [SerializeField] NavMeshAgent ai;
 
     [Header("Variables")]
     public Transform[] patrolPoints;
@@ -35,8 +37,11 @@ public class Patrol : MonoBehaviour
         // When patrolling
         if (!patrolInterrupted)
         {
+            if (ai.isStopped)
+                ai.isStopped = false;
+
             // If reached target patrol point, change target patrol point
-            Vector3 targetPos = new Vector3(patrolPoints[targetPoint].position.x, transform.position.y, 
+            Vector3 targetPos = new Vector3(patrolPoints[targetPoint].position.x, transform.position.y,
                 patrolPoints[targetPoint].position.z);
             if (transform.position == targetPos && !stopped)
             {
@@ -44,13 +49,14 @@ public class Patrol : MonoBehaviour
             }
 
             // Move towards target patrol point
-            Vector3 moveTowardsPos = new Vector3(patrolPoints[targetPoint].position.x,
+            /*Vector3 moveTowardsPos = new Vector3(patrolPoints[targetPoint].position.x,
                 transform.position.y, patrolPoints[targetPoint].position.z);
             transform.position = Vector3.MoveTowards(transform.position, moveTowardsPos,
-                speed * Time.deltaTime);
+                speed * Time.deltaTime);*/
+            ai.SetDestination(targetPos);
 
             #region rotation 
-            // Looks at target transform point
+            /*// Looks at target transform point
             if (!stopped & transform.position != moveTowardsPos)
             {
                 var targetRotation = Quaternion.LookRotation(moveTowardsPos - transform.position);
@@ -65,8 +71,13 @@ public class Patrol : MonoBehaviour
                 // Smoothly rotate towards the target point
                 transform.rotation = Quaternion.Slerp(transform.rotation, patrolPoints[targetPoint].rotation,
                     turnSpeed * Time.deltaTime);
-            }
+            }*/
             #endregion
+        }
+        else
+        {
+            if (!ai.isStopped)
+                ai.isStopped = true;
         }
     }
 

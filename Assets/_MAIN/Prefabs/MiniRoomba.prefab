@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8691633900073845494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Obj holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 7053616882572819139}
   - component: {fileID: 59138493356201078}
   - component: {fileID: 273710718495866282}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2576177915959611457}
   - component: {fileID: 1449570553880575673}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TopRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3863797611255878644}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48476782, y: 0.000000026066393, z: -0.000000014447209, w: 0.8746429}
+  m_LocalRotation: {x: 0.48476782, y: 8.4612284e-10, z: -4.689608e-10, w: 0.8746429}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 1137093883256446039}
   - component: {fileID: 6394058374089274223}
   - component: {fileID: 9035116960636449630}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2950343416446948845}
   - component: {fileID: 2386988849063089938}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MiddleRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,8 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5997269512595883309}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.049813755, y: 0.000000029765328, z: -0.0000000014845658,
-    w: 0.99875855}
+  m_LocalRotation: {x: 0.0498138, y: 0.00000002531694, z: -0.0000000012627005, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -486,7 +485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1736582040439555988}
   - component: {fileID: 1503677163746006948}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MiniRoomba Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7188999467257456264}
   - component: {fileID: 7152783983286457678}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BottomRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +640,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6071099962810910764}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.45758078, y: 0.000000029627088, z: 0.000000015246595, w: 0.8891681}
+  m_LocalRotation: {x: -0.45758066, y: -0.000000026499277, z: -0.000000013636967,
+    w: 0.88916814}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -866,7 +866,7 @@ GameObject:
   - component: {fileID: 4293224788899796695}
   - component: {fileID: 8656665854488881474}
   - component: {fileID: 6040001081887502584}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1053,6 +1053,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MiniRoomba (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9924bba53a4c01949b91f79be129c68e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
