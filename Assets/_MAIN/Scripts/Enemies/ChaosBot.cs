@@ -147,22 +147,30 @@ public class ChaosBot : MonoBehaviour
             // Start a timeout timer when player is out of view
             if (!fov.canSeePlayer && !chaseTimingOut)
             {
-                StartCoroutine(ChaseTimeout());
+                StartCoroutine(ChaseTimeout(5f));
             }
-            else
+            else if (fov.canSeePlayer)
             {
-                StopCoroutine(ChaseTimeout());
+                StopCoroutine(ChaseTimeout(5f));
                 chaseTimingOut = false;
                 Debug.Log("Chase continued");
             }
 
             // Switch to engaging state when entering firing range
-            if (Vector3.Distance(transform.position, fov.target.transform.position) < engagingRange)
+            if (Vector3.Distance(transform.position, fov.target.transform.position) < engagingRange && fov.canSeePlayer)
             {
                 currState = ChaosBotState.Engaging;
                 ai.isStopped = true;
 
-                Debug.Log("Switching to engaging state");
+                Debug.Log("Switching to Engaging state");
+            }
+            else if (Vector3.Distance(transform.position, fov.target.transform.position) < engagingRange && !fov.canSeePlayer)
+            {
+                StartCoroutine(ChaseTimeout(2f));
+                ai.isStopped = true;
+                anim.SetBool("isMoving", false);
+
+                Debug.Log("Switching to Searching state");
             }
         }
 
@@ -180,15 +188,9 @@ public class ChaosBot : MonoBehaviour
             LookTowardsTarget();
 
             // Start a timeout timer when player is out of view
-            if (!fov.canSeePlayer && !chaseTimingOut)
+            if (!fov.canSeePlayer)
             {
-                StartCoroutine(ChaseTimeout());
-            }
-            else
-            {
-                StopCoroutine(ChaseTimeout());
-                chaseTimingOut = false;
-                Debug.Log("Chase continued");
+                currState = ChaosBotState.Chasing;
             }
 
             // Switch to chasing state when entering firing range
@@ -283,13 +285,13 @@ public class ChaosBot : MonoBehaviour
 
     }
 
-    IEnumerator ChaseTimeout()
+    IEnumerator ChaseTimeout(float time)
     {
         // Variable to check whether this coroutine has already been started or not
         chaseTimingOut = true;
         Debug.Log("Chase timing out");
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(time);
 
         // Switch to searching state when chase has been timed out
         if (!fov.canSeePlayer)
