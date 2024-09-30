@@ -47,6 +47,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] bool chaseTimingOut;
     [SerializeField] Vector3 lastKnownPlayerPos;
     [SerializeField] NavMeshSurface navMeshSurface;
+    [SerializeField] LayerMask obstructionMask;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,8 @@ public class ChaosBot : MonoBehaviour
         fovLight.color = unawareColor;
         currState = ChaosBotState.Patrolling;
         navMeshSurface = PlayerController.Instance.gameObject.GetComponent<NavMeshSurface>();
+        obstructionMask = fov.obstructionMask;
+
         StartCoroutine(BakeNavMeshRoutine());
     }
 
@@ -164,7 +167,8 @@ public class ChaosBot : MonoBehaviour
 
                 Debug.Log("Switching to Engaging state");
             }
-            else if (Vector3.Distance(transform.position, fov.target.transform.position) < engagingRange && !fov.canSeePlayer)
+            else if (Vector3.Distance(transform.position, fov.target.transform.position) < 1f && !fov.canSeePlayer
+                && Physics.Raycast(fovLight.transform.position, lastKnownPlayerPos, 30f, obstructionMask))
             {
                 StartCoroutine(ChaseTimeout(2f));
                 ai.isStopped = true;
@@ -194,7 +198,7 @@ public class ChaosBot : MonoBehaviour
             }
 
             // Switch to chasing state when entering firing range
-            if (Vector3.Distance(transform.position, fov.target.transform.position) > engagingRange)
+            if (Vector3.Distance(transform.position, fov.target.transform.position) > engagingRange + (engagingRange/2))
             {
                 currState = ChaosBotState.Chasing;
 

@@ -56,22 +56,22 @@ public class Patrol : MonoBehaviour
             ai.SetDestination(targetPos);
 
             #region rotation 
-            /*// Looks at target transform point
-            if (!stopped & transform.position != moveTowardsPos)
+            // Looks at target transform point
+            /*if (!stopped & transform.position != moveTowardsPos)
             {
                 var targetRotation = Quaternion.LookRotation(moveTowardsPos - transform.position);
 
                 // Smoothly rotate towards the target point
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
                     turnSpeed * Time.deltaTime);
-            }
+            }*/
 
-            else
+            if (stopped & transform.position == targetPos)
             {
                 // Smoothly rotate towards the target point
                 transform.rotation = Quaternion.Slerp(transform.rotation, patrolPoints[targetPoint].rotation,
                     turnSpeed * Time.deltaTime);
-            }*/
+            }
             #endregion
         }
         else
