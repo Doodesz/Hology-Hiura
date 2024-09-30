@@ -13,8 +13,8 @@ public class WorldPointIndicator : MonoBehaviour
     public Vector3 offset;
 
     [Header("Variables")]
-    [SerializeField] float xMargin;
-    [SerializeField] float yMargin;
+    [Range(0,100)][SerializeField] float xMarginPercent;
+    [Range(0,100)][SerializeField] float yMarginPercent;
 
     private void Start()
     {
@@ -52,13 +52,24 @@ public class WorldPointIndicator : MonoBehaviour
                 // Place it on the left side
                 pos.x = minX;
             }
+
+            if (pos.y < Screen.height / 2)
+            {
+                pos.y = maxY;
+            }
+            else
+            {
+                pos.y = minY;
+            }
+
+            pos.y = maxY / 2;
         }
 
         // Limit the X and Y positions
-        pos.x = Mathf.Clamp(pos.x, minX + xMargin, maxX - xMargin);
-        pos.y = Mathf.Clamp(pos.y, minY + yMargin, maxY - yMargin);
+        pos.x = Mathf.Clamp(pos.x, minX + (Screen.width * (xMarginPercent/100)), maxX - (Screen.width * (xMarginPercent / 100)));
+        pos.y = Mathf.Clamp(pos.y, minY + (Screen.height * (yMarginPercent/100)), maxY - (Screen.height * (yMarginPercent / 100)));
 
         // Update the marker's position
-        icon.transform.position = Vector3.Slerp(icon.transform.position, pos, 5f);
+        icon.transform.position = Vector3.Slerp(icon.transform.position, pos, 0.4f);
     }
 }

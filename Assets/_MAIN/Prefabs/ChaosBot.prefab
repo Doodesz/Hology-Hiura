@@ -395,7 +395,7 @@ MonoBehaviour:
   searchingSpotTime: 1.5
   searchTimeoutTime: 5
   spottingRate: 1
-  despottingRate: 0.2
+  despottingRate: 0.4
   unawareSpottingTimeout: 3
   engagingRange: 10
   chaseIgnoreCollider:
@@ -412,6 +412,9 @@ MonoBehaviour:
   chaseTimingOut: 0
   lastKnownPlayerPos: {x: 0, y: 0, z: 0}
   navMeshSurface: {fileID: 0}
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1448831706016909290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,8 +494,8 @@ MonoBehaviour:
   icon: {fileID: 6309091049381967071}
   target: {fileID: 8979955835965218816}
   offset: {x: 0, y: 0, z: 0}
-  xMargin: 150
-  yMargin: 50
+  xMarginPercent: 5
+  yMarginPercent: 5
 --- !u!195 &5143554483455627291
 NavMeshAgent:
   m_ObjectHideFlags: 0
