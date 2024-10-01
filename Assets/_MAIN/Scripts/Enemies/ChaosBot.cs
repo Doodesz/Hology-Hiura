@@ -67,7 +67,7 @@ public class ChaosBot : MonoBehaviour
         if (currState == ChaosBotState.Patrolling)
         {
             spotIcon.text = "?";
-            spotBar.color = Color.yellow;
+            spotBar.color = alertColor;
 
             // Increase/decrease spot bar when inside/outside of view
             if (fov.canSeePlayer)
@@ -132,26 +132,41 @@ public class ChaosBot : MonoBehaviour
         {
             spotBar.fillAmount = 1;
             spotIcon.text = "!";
-            spotBar.color = Color.red;
+            spotBar.color = engagingColor;
+            fovLight.color = engagingColor;
+            
+            anim.SetBool("isMoving", true);
 
             ai.isStopped = false;
 
-            // Go to player
-            if (fov.target != null)
+            // Chase player
+            if (fov.canSeePlayer)
             {
                 ai.SetDestination(fov.target.transform.position);
                 lastKnownPlayerPos = fov.target.transform.position;
             }
-            else
-                ai.SetDestination(lastKnownPlayerPos);
-
-            anim.SetBool("isMoving", true);
 
             // Start a timeout timer when player is out of view
             if (!fov.canSeePlayer && !chaseTimingOut)
             {
                 StartCoroutine(ChaseTimeout(5f));
+                chaseTimingOut = true;
             }
+            // Immediately enter searching state when near lastKnownPlayerPos and player is not in view
+            else if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 2f
+                && !fov.canSeePlayer)
+            {                
+                currState = ChaosBotState.Searching;
+                ai.isStopped = true;
+                searchingValue = searchTimeoutTime;
+                spotValue = 0f;
+
+                chaseTimingOut = false;
+                
+                StopCoroutine(ChaseTimeout(5f));
+                StopCoroutine(ChaseTimeout(2f));
+            }
+            // Interrupt timeout when player is back in view
             else if (fov.canSeePlayer)
             {
                 StopCoroutine(ChaseTimeout(5f));
@@ -159,15 +174,8 @@ public class ChaosBot : MonoBehaviour
                 Debug.Log("Chase continued");
             }
 
-            // Switch to engaging state when entering firing range
-            if (Vector3.Distance(transform.position, fov.target.transform.position) < engagingRange && fov.canSeePlayer)
-            {
-                currState = ChaosBotState.Engaging;
-                ai.isStopped = true;
-
-                Debug.Log("Switching to Engaging state");
-            }
-            else if (Vector3.Distance(transform.position, fov.target.transform.position) < 1f && !fov.canSeePlayer
+            /*// Switch to searching state when near last position, player out of view, and last seen pos is in view
+            if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 1f && !fov.canSeePlayer
                 && Physics.Raycast(fovLight.transform.position, lastKnownPlayerPos, 30f, obstructionMask))
             {
                 StartCoroutine(ChaseTimeout(2f));
@@ -175,6 +183,14 @@ public class ChaosBot : MonoBehaviour
                 anim.SetBool("isMoving", false);
 
                 Debug.Log("Switching to Searching state");
+            }*/
+            // Switch to engaging state when entering firing range
+            if (fov.canSeePlayer && Vector3.Distance(transform.position, fov.target.transform.position) < engagingRange)
+            {
+                currState = ChaosBotState.Engaging;
+                ai.isStopped = true;
+
+                Debug.Log("Switching to Engaging state");
             }
         }
 
@@ -184,25 +200,22 @@ public class ChaosBot : MonoBehaviour
             
             spotBar.fillAmount = 1;
             spotIcon.text = "!!";
-            spotBar.color = Color.red;
-            fovLight.color = Color.red;
+            spotBar.color = engagingColor;
+            fovLight.color = engagingColor;
 
             anim.SetBool("isMoving", false);
 
-            LookTowardsTarget();
-
-            // Start a timeout timer when player is out of view
-            if (!fov.canSeePlayer)
-            {
-                currState = ChaosBotState.Chasing;
-            }
-
-            // Switch to chasing state when entering firing range
-            if (Vector3.Distance(transform.position, fov.target.transform.position) > engagingRange + (engagingRange/2))
+            // Chase player when out of view
+            if (!fov.canSeePlayer || Vector3.Distance(transform.position, fov.target.transform.position) > engagingRange + (engagingRange / 2))
             {
                 currState = ChaosBotState.Chasing;
 
                 Debug.Log("Switching to chasing state");
+            }
+            else // Otherwise update lastKnownPlayerPos
+            {
+                lastKnownPlayerPos = fov.target.transform.position;
+                LookTowardsTarget();
             }
         }
 
@@ -210,64 +223,73 @@ public class ChaosBot : MonoBehaviour
         {
             Debug.Log("Entered Searching state");
 
-            fovLight.color = alertColor;
+            fovLight.color = searchingColor;
             spotIcon.text = "??";
-            spotBar.color = Color.blue;
-
-            searchingValue -= despottingRate * Time.deltaTime;
-
-            spotBar.fillAmount = searchingValue / searchTimeoutTime;
+            spotBar.color = searchingColor;
 
             anim.SetBool("isMoving", false);
             anim.SetBool("isAlerted", true);
 
             // Play a searching animation
 
-            // Increase/decrease spot bar when inside/outside of view
+            // When player is in view...
             if (fov.canSeePlayer)
             {
+                // Reset search timer and continue to spot player
                 spotValue += spottingRate * Time.deltaTime;
                 searchingValue = searchTimeoutTime;
 
                 spotBar.fillAmount = spotValue / searchingSpotTime;
 
-                fovLight.color = alertColor;
+                fovLight.color = engagingColor;
                 spotIcon.text = "!?";
-                spotBar.color = Color.red;
+                spotBar.color = engagingColor;
 
-                // Smoothly turns towards target
-                var targetRotation = Quaternion.LookRotation(fov.target.transform.position - transform.position);
-                targetRotation.x = 0;
-                targetRotation.z = 0;
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
-                    turnSpeed * Time.deltaTime);
+                {   // Smoothly turns towards target
+                    var targetRotation = Quaternion.LookRotation(fov.target.transform.position - transform.position);
+                    targetRotation.x = 0;
+                    targetRotation.z = 0;
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
+                        turnSpeed * Time.deltaTime);
+                }
 
                 Debug.Log("Spotting player");
             }
-            else
+            else // Otherwise...
             {
-                if (spotValue > 0)
+                // If previously exposed when searching, decrease that spot timer first, then...
+                if (spotValue > 0) 
+                {
+                    searchingValue = searchTimeoutTime;
                     spotValue -= despottingRate * Time.deltaTime;
+                    spotBar.fillAmount = spotValue / searchingSpotTime;
+                    spotBar.color = engagingColor;
+                }
+                // Continue to decrease search timer
                 else
+                {
+                    spotValue = 0f;
                     searchingValue -= despottingRate * Time.deltaTime;
-               
-
-                fovLight.color = Color.blue;
+                    spotBar.fillAmount = searchingValue / searchTimeoutTime;
+                    spotBar.color = searchingColor;
+                }
+                
                 Debug.Log("Despotting player");
             }
 
-            // Spot player when exposed for a certain time
+            // Spot player when in view for a certain time
             if (spotValue >= searchingSpotTime)
             {
                 playerSpotted = true;
                 Debug.Log("Player respotted");
 
+                // Switch to engaging state when in range
                 if (Vector3.Distance(transform.position, fov.target.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
                     Debug.Log("Engaging player");
                 }
-                else
+                else // Otherwise switch to chasing state
                 {
                     currState = ChaosBotState.Chasing;
                     Debug.Log("Chasing player");
@@ -302,7 +324,7 @@ public class ChaosBot : MonoBehaviour
         {
             currState = ChaosBotState.Searching;
             ai.isStopped = true;
-            searchingValue = 5f;
+            searchingValue = searchTimeoutTime;
             spotValue = 0f;
 
             Debug.Log("Chase timed out, switching to Searching state");

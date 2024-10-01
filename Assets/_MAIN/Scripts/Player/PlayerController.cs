@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -44,7 +43,7 @@ public class PlayerController : MonoBehaviour
             && rayHitInfo.collider.gameObject.TryGetComponent(out ControllableElectronic controllableObject)
             && currPlayerObj != controllableObject.gameObject && controllableObject != null)
         {
-            // Updates
+            // Updates lastSelected obj and fix when multiple obj is hit
             if (lastSelected != null && controllableObject != lastSelected)
                 lastSelected.outline.enabled = false;
             lastSelected = controllableObject;

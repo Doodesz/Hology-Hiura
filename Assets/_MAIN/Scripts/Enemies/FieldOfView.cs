@@ -75,18 +75,21 @@ public class FieldOfView : MonoBehaviour
                     else
                     {
                         canSeePlayer = false;
+                        target = null;
                     }
 
                 }
                 else
                 {
                     canSeePlayer = false;
+                    target = null;
                 }
             }
         }
         else if (canSeePlayer)
         {
             canSeePlayer = false;
+            target = null;
         }
     }
 }
