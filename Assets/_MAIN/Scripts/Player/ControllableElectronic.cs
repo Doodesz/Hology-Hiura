@@ -10,4 +10,5 @@ public class ControllableElectronic : MonoBehaviour
     public CinemachineFreeLook objCamera;
     public ElectronicType thisElectronicType;
     public Animator animator;
+    public Outline outline;
 }

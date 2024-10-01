@@ -915,6 +915,7 @@ MonoBehaviour:
   objCamera: {fileID: 9097764103307957623}
   thisElectronicType: 2
   animator: {fileID: 5620617193743589336}
+  outline: {fileID: 7940345511160391410}
 --- !u!114 &851684662153316650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,6 +1063,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5620617193743589336}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d43b3560ad9650147ad0f6d6c2ba3f7f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7940345511160391410}
   m_SourcePrefab: {fileID: 100100000, guid: d43b3560ad9650147ad0f6d6c2ba3f7f, type: 3}
 --- !u!4 &4982013197753222622 stripped
 Transform:
@@ -1096,3 +1101,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7940345511160391410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649900109661724516}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

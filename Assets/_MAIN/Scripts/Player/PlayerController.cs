@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     [Header("Info")]
     public GameObject currPlayerObj;
 
+    [Header("Debugging")]
+    [SerializeField] ControllableElectronic lastSelected;
+
     [SerializeField] RaycastHit rayHitInfo;
 
     public static PlayerController Instance;
@@ -36,13 +39,31 @@ public class PlayerController : MonoBehaviour
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100, Color.red, 0.001f, depthTest: true);
 
+        // When pointing at a controllable object...
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out rayHitInfo, 100f)
-            && rayHitInfo.collider.gameObject.TryGetComponent(out ControllableElectronic controllableObject) 
-            && Input.GetMouseButtonUp(1))
+            && rayHitInfo.collider.gameObject.TryGetComponent(out ControllableElectronic controllableObject)
+            && currPlayerObj != controllableObject.gameObject && controllableObject != null)
         {
-            SwitchPlayerObject(rayHitInfo.collider.gameObject);
+            // Updates
+            if (lastSelected != null && controllableObject != lastSelected)
+                lastSelected.outline.enabled = false;
+            lastSelected = controllableObject;
 
-            Debug.Log("Switching to " + rayHitInfo.collider.gameObject);
+            // Outlines the selected object
+            controllableObject.outline.enabled = true;
+
+            // Switch to object when right-clicked
+            if (Input.GetMouseButtonUp(1))
+            {
+                SwitchPlayerObject(rayHitInfo.collider.gameObject);
+
+                Debug.Log("Switching to " + rayHitInfo.collider.gameObject);
+
+            }
+        }
+        else if (lastSelected != null)
+        {
+            lastSelected.outline.enabled = false;
         }
     }
 
