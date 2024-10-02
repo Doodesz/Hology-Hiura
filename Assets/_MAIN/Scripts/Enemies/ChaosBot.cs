@@ -230,14 +230,7 @@ public class ChaosBot : MonoBehaviour
             lastKnownPlayerPos = fov.lastTarget.transform.position;
 
             // Chase player when out of view
-            Vector3 dirToTarget = (PlayerController.Instance.currPlayerObj.transform.position - fovLight.transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(fovLight.transform.position, PlayerController.Instance.currPlayerObj.transform.position);
-            Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
-
-            // When player is in view or is close and can be seen...
-            if (Vector3.Distance(PlayerController.Instance.currPlayerObj.transform.position, transform.position) 
-                > engagingRange + (engagingRange/2) || (playerIsClose && 
-                !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide)) || !fov.canSeePlayer)
+            if (!fov.canSeePlayer || Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2))
             {
                 currState = ChaosBotState.Chasing;
 
