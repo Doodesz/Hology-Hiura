@@ -118,13 +118,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid)
+        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
+            && other.GetComponent<ChaosBot>() == null && other.GetComponent<PlayerMovement>() == null)
             anim.SetBool("isPushing", true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid)
+        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
+            && other.GetComponent<ChaosBot>() == null && other.GetComponent<PlayerMovement>() == null)
             anim.SetBool("isPushing", false);
     }
 }

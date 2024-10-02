@@ -104,7 +104,7 @@ public class ChaosBot : MonoBehaviour
                 playerSpotted = true;
                 Debug.Log("Player spotted");
 
-                if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
+                if (Vector3.Distance(transform.position, PlayerController.Instance.currPlayerObj.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
                     Debug.Log("Engaging player");

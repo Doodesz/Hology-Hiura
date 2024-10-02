@@ -395,12 +395,12 @@ MonoBehaviour:
   randomSearch: {fileID: 8310834488898076754}
   spotValue: 0
   searchingValue: 0
-  unawareSpotTime: 3
-  searchingSpotTime: 1.5
+  unawareSpotTime: 2
+  searchingSpotTime: 1
   searchTimeoutTime: 5
   spottingRate: 1
-  despottingRate: 0.4
-  unawareSpottingTimeout: 3
+  despottingRate: 0.3
+  unawareSpottingTimeout: 5
   engagingRange: 10
   layersToCollide:
     serializedVersion: 2
@@ -539,7 +539,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!136 &7702171116620465983
 CapsuleCollider:
   m_ObjectHideFlags: 0
