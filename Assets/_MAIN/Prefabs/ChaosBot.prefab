@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 5143554483455627291}
   - component: {fileID: 7702171116620465983}
   - component: {fileID: 444688800308182848}
+  - component: {fileID: 2698073986274435734}
   m_Layer: 12
   m_Name: ChaosBot
   m_TagString: Heavy
@@ -398,9 +399,9 @@ MonoBehaviour:
   despottingRate: 0.4
   unawareSpottingTimeout: 3
   engagingRange: 10
-  chaseIgnoreCollider:
+  layersToCollide:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 25331
   speed: 5
   turnSpeed: 5
   unawareColor: {r: 1, g: 1, b: 1, a: 1}
@@ -415,6 +416,8 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 0
+  isCloseToOneOfPlayerObjs: 0
+  oneOfPlayerObjs: []
 --- !u!114 &1448831706016909290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,8 +462,8 @@ MonoBehaviour:
     m_Bits: 128
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 513
-  target: {fileID: 0}
+    m_Bits: 8769
+  lastTarget: {fileID: 0}
   canSeePlayer: 0
 --- !u!114 &8015732956197355072
 MonoBehaviour:
@@ -568,6 +571,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
+--- !u!136 &2698073986274435734
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440428851255974154}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Height: 7.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.23, z: 0}
 --- !u!1 &8256167507097567029
 GameObject:
   m_ObjectHideFlags: 0

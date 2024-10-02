@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Ground
   - Player
-  - IgnoresRay
+  - 
   - FOVObstructor
   - LowerGravity
   - PressurePlate

@@ -18,7 +18,7 @@ public class FieldOfView : MonoBehaviour
     public LayerMask obstructionMask;
 
     [Header("Debugging")]
-    public GameObject target = null;
+    public GameObject lastTarget = null;
     public bool canSeePlayer;
 
     private void Start()
@@ -28,7 +28,7 @@ public class FieldOfView : MonoBehaviour
 
     private IEnumerator FOVRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.125f);
+        WaitForSeconds wait = new WaitForSeconds(0.15f);
 
         while (true)
         {
@@ -40,7 +40,7 @@ public class FieldOfView : MonoBehaviour
     private void FieldOfViewCheck()
     {
         Vector3 originPoint = new Vector3(raySource.transform.position.x, 
-            raySource.transform.position.y, raySource.transform.position.z);
+            raySource.transform.position.y - 1.7f, raySource.transform.position.z);
         Collider[] rangeChecks = Physics.OverlapSphere(originPoint, radius, targetMask);
 
         // Converts the rangeChecks array to a transform array of that rangeChecks collider game objects
@@ -64,32 +64,21 @@ public class FieldOfView : MonoBehaviour
                     float distanceToTarget = Vector3.Distance(transform.position, playerObj.transform.position);
 
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask)
-                        && playerObj == PlayerController.Instance.currPlayerObj)
+                        && playerObj == PlayerController.Instance.currPlayerObj && playerObj.transform.position.y < transform.position.y + 10f)
                     {
                         canSeePlayer = true;
-                        target = playerObj.gameObject;
-                        // Call a attempt to kill player ienumerator function
+                        lastTarget = playerObj.gameObject;
 
                         break;
                     }
                     else
-                    {
                         canSeePlayer = false;
-                        target = null;
-                    }
-
                 }
                 else
-                {
                     canSeePlayer = false;
-                    target = null;
-                }
             }
         }
         else if (canSeePlayer)
-        {
             canSeePlayer = false;
-            target = null;
-        }
     }
 }

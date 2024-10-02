@@ -6881,6 +6881,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPlayerObj: {fileID: 8792443662024536988}
+  layersToCollide:
+    serializedVersion: 2
+    m_Bits: 29427
   currPlayerObj: {fileID: 0}
   lastSelected: {fileID: 0}
 --- !u!114 &1647979103

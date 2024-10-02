@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public GameObject initialPlayerObj;
 
+    [Header("Variables")]
+    [SerializeField] LayerMask layersToCollide;
 
     [Header("Info")]
     public GameObject currPlayerObj;
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100, Color.red, 0.001f, depthTest: true);
 
         // When pointing at a controllable object...
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out rayHitInfo, 100f)
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out rayHitInfo, 100f, layersToCollide)
             && rayHitInfo.collider.gameObject.TryGetComponent(out ControllableElectronic controllableObject)
             && currPlayerObj != controllableObject.gameObject && controllableObject != null)
         {

@@ -30,7 +30,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] float despottingRate = 0.5f;
     [SerializeField] float unawareSpottingTimeout = 3f;
     [SerializeField] float engagingRange = 5f;
-    [SerializeField] LayerMask chaseIgnoreCollider;
+    [SerializeField] LayerMask layersToCollide;
     
     public float speed = 10f;
     public float turnSpeed = 5f;
@@ -48,6 +48,8 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] Vector3 lastKnownPlayerPos;
     [SerializeField] NavMeshSurface navMeshSurface;
     [SerializeField] LayerMask obstructionMask;
+    [SerializeField] bool isCloseToOneOfPlayerObjs;
+    [SerializeField] List<GameObject> oneOfPlayerObjs;
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +95,7 @@ public class ChaosBot : MonoBehaviour
                 playerSpotted = true;
                 Debug.Log("Player spotted");
 
-                if (Vector3.Distance(transform.position, fov.target.transform.position) <= engagingRange)
+                if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
                     Debug.Log("Engaging player");
@@ -142,8 +144,8 @@ public class ChaosBot : MonoBehaviour
             // Chase player
             if (fov.canSeePlayer)
             {
-                ai.SetDestination(fov.target.transform.position);
-                lastKnownPlayerPos = fov.target.transform.position;
+                ai.SetDestination(fov.lastTarget.transform.position);
+                lastKnownPlayerPos = fov.lastTarget.transform.position;
             }
 
             // Start a timeout timer when player is out of view
@@ -153,16 +155,35 @@ public class ChaosBot : MonoBehaviour
                 chaseTimingOut = true;
             }
             // Immediately enter searching state when near lastKnownPlayerPos and player is not in view
-            else if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 2f
-                && !fov.canSeePlayer)
-            {                
+            else if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 10f
+                && !fov.canSeePlayer && isCloseToOneOfPlayerObjs)
+            {
+                foreach (GameObject playerObj in oneOfPlayerObjs)
+                {
+                    if (playerObj == fov.lastTarget)
+                    {
+                        Debug.Log("Line hit");
+                        currState = ChaosBotState.Searching;
+                        ai.isStopped = true;
+                        searchingValue = searchTimeoutTime;
+                        spotValue = 0f;
+
+                        chaseTimingOut = false;
+
+                        StopCoroutine(ChaseTimeout(5f));
+                        StopCoroutine(ChaseTimeout(2f));
+                    }
+                }
+            }
+            else if (ai.remainingDistance <= 0)
+            {
                 currState = ChaosBotState.Searching;
                 ai.isStopped = true;
                 searchingValue = searchTimeoutTime;
                 spotValue = 0f;
 
                 chaseTimingOut = false;
-                
+
                 StopCoroutine(ChaseTimeout(5f));
                 StopCoroutine(ChaseTimeout(2f));
             }
@@ -174,18 +195,8 @@ public class ChaosBot : MonoBehaviour
                 Debug.Log("Chase continued");
             }
 
-            /*// Switch to searching state when near last position, player out of view, and last seen pos is in view
-            if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 1f && !fov.canSeePlayer
-                && Physics.Raycast(fovLight.transform.position, lastKnownPlayerPos, 30f, obstructionMask))
-            {
-                StartCoroutine(ChaseTimeout(2f));
-                ai.isStopped = true;
-                anim.SetBool("isMoving", false);
-
-                Debug.Log("Switching to Searching state");
-            }*/
             // Switch to engaging state when entering firing range
-            if (fov.canSeePlayer && Vector3.Distance(transform.position, fov.target.transform.position) < engagingRange)
+            if (fov.canSeePlayer && Vector3.Distance(transform.position, fov.lastTarget.transform.position) < engagingRange)
             {
                 currState = ChaosBotState.Engaging;
                 ai.isStopped = true;
@@ -206,7 +217,7 @@ public class ChaosBot : MonoBehaviour
             anim.SetBool("isMoving", false);
 
             // Chase player when out of view
-            if (!fov.canSeePlayer || Vector3.Distance(transform.position, fov.target.transform.position) > engagingRange + (engagingRange / 2))
+            if (!fov.canSeePlayer || Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2))
             {
                 currState = ChaosBotState.Chasing;
 
@@ -214,7 +225,7 @@ public class ChaosBot : MonoBehaviour
             }
             else // Otherwise update lastKnownPlayerPos
             {
-                lastKnownPlayerPos = fov.target.transform.position;
+                lastKnownPlayerPos = fov.lastTarget.transform.position;
                 LookTowardsTarget();
             }
         }
@@ -246,7 +257,7 @@ public class ChaosBot : MonoBehaviour
                 spotBar.color = engagingColor;
 
                 {   // Smoothly turns towards target
-                    var targetRotation = Quaternion.LookRotation(fov.target.transform.position - transform.position);
+                    var targetRotation = Quaternion.LookRotation(fov.lastTarget.transform.position - transform.position);
                     targetRotation.x = 0;
                     targetRotation.z = 0;
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
@@ -284,7 +295,7 @@ public class ChaosBot : MonoBehaviour
                 Debug.Log("Player respotted");
 
                 // Switch to engaging state when in range
-                if (Vector3.Distance(transform.position, fov.target.transform.position) <= engagingRange)
+                if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
                     Debug.Log("Engaging player");
@@ -338,7 +349,7 @@ public class ChaosBot : MonoBehaviour
     void LookTowardsTarget()
     {
         // Smoothly turns towards target
-        var targetRotation = Quaternion.LookRotation(fov.target.transform.position - transform.position);
+        var targetRotation = Quaternion.LookRotation(fov.lastTarget.transform.position - transform.position);
         targetRotation.x = 0;
         targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
@@ -351,5 +362,25 @@ public class ChaosBot : MonoBehaviour
 
         navMeshSurface.BuildNavMesh();
         StartCoroutine(BakeNavMeshRoutine());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            isCloseToOneOfPlayerObjs = true;
+
+            oneOfPlayerObjs.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            isCloseToOneOfPlayerObjs = false;
+
+            oneOfPlayerObjs.Remove(other.gameObject);
+        }
     }
 }
