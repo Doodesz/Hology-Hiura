@@ -31,7 +31,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] float unawareSpottingTimeout = 3f;
     [SerializeField] float engagingRange = 5f;
     [SerializeField] LayerMask layersToCollide;
-    
+
     public float speed = 10f;
     public float turnSpeed = 5f;
 
@@ -50,6 +50,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] LayerMask obstructionMask;
     [SerializeField] bool isCloseToOneOfPlayerObjs;
     [SerializeField] List<GameObject> oneOfPlayerObjs;
+    [SerializeField] bool playerIsClose;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +73,7 @@ public class ChaosBot : MonoBehaviour
             spotBar.color = alertColor;
 
             // Increase/decrease spot bar when inside/outside of view
-            if (fov.canSeePlayer)
+            if (fov.canSeePlayer || playerIsClose)
             {
                 patrolScript.InterruptPatrol();
                 spotValue += spottingRate * Time.deltaTime;
@@ -88,7 +89,7 @@ public class ChaosBot : MonoBehaviour
                 fovLight.color = unawareColor;
                 Debug.Log("Despotting player");
             }
-            
+
             // Spot player when exposed for a certain time
             if (spotValue >= unawareSpotTime)
             {
@@ -136,7 +137,7 @@ public class ChaosBot : MonoBehaviour
             spotIcon.text = "!";
             spotBar.color = engagingColor;
             fovLight.color = engagingColor;
-            
+
             anim.SetBool("isMoving", true);
 
             ai.isStopped = false;
@@ -208,7 +209,7 @@ public class ChaosBot : MonoBehaviour
         else if (currState == ChaosBotState.Engaging)
         {
             Debug.Log("Entered Engaging state");
-            
+
             spotBar.fillAmount = 1;
             spotIcon.text = "!!";
             spotBar.color = engagingColor;
@@ -244,7 +245,7 @@ public class ChaosBot : MonoBehaviour
             // Play a searching animation
 
             // When player is in view...
-            if (fov.canSeePlayer)
+            if (fov.canSeePlayer || playerIsClose)
             {
                 // Reset search timer and continue to spot player
                 spotValue += spottingRate * Time.deltaTime;
@@ -269,7 +270,7 @@ public class ChaosBot : MonoBehaviour
             else // Otherwise...
             {
                 // If previously exposed when searching, decrease that spot timer first, then...
-                if (spotValue > 0) 
+                if (spotValue > 0)
                 {
                     searchingValue = searchTimeoutTime;
                     spotValue -= despottingRate * Time.deltaTime;
@@ -284,7 +285,7 @@ public class ChaosBot : MonoBehaviour
                     spotBar.fillAmount = searchingValue / searchTimeoutTime;
                     spotBar.color = searchingColor;
                 }
-                
+
                 Debug.Log("Despotting player");
             }
 
@@ -319,7 +320,6 @@ public class ChaosBot : MonoBehaviour
                 Debug.Log("Returning to patrol");
             }
         }
-
     }
 
     IEnumerator ChaseTimeout(float time)
@@ -346,14 +346,25 @@ public class ChaosBot : MonoBehaviour
         chaseTimingOut = false;
     }
 
+    // Smoothly turns towards target
     void LookTowardsTarget()
     {
-        // Smoothly turns towards target
-        var targetRotation = Quaternion.LookRotation(fov.lastTarget.transform.position - transform.position);
-        targetRotation.x = 0;
-        targetRotation.z = 0;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
-            turnSpeed * Time.deltaTime);
+        if (!playerIsClose)
+        {
+            var targetRotation = Quaternion.LookRotation(fov.lastTarget.transform.position - transform.position);
+            targetRotation.x = 0;
+            targetRotation.z = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
+                turnSpeed * Time.deltaTime);
+        }
+        else
+        {
+            var targetRotation = Quaternion.LookRotation(PlayerController.Instance.currPlayerObj.transform.position - transform.position);
+            targetRotation.x = 0;
+            targetRotation.z = 0;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
+                turnSpeed * Time.deltaTime);
+        }
     }
 
     IEnumerator BakeNavMeshRoutine()
@@ -368,6 +379,9 @@ public class ChaosBot : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
+            if (other.gameObject == PlayerController.Instance.currPlayerObj)
+                playerIsClose = true;
+
             isCloseToOneOfPlayerObjs = true;
 
             oneOfPlayerObjs.Add(other.gameObject);
@@ -378,9 +392,22 @@ public class ChaosBot : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
+            if (other.gameObject == PlayerController.Instance.currPlayerObj)
+                playerIsClose = false;
+
             isCloseToOneOfPlayerObjs = false;
 
             oneOfPlayerObjs.Remove(other.gameObject);
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            if (other.gameObject == PlayerController.Instance.currPlayerObj)
+                playerIsClose = true;
+            else playerIsClose = false;
+        }
+    } 
 }
