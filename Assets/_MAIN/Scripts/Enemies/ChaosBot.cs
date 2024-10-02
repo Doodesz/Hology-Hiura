@@ -178,24 +178,18 @@ public class ChaosBot : MonoBehaviour
             }
             // Immediately enter searching state when near lastKnownPlayerPos and player is not in view
             else if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 1f
-                && !fov.canSeePlayer && isCloseToOneOfPlayerObjs)
+                && !fov.canSeePlayer)
             {
-                foreach (GameObject playerObj in oneOfPlayerObjs)
-                {
-                    if (playerObj == fov.lastTarget)
-                    {
-                        Debug.Log("Line hit");
-                        currState = ChaosBotState.Searching;
-                        ai.isStopped = true;
-                        searchingValue = searchTimeoutTime;
-                        spotValue = 0f;
+                Debug.Log("Line hit");
+                currState = ChaosBotState.Searching;
+                ai.isStopped = true;
+                searchingValue = searchTimeoutTime;
+                spotValue = 0f;
 
-                        chaseTimingOut = false;
+                chaseTimingOut = false;
 
-                        StopCoroutine(ChaseTimeout(5f));
-                        StopCoroutine(ChaseTimeout(2f));
-                    }
-                }
+                StopCoroutine(ChaseTimeout(5f));
+                StopCoroutine(ChaseTimeout(2f));
             }
             // Interrupt timeout when player is back in view
             else if (fov.canSeePlayer)
@@ -230,7 +224,8 @@ public class ChaosBot : MonoBehaviour
             lastKnownPlayerPos = fov.lastTarget.transform.position;
 
             // Chase player when out of view
-            if (!fov.canSeePlayer || Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2))
+            if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2) || 
+                (!fov.canSeePlayer && !playerIsClose))
             {
                 currState = ChaosBotState.Chasing;
 
@@ -406,32 +401,6 @@ public class ChaosBot : MonoBehaviour
 
         navMeshSurface.BuildNavMesh();
         StartCoroutine(BakeNavMeshRoutine());
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-        {
-            if (other.gameObject == PlayerController.Instance.currPlayerObj)
-                playerIsClose = true;
-
-            isCloseToOneOfPlayerObjs = true;
-
-            oneOfPlayerObjs.Add(other.gameObject);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == 7)
-        {
-            if (other.gameObject == PlayerController.Instance.currPlayerObj)
-                playerIsClose = false;
-
-            isCloseToOneOfPlayerObjs = false;
-
-            oneOfPlayerObjs.Remove(other.gameObject);
-        }
     }
 
     private void OnTriggerStay(Collider other)
