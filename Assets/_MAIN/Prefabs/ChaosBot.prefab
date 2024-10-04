@@ -347,6 +347,8 @@ GameObject:
   - component: {fileID: 7702171116620465983}
   - component: {fileID: 444688800308182848}
   - component: {fileID: 2698073986274435734}
+  - component: {fileID: 5697157203273818613}
+  - component: {fileID: 1885735274663745480}
   m_Layer: 12
   m_Name: ChaosBot
   m_TagString: Heavy
@@ -484,6 +486,7 @@ MonoBehaviour:
   agent: {fileID: 5143554483455627291}
   range: 10
   centrePoint: {fileID: 4377569443587992917}
+  newPathTimeoutValue: 0
 --- !u!114 &8015732956197355072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,7 +592,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!136 &2698073986274435734
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -613,6 +616,45 @@ CapsuleCollider:
   m_Height: 7.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.23, z: 0}
+--- !u!208 &5697157203273818613
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440428851255974154}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.22, y: 1.64, z: 1.22}
+  m_MoveThreshold: 2.87
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 1.76, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!136 &1885735274663745480
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3440428851255974154}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 28407
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.81
+  m_Height: 6.84
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.92, z: -0.14}
 --- !u!1 &8256167507097567029
 GameObject:
   m_ObjectHideFlags: 0

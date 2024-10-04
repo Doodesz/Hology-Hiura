@@ -12,6 +12,9 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
     public Transform centrePoint; //centre of the area the agent wants to move around in
     //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
 
+    [Header("Debugging")]
+    [SerializeField] float newPathTimeoutValue;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -21,14 +24,18 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
     {
         if (agent.remainingDistance <= agent.stoppingDistance) //done with path
         {
-            Vector3 point;
-            if (RandomPoint(centrePoint.position, range, out point)) //pass in our centre point and radius of area
-            {
-                Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
-                agent.SetDestination(point);
-            }
+            newPathTimeoutValue = 0f;
+            GoToRandomPath();
+        }
+        else
+        {
+            newPathTimeoutValue += Time.deltaTime;
         }
 
+        if (newPathTimeoutValue >= 3f)
+        {
+            GoToRandomPath();
+        }
     }
 
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
@@ -47,5 +54,15 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
         return false;
     }
 
+    void GoToRandomPath()
+    {
+        Vector3 point;
+        if (RandomPoint(centrePoint.position, range, out point)) //pass in our centre point and radius of area
+        {
+            Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f); //so you can see with gizmos
+            agent.SetDestination(point);
 
+            newPathTimeoutValue = 0f;
+        }
+    }
 }

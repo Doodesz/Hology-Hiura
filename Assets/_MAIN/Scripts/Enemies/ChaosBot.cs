@@ -223,10 +223,17 @@ public class ChaosBot : MonoBehaviour
             ai.SetDestination(fov.lastTarget.transform.position);
             lastKnownPlayerPos = fov.lastTarget.transform.position;
 
-            // Chase player when out of view
-            if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2) || 
-                (!fov.canSeePlayer && !playerIsClose))
+            // Increase/decrease spot bar when inside/outside of view
+            Vector3 dirToTarget = (PlayerController.Instance.currPlayerObj.transform.position - fovLight.transform.position).normalized;
+            float distanceToTarget = Vector3.Distance(fovLight.transform.position, PlayerController.Instance.currPlayerObj.transform.position);
+            Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+
+            // When player is in view or is close and can be seen...
+            if ((!fov.canSeePlayer && !(playerIsClose &&
+                !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide))) 
+                || Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2))
             {
+
                 currState = ChaosBotState.Chasing;
 
                 Debug.Log("Switching to chasing state");
@@ -241,6 +248,10 @@ public class ChaosBot : MonoBehaviour
         else if (currState == ChaosBotState.Searching)
         {
             Debug.Log("Entered Searching state");
+            
+            // Resets current path upon first entering state
+            if (randomSearch.enabled == false)
+                ai.ResetPath();
 
             randomSearch.enabled = true;
             randomSearch.centrePoint.transform.position = lastKnownPlayerPos;
@@ -252,9 +263,7 @@ public class ChaosBot : MonoBehaviour
 
             anim.SetBool("isMoving", false);
             anim.SetBool("isAlerted", true);
-
-            // Play a searching animation
-
+            
             Vector3 dirToTarget = (PlayerController.Instance.currPlayerObj.transform.position - fovLight.transform.position).normalized;
             float distanceToTarget = Vector3.Distance(fovLight.transform.position, PlayerController.Instance.currPlayerObj.transform.position);
             Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);

@@ -711,6 +711,7 @@ GameObject:
   - component: {fileID: 5671480354475179614}
   - component: {fileID: 1092975240430544441}
   - component: {fileID: 1058383579725778369}
+  - component: {fileID: 1111935922892424645}
   m_Layer: 7
   m_Name: MiniRoomba
   m_TagString: Heavy
@@ -879,6 +880,29 @@ CapsuleCollider:
   m_Height: 4.92
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &1111935922892424645
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541148098278607457}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 16247
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.95
+  m_Height: 3.91
+  m_Direction: 1
+  m_Center: {x: 0, y: -1.31, z: 0}
 --- !u!1 &9099520176416274949
 GameObject:
   m_ObjectHideFlags: 0
