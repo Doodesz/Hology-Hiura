@@ -397,13 +397,13 @@ MonoBehaviour:
   randomSearch: {fileID: 8310834488898076754}
   spotValue: 0
   searchingValue: 0
-  unawareSpotTime: 2
-  searchingSpotTime: 1
-  searchTimeoutTime: 5
+  unawareSpotTime: 3
+  searchingSpotTime: 2
+  searchTimeoutTime: 3
   spottingRate: 1
-  despottingRate: 0.3
+  despottingRate: 0.5
   unawareSpottingTimeout: 5
-  engagingRange: 10
+  engagingRange: 6
   layersToCollide:
     serializedVersion: 2
     m_Bits: 25153
@@ -423,7 +423,7 @@ MonoBehaviour:
     m_Bits: 0
   isCloseToOneOfPlayerObjs: 0
   oneOfPlayerObjs: []
-  playerIsClose: 0
+  electronicIsClose: 0
 --- !u!114 &1448831706016909290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 25153
   lastTarget: {fileID: 0}
-  canSeePlayer: 0
+  canSeePlayerElectronic: 0
 --- !u!114 &8310834488898076754
 MonoBehaviour:
   m_ObjectHideFlags: 0

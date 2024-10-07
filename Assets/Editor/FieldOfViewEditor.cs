@@ -21,7 +21,7 @@ public class FieldOfViewEditor : Editor
         Handles.DrawLine(originPoint, originPoint + viewAngle01 * fov.radius);
         Handles.DrawLine(originPoint, originPoint + viewAngle02 * fov.radius);
 
-        if (fov.canSeePlayer)
+        if (fov.canSeePlayerElectronic)
         {
             Handles.color = Color.green;
             Handles.DrawLine(originPoint, fov.lastTarget.transform.position);

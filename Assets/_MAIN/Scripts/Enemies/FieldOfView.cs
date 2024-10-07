@@ -19,7 +19,7 @@ public class FieldOfView : MonoBehaviour
 
     [Header("Debugging")]
     public GameObject lastTarget = null;
-    public bool canSeePlayer;
+    public bool canSeePlayerElectronic;
 
     private void Start()
     {
@@ -55,30 +55,31 @@ public class FieldOfView : MonoBehaviour
 
         if (rangeChecks.Length != 0)
         {
-            foreach (GameObject playerObj in targets)
+            foreach (GameObject obj in targets)
             {
-                Vector3 directionToTarget = (playerObj.transform.position - transform.position).normalized;
+                Vector3 directionToTarget = (obj.transform.position - transform.position).normalized;
 
                 if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
                 {
-                    float distanceToTarget = Vector3.Distance(transform.position, playerObj.transform.position);
+                    float distanceToTarget = Vector3.Distance(transform.position, obj.transform.position);
 
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask)
-                        && playerObj == PlayerController.Instance.currPlayerObj && playerObj.transform.position.y < transform.position.y + 10f)
+                        && obj.layer == 7 && obj.transform.position.y < transform.position.y + 10f
+                        && obj.GetComponent<ControllableElectronic>().enabled == true && lastTarget != null && lastTarget != obj)
                     {
-                        canSeePlayer = true;
-                        lastTarget = playerObj.gameObject;
+                        canSeePlayerElectronic = true;
+                        lastTarget = obj.gameObject;
 
                         break;
                     }
                     else
-                        canSeePlayer = false;
+                        canSeePlayerElectronic = false;
                 }
                 else
-                    canSeePlayer = false;
+                    canSeePlayerElectronic = false;
             }
         }
-        else if (canSeePlayer)
-            canSeePlayer = false;
+        else if (canSeePlayerElectronic)
+            canSeePlayerElectronic = false;
     }
 }

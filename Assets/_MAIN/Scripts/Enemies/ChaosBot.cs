@@ -51,7 +51,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] LayerMask obstructionMask;
     [SerializeField] bool isCloseToOneOfPlayerObjs;
     [SerializeField] List<GameObject> oneOfPlayerObjs;
-    [SerializeField] bool playerIsClose;
+    [SerializeField] bool electronicIsClose;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +68,20 @@ public class ChaosBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (fov.lastTarget == null)
+        { 
+            float range = 100f;
+
+            foreach (GameObject obj in oneOfPlayerObjs)
+            {
+                if (Vector3.Distance(obj.transform.position, gameObject.transform.position) < range)
+                {
+                    fov.lastTarget = obj;
+                    range = Vector3.Distance(obj.transform.position, gameObject.transform.position);
+                }
+            }
+        }
+
         // Patrolling state
         if (currState == ChaosBotState.Patrolling)
         {
@@ -75,12 +89,19 @@ public class ChaosBot : MonoBehaviour
             spotBar.color = alertColor;
 
             // Increase/decrease spot bar when inside/outside of view
-            Vector3 dirToTarget = (PlayerController.Instance.currPlayerObj.transform.position - fovLight.transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(fovLight.transform.position, PlayerController.Instance.currPlayerObj.transform.position);
-            Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+            Vector3 dirToTarget = Vector3.zero;
+            float distanceToTarget = 0f;
+            
+            if (fov.lastTarget != null)
+            {
+                dirToTarget = (fov.lastTarget.transform.position - fovLight.transform.position).normalized;
+                distanceToTarget = Vector3.Distance(fovLight.transform.position, fov.lastTarget.transform.position);
+                
+                Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+            }
 
             // When player is in view or is close and can be seen...
-            if (fov.canSeePlayer || (playerIsClose &&
+            if (fov.canSeePlayerElectronic || (electronicIsClose &&
                 !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide)))
             {
                 patrolScript.InterruptPatrol();
@@ -104,7 +125,7 @@ public class ChaosBot : MonoBehaviour
                 playerSpotted = true;
                 Debug.Log("Player spotted");
 
-                if (Vector3.Distance(transform.position, PlayerController.Instance.currPlayerObj.transform.position) <= engagingRange)
+                if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
                     Debug.Log("Engaging player");
@@ -151,14 +172,14 @@ public class ChaosBot : MonoBehaviour
             ai.isStopped = false;
 
             // Chase player
-            if (fov.canSeePlayer)
+            if (fov.canSeePlayerElectronic)
             {
                 ai.SetDestination(fov.lastTarget.transform.position);
                 lastKnownPlayerPos = fov.lastTarget.transform.position;
             }
 
             // Start a timeout timer when player is out of view
-            if (!fov.canSeePlayer && !chaseTimingOut)
+            if (!fov.canSeePlayerElectronic && !chaseTimingOut)
             {
                 StartCoroutine(ChaseTimeout(5f));
                 chaseTimingOut = true;
@@ -178,7 +199,7 @@ public class ChaosBot : MonoBehaviour
             }
             // Immediately enter searching state when near lastKnownPlayerPos and player is not in view
             else if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 1f
-                && !fov.canSeePlayer)
+                && !fov.canSeePlayerElectronic)
             {
                 Debug.Log("Line hit");
                 currState = ChaosBotState.Searching;
@@ -192,7 +213,7 @@ public class ChaosBot : MonoBehaviour
                 StopCoroutine(ChaseTimeout(2f));
             }
             // Interrupt timeout when player is back in view
-            else if (fov.canSeePlayer)
+            else if (fov.canSeePlayerElectronic)
             {
                 StopCoroutine(ChaseTimeout(5f));
                 chaseTimingOut = false;
@@ -200,7 +221,7 @@ public class ChaosBot : MonoBehaviour
             }
 
             // Switch to engaging state when entering firing range
-            if (fov.canSeePlayer && Vector3.Distance(transform.position, fov.lastTarget.transform.position) < engagingRange)
+            if (fov.canSeePlayerElectronic && Vector3.Distance(transform.position, fov.lastTarget.transform.position) < engagingRange)
             {
                 currState = ChaosBotState.Engaging;
                 ai.isStopped = true;
@@ -224,12 +245,19 @@ public class ChaosBot : MonoBehaviour
             lastKnownPlayerPos = fov.lastTarget.transform.position;
 
             // Increase/decrease spot bar when inside/outside of view
-            Vector3 dirToTarget = (PlayerController.Instance.currPlayerObj.transform.position - fovLight.transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(fovLight.transform.position, PlayerController.Instance.currPlayerObj.transform.position);
-            Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+            Vector3 dirToTarget = Vector3.zero;
+            float distanceToTarget = 0f;
+
+            if (fov.lastTarget != null)
+            {
+                dirToTarget = (fov.lastTarget.transform.position - fovLight.transform.position).normalized;
+                distanceToTarget = Vector3.Distance(fovLight.transform.position, fov.lastTarget.transform.position);
+
+                Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+            }
 
             // When player is in view or is close and can be seen...
-            if ((!fov.canSeePlayer && !(playerIsClose &&
+            if ((!fov.canSeePlayerElectronic && !(electronicIsClose &&
                 !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide))) 
                 || Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2))
             {
@@ -263,13 +291,21 @@ public class ChaosBot : MonoBehaviour
 
             anim.SetBool("isMoving", false);
             anim.SetBool("isAlerted", true);
-            
-            Vector3 dirToTarget = (PlayerController.Instance.currPlayerObj.transform.position - fovLight.transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(fovLight.transform.position, PlayerController.Instance.currPlayerObj.transform.position);
-            Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+
+            // Increase/decrease spot bar when inside/outside of view
+            Vector3 dirToTarget = Vector3.zero;
+            float distanceToTarget = 0f;
+
+            if (fov.lastTarget != null)
+            {
+                dirToTarget = (fov.lastTarget.transform.position - fovLight.transform.position).normalized;
+                distanceToTarget = Vector3.Distance(fovLight.transform.position, fov.lastTarget.transform.position);
+
+                Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+            }
 
             // When player is in view or is close and can be seen...
-            if (fov.canSeePlayer || (playerIsClose &&
+            if (fov.canSeePlayerElectronic || (electronicIsClose &&
                 !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide)))
             {
                 // Reset search timer and continue to spot player
@@ -368,7 +404,7 @@ public class ChaosBot : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         // Switch to searching state when chase has been timed out
-        if (!fov.canSeePlayer)
+        if (!fov.canSeePlayerElectronic)
         {
             currState = ChaosBotState.Searching;
             ai.isStopped = true;
@@ -386,22 +422,11 @@ public class ChaosBot : MonoBehaviour
     // Smoothly turns towards target
     void LookTowardsTarget()
     {
-        if (!playerIsClose)
-        {
-            var targetRotation = Quaternion.LookRotation(fov.lastTarget.transform.position - transform.position);
-            targetRotation.x = 0;
-            targetRotation.z = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
-                turnSpeed * Time.deltaTime);
-        }
-        else
-        {
-            var targetRotation = Quaternion.LookRotation(PlayerController.Instance.currPlayerObj.transform.position - transform.position);
-            targetRotation.x = 0;
-            targetRotation.z = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
-                turnSpeed * Time.deltaTime);
-        }
+        var targetRotation = Quaternion.LookRotation(fov.lastTarget.transform.position - transform.position);
+        targetRotation.x = 0;
+        targetRotation.z = 0;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
+            turnSpeed * Time.deltaTime);
     }
 
     IEnumerator BakeNavMeshRoutine()
@@ -412,13 +437,39 @@ public class ChaosBot : MonoBehaviour
         StartCoroutine(BakeNavMeshRoutine());
     }
 
+    IEnumerator AttemptToTerminate()
+    {
+        anim.SetBool("isShooting", true);
+        yield return new WaitForSeconds(2f);
+        // shoot
+
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.layer == 7)
         {
-            if (other.gameObject == PlayerController.Instance.currPlayerObj)
-                playerIsClose = true;
-            else playerIsClose = false;
+            if (other.gameObject.layer == 7)
+                electronicIsClose = true;
         }
-    } 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            electronicIsClose = true;
+            oneOfPlayerObjs.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            oneOfPlayerObjs.Remove(other.gameObject);
+        }
+        if (oneOfPlayerObjs.Count == 0)
+            electronicIsClose = false;
+    }
 }
