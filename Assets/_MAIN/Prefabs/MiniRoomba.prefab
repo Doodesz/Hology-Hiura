@@ -807,7 +807,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: {fileID: 0}
   gravityMultiplier: 20
-  decreaseGravMultiplier: 2
+  decreaseGravMultiplier: 0.6
   layerToReduceGrav: 10
 --- !u!54 &5671480354475179614
 Rigidbody:

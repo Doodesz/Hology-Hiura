@@ -94,6 +94,9 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isWalking", false);
         }
 
+        // For checking curr speed
+/*        if (rb.velocity.magnitude != 0f)
+            Debug.Log(rb.velocity.magnitude);*/
     }
 
     private void MovePlayer()
@@ -109,9 +112,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         // limit velocity if needed
-        if (flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > moveSpeed / 3)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            Vector3 limitedVel = flatVel.normalized * (moveSpeed/3);
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }

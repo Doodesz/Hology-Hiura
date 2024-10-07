@@ -7,7 +7,7 @@ public class GravityModifier : MonoBehaviour
     [Header("Gravity")]
     public ConstantForce gravity;
     [SerializeField] float gravityMultiplier = 1;
-    [SerializeField] float decreaseGravMultiplier = 2;
+    [SerializeField][Range(0f,1f)] float decreaseGravMultiplier;
     float initGravMult;
 
     [Header("Layer Reference")]
@@ -32,7 +32,7 @@ public class GravityModifier : MonoBehaviour
         //Debug.Log(collision.gameObject.layer);
         if (other.gameObject.layer == layerToReduceGrav)
         {
-            gravityMultiplier = initGravMult / decreaseGravMultiplier;
+            gravityMultiplier = initGravMult * decreaseGravMultiplier;
         }
     }
 
