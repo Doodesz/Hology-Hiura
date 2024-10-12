@@ -7,11 +7,12 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    public Rigidbody rb;
-    public Transform orientation;
-    public Animator anim;
-    public GameObject systemsOfflineUI;
-    public ControllableElectronic electronicScript;
+    [SerializeField] Rigidbody rb;
+    [SerializeField] Transform orientation;
+    [SerializeField] Animator anim;
+    [SerializeField] GameObject systemsOfflineUI;
+    [SerializeField] ControllableElectronic electronicScript;
+    [SerializeField] ParticleSystem particle;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -119,6 +120,14 @@ public class PlayerMovement : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * (moveSpeed/3);
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
+
+    public void DisableMovement()
+    {
+        systemsOfflineUI.SetActive(true);
+        electronicScript.isOnline = false;
+        anim.SetBool("isOnline", false);
+        particle.gameObject.SetActive(true);
     }
 
     private void OnTriggerEnter(Collider other)

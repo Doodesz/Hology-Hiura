@@ -22,9 +22,7 @@ public class ChaosbotLaser : MonoBehaviour
     {
         if (collision.transform.TryGetComponent<PlayerMovement>(out PlayerMovement script))
         {
-            script.systemsOfflineUI.SetActive(true);
-            script.electronicScript.isOnline = false;
-            script.anim.SetBool("isOnline", false);
+            script.DisableMovement();
         }
 
         Destroy(gameObject);

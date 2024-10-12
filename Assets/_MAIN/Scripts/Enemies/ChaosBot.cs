@@ -196,6 +196,9 @@ public class ChaosBot : MonoBehaviour
                 StartCoroutine(BakeNavMeshRoutine()); 
                 isChargingShot = false;
 
+                if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
+                    oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
+
                 Debug.Log("Returning to patrol");
             }
 
@@ -292,6 +295,9 @@ public class ChaosBot : MonoBehaviour
                 StartCoroutine(BakeNavMeshRoutine()); 
                 isChargingShot = false;
 
+                if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
+                    oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
+
                 Debug.Log("Returning to patrol");
             }
 
@@ -351,6 +357,9 @@ public class ChaosBot : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(BakeNavMeshRoutine());
                 isChargingShot = false;
+
+                if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
+                    oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
 
                 Debug.Log("Returning to patrol");
             }
