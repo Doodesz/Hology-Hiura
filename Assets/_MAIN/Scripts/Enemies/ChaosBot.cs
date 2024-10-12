@@ -536,10 +536,13 @@ public class ChaosBot : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script))
-        {
-            if (script.isOnline)
-                electronicIsClose = true;
+        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script)
+            && other.GetComponent<ControllableElectronic>().isOnline)
+        { 
+            electronicIsClose = true;
+
+            if (!oneOfPlayerObjs.Contains(other.gameObject))
+                oneOfPlayerObjs.Add(other.gameObject);
         }
     }
 
