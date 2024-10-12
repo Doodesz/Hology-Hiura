@@ -79,8 +79,9 @@ public class PlayerController : MonoBehaviour
         ControllableElectronic currPlayerObjScript = currPlayerObj.GetComponent<ControllableElectronic>();
         CinemachineFreeLook currPlayerObjCam = currPlayerObjScript.objCamera;
 
-        // Disables old cam
+        // Disables old cam and UI
         currPlayerObjCam.enabled = false;
+        currPlayerObjScript.canvas.SetActive(false);
 
         // Sets offline animation on switched off minibot
         if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
@@ -94,8 +95,9 @@ public class PlayerController : MonoBehaviour
         currPlayerObjScript = currPlayerObj.GetComponent<ControllableElectronic>();
         currPlayerObjCam = currPlayerObj.GetComponent<ControllableElectronic>().objCamera;
 
-        // Enables old cam
+        // Enables old cam and UI
         currPlayerObjCam.enabled = true;
+        currPlayerObjScript.canvas.SetActive(true);
 
         // Sets online animation on switched in minibot
         if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||

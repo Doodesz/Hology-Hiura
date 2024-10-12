@@ -20,6 +20,8 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] TextMeshProUGUI spotIcon;
     [SerializeField] NavMeshAgent ai;
     [SerializeField] RandomMovement randomSearch;
+    [SerializeField] GameObject shootLaserObj;
+    [SerializeField] GameObject laserSpawnPos;
 
     [Header("Variables")]
     [SerializeField] float spotValue;
@@ -52,6 +54,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] bool isCloseToOneOfPlayerObjs;
     [SerializeField] List<GameObject> oneOfPlayerObjs;
     [SerializeField] bool electronicIsClose;
+    [SerializeField] bool isChargingShot;
 
     // Start is called before the first frame update
     void Start()
@@ -101,8 +104,9 @@ public class ChaosBot : MonoBehaviour
             }
 
             // When player is in view or is close and can be seen...
-            if (fov.canSeePlayerElectronic || (electronicIsClose &&
+            if ((fov.canSeePlayerElectronic || (electronicIsClose &&
                 !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide)))
+                && fov.lastTarget.GetComponent<ControllableElectronic>().isOnline)
             {
                 patrolScript.InterruptPatrol();
                 spotValue += spottingRate * Time.deltaTime;
@@ -178,6 +182,23 @@ public class ChaosBot : MonoBehaviour
                 lastKnownPlayerPos = fov.lastTarget.transform.position;
             }
 
+            // Return to patrol when target is already offline
+            if (!fov.lastTarget.GetComponent<ControllableElectronic>().isOnline)
+            {
+                currState = ChaosBotState.Patrolling;
+                spotValue = 0;
+                ai.isStopped = false;
+                patrolScript.ResumePatrol();
+                playerSpotted = false;
+                anim.SetBool("isAlerted", false);
+                randomSearch.enabled = false;
+                StopAllCoroutines();
+                StartCoroutine(BakeNavMeshRoutine()); 
+                isChargingShot = false;
+
+                Debug.Log("Returning to patrol");
+            }
+
             // Start a timeout timer when player is out of view
             if (!fov.canSeePlayerElectronic && !chaseTimingOut)
             {
@@ -209,13 +230,14 @@ public class ChaosBot : MonoBehaviour
 
                 chaseTimingOut = false;
 
-                StopCoroutine(ChaseTimeout(5f));
-                StopCoroutine(ChaseTimeout(2f));
+                StopAllCoroutines();
+                StartCoroutine(BakeNavMeshRoutine());
             }
             // Interrupt timeout when player is back in view
             else if (fov.canSeePlayerElectronic)
             {
-                StopCoroutine(ChaseTimeout(5f));
+                StopAllCoroutines();
+                StartCoroutine(BakeNavMeshRoutine()); 
                 chaseTimingOut = false;
                 Debug.Log("Chase continued");
             }
@@ -256,20 +278,44 @@ public class ChaosBot : MonoBehaviour
                 Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
             }
 
-            // When player is in view or is close and can be seen...
-            if ((!fov.canSeePlayerElectronic && !(electronicIsClose &&
+            // Return to patrol when target is already offline
+            if (!fov.lastTarget.GetComponent<ControllableElectronic>().isOnline)
+            {
+                currState = ChaosBotState.Patrolling;
+                spotValue = 0;
+                ai.isStopped = false;
+                patrolScript.ResumePatrol();
+                playerSpotted = false;
+                anim.SetBool("isAlerted", false);
+                randomSearch.enabled = false;
+                StopAllCoroutines();
+                StartCoroutine(BakeNavMeshRoutine()); 
+                isChargingShot = false;
+
+                Debug.Log("Returning to patrol");
+            }
+
+
+            // When player is not in view or is far...
+            if (((!fov.canSeePlayerElectronic && !(electronicIsClose &&
                 !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide))) 
                 || Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2))
+                && fov.lastTarget.GetComponent<ControllableElectronic>().isOnline)
             {
-
                 currState = ChaosBotState.Chasing;
 
                 Debug.Log("Switching to chasing state");
+
+                StopAllCoroutines();
+                StartCoroutine(BakeNavMeshRoutine()); 
+                isChargingShot = false;
             }
             else // Otherwise update lastKnownPlayerPos
             {
                 lastKnownPlayerPos = fov.lastTarget.transform.position;
                 LookTowardsTarget();
+                if (!isChargingShot)
+                    StartCoroutine(AttemptToTerminate());
             }
         }
 
@@ -292,6 +338,23 @@ public class ChaosBot : MonoBehaviour
             anim.SetBool("isMoving", false);
             anim.SetBool("isAlerted", true);
 
+            // Return to patrol when target is already offline
+            if (!fov.lastTarget.GetComponent<ControllableElectronic>().isOnline)
+            {
+                currState = ChaosBotState.Patrolling;
+                spotValue = 0;
+                ai.isStopped = false;
+                patrolScript.ResumePatrol();
+                playerSpotted = false;
+                anim.SetBool("isAlerted", false);
+                randomSearch.enabled = false;
+                StopAllCoroutines();
+                StartCoroutine(BakeNavMeshRoutine());
+                isChargingShot = false;
+
+                Debug.Log("Returning to patrol");
+            }
+
             // Increase/decrease spot bar when inside/outside of view
             Vector3 dirToTarget = Vector3.zero;
             float distanceToTarget = 0f;
@@ -303,6 +366,7 @@ public class ChaosBot : MonoBehaviour
 
                 Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
             }
+            
 
             // When player is in view or is close and can be seen...
             if (fov.canSeePlayerElectronic || (electronicIsClose &&
@@ -398,6 +462,8 @@ public class ChaosBot : MonoBehaviour
     IEnumerator ChaseTimeout(float time)
     {
         // Variable to check whether this coroutine has already been started or not
+        if (chaseTimingOut) 
+            yield break;
         chaseTimingOut = true;
         Debug.Log("Chase timing out");
 
@@ -427,6 +493,9 @@ public class ChaosBot : MonoBehaviour
         targetRotation.z = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation,
             turnSpeed * Time.deltaTime);
+
+        var laserSpawnTargetRot = Quaternion.LookRotation(fov.lastTarget.transform.position - laserSpawnPos.transform.position);
+        laserSpawnPos.transform.rotation = laserSpawnTargetRot;
     }
 
     IEnumerator BakeNavMeshRoutine()
@@ -439,24 +508,45 @@ public class ChaosBot : MonoBehaviour
 
     IEnumerator AttemptToTerminate()
     {
-        anim.SetBool("isShooting", true);
+        if (isChargingShot)
+            yield break;
+        else if (currState != ChaosBotState.Engaging)
+        {
+            isChargingShot = false;
+            yield break;
+        }
+        isChargingShot = true;
+        anim.SetBool("isAlerted", true);
         yield return new WaitForSeconds(2f);
         // shoot
 
+        if (isChargingShot)
+            Shoot();
+    
+        isChargingShot = false;
+
+        StartCoroutine(AttemptToTerminate());
+    }
+
+    void Shoot()
+    {
+        //Debug.Log("laser shot");
+        Instantiate(shootLaserObj, laserSpawnPos.transform.position, laserSpawnPos.transform.rotation);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script))
         {
-            if (other.gameObject.layer == 7)
+            if (script.isOnline)
                 electronicIsClose = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script) 
+            && other.GetComponent<ControllableElectronic>().isOnline)
         {
             electronicIsClose = true;
             oneOfPlayerObjs.Add(other.gameObject);
@@ -467,7 +557,8 @@ public class ChaosBot : MonoBehaviour
     {
         if (other.gameObject.layer == 7)
         {
-            oneOfPlayerObjs.Remove(other.gameObject);
+            if (oneOfPlayerObjs.Contains(other.gameObject))
+                oneOfPlayerObjs.Remove(other.gameObject);
         }
         if (oneOfPlayerObjs.Count == 0)
             electronicIsClose = false;

@@ -373,6 +373,7 @@ Transform:
   - {fileID: 8979955835965218816}
   - {fileID: 5846216000585456151}
   - {fileID: 4377569443587992917}
+  - {fileID: 6809926755462832574}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6988713581272234448
@@ -395,6 +396,9 @@ MonoBehaviour:
   spotIcon: {fileID: 5241608828645541991}
   ai: {fileID: 5143554483455627291}
   randomSearch: {fileID: 8310834488898076754}
+  shootLaserObj: {fileID: 2161731583581829477, guid: 16927de3a7e103547978910a3bb01bc6,
+    type: 3}
+  laserSpawnPos: {fileID: 5849963985075424153}
   spotValue: 0
   searchingValue: 0
   unawareSpotTime: 3
@@ -424,6 +428,7 @@ MonoBehaviour:
   isCloseToOneOfPlayerObjs: 0
   oneOfPlayerObjs: []
   electronicIsClose: 0
+  isChargingShot: 0
 --- !u!114 &1448831706016909290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +660,37 @@ CapsuleCollider:
   m_Height: 6.84
   m_Direction: 1
   m_Center: {x: 0, y: 0.92, z: -0.14}
+--- !u!1 &5849963985075424153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6809926755462832574}
+  m_Layer: 12
+  m_Name: Laser Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6809926755462832574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5849963985075424153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.21, z: 3.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 355118866037831671}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8256167507097567029
 GameObject:
   m_ObjectHideFlags: 0

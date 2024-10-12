@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     public Rigidbody rb;
     public Transform orientation;
-    [SerializeField] Animator anim;
+    public Animator anim;
+    public GameObject systemsOfflineUI;
+    public ControllableElectronic electronicScript;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -69,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
-        if (playerController.currPlayerObj == gameObject)
+        if (playerController.currPlayerObj == gameObject && electronicScript.isOnline)
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");

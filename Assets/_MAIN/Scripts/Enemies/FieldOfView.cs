@@ -65,8 +65,10 @@ public class FieldOfView : MonoBehaviour
 
                     if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask)
                         && obj.layer == 7 && obj.transform.position.y < transform.position.y + 10f
-                        && obj.GetComponent<ControllableElectronic>().enabled == true && lastTarget != null && lastTarget != obj)
+                        && obj.TryGetComponent<ControllableElectronic>(out ControllableElectronic script)
+                        && script.isOnline == true)
                     {
+
                         canSeePlayerElectronic = true;
                         lastTarget = obj.gameObject;
 
