@@ -100,8 +100,8 @@ public class PlayerController : MonoBehaviour
         currPlayerObjScript.canvas.SetActive(true);
 
         // Sets online animation on switched in minibot
-        if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
-            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba) 
+        if ((currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
+            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba) && currPlayerObjScript.isOnline) 
             currPlayerObjScript.animator.SetBool("isOnline", true);
 
         // Assigns correct y axis value for different electronic types
