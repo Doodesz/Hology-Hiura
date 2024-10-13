@@ -40,6 +40,5 @@ public class RepairElectronic : MonoBehaviour
     public void InitializeDisabledBehaviour()
     {
         fixValue = 0f;
-        canFix = true;
     }
 }

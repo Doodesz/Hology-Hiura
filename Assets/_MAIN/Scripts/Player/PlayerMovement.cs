@@ -131,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
         electronicScript.isOnline = false;
         anim.SetBool("isOnline", false);
         particle.gameObject.SetActive(true);
-        repair.canFix = true;
     }
 
     public void EnableMovement()
@@ -140,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
         electronicScript.isOnline = true;
         //anim.SetBool("isOnline", true);       player not in control
         particle.gameObject.SetActive(false);
-        repair.canFix = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -151,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isPushing", true);
 
         // Show repair prompt when near a disabled electronic
-        if (other.gameObject.layer == 7 && TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+        if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)
         {
@@ -168,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isPushing", false);
 
         // Show repair prompt when near a disabled electronic
-        if (other.gameObject.layer == 7 && TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+        if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline)
         {
             otherMovement.repair.canFix = false;
