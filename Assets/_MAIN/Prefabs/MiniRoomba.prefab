@@ -6083,6 +6083,7 @@ GameObject:
   - component: {fileID: 4856672475802740141}
   - component: {fileID: 57981541633908062}
   - component: {fileID: 1927904257602888650}
+  - component: {fileID: 8063106624571985478}
   - component: {fileID: 8379127365215579893}
   - component: {fileID: 5671480354475179614}
   - component: {fileID: 1092975240430544441}
@@ -6133,6 +6134,8 @@ MonoBehaviour:
   systemsOfflineUI: {fileID: 2631762287065448151}
   electronicScript: {fileID: 1927904257602888650}
   particle: {fileID: 2753749317957758804}
+  repair: {fileID: 8063106624571985478}
+  mainIngameUI: {fileID: 0}
   moveSpeed: 32
   groundDrag: 5
   walkSpeed: 0
@@ -6176,6 +6179,24 @@ MonoBehaviour:
   outline: {fileID: 5228046983727058390}
   canvas: {fileID: 226722910470635287}
   isOnline: 1
+--- !u!114 &8063106624571985478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541148098278607457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705a623842ca35143968f3ae54e52631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 4856672475802740141}
+  fixValue: 0
+  fixTime: 2
+  fixMultiplier: 1
+  canFix: 0
+  promptAnim: {fileID: 0}
 --- !u!114 &8379127365215579893
 MonoBehaviour:
   m_ObjectHideFlags: 0

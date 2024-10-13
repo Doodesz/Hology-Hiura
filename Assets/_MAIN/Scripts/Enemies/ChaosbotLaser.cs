@@ -23,6 +23,7 @@ public class ChaosbotLaser : MonoBehaviour
         if (collision.transform.TryGetComponent<PlayerMovement>(out PlayerMovement script))
         {
             script.DisableMovement();
+            script.gameObject.GetComponent<RepairElectronic>().InitializeDisabledBehaviour();
         }
 
         Destroy(gameObject);

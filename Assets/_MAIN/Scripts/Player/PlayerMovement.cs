@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject systemsOfflineUI;
     [SerializeField] ControllableElectronic electronicScript;
     [SerializeField] ParticleSystem particle;
+    [SerializeField] RepairElectronic repair;
+    [SerializeField] MainIngameUI mainIngameUI;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
 
         playerController = PlayerController.Instance;
+        mainIngameUI = MainIngameUI.Instance;
 
         thisElectronicType = GetComponent<ControllableElectronic>().thisElectronicType;
     }
@@ -128,19 +131,48 @@ public class PlayerMovement : MonoBehaviour
         electronicScript.isOnline = false;
         anim.SetBool("isOnline", false);
         particle.gameObject.SetActive(true);
+        repair.canFix = true;
+    }
+
+    public void EnableMovement()
+    {
+        systemsOfflineUI.SetActive(false);
+        electronicScript.isOnline = true;
+        //anim.SetBool("isOnline", true);       player not in control
+        particle.gameObject.SetActive(false);
+        repair.canFix = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // Triggers pushing anim
         if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
             && other.GetComponent<ChaosBot>() == null && other.GetComponent<PlayerMovement>() == null)
             anim.SetBool("isPushing", true);
+
+        // Show repair prompt when near a disabled electronic
+        if (other.gameObject.layer == 7 && TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+            && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
+            && playerController.currPlayerObj == gameObject)
+        {
+            otherMovement.repair.canFix = true;
+            mainIngameUI.gameObject.GetComponent<Animator>().SetBool("showPrompt", true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        // Untriggers pushing anim
         if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
             && other.GetComponent<ChaosBot>() == null && other.GetComponent<PlayerMovement>() == null)
             anim.SetBool("isPushing", false);
+
+        // Show repair prompt when near a disabled electronic
+        if (other.gameObject.layer == 7 && TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+            && !otherMovement.electronicScript.isOnline && electronicScript.isOnline)
+        {
+            otherMovement.repair.canFix = false;
+            mainIngameUI.gameObject.GetComponent<Animator>().SetBool("showPrompt", false);
+        }
     }
 }
