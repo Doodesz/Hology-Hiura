@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChaosbotLaser : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] GameObject postImpactLaserObj;
 
     // Start is called before the first frame update
     void Start()
@@ -27,5 +28,10 @@ public class ChaosbotLaser : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(postImpactLaserObj, transform.position, transform.rotation);
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 public enum ChaosBotState { Patrolling, Chasing, Engaging, Searching }
-[RequireComponent(typeof(FieldOfView))]
+[RequireComponent(typeof(FieldOfView), typeof(ObjectSoundManager))]
 public class ChaosBot : MonoBehaviour
 {
     [Header("References")]
@@ -22,6 +22,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] RandomMovement randomSearch;
     [SerializeField] GameObject shootLaserObj;
     [SerializeField] GameObject laserSpawnPos;
+    [SerializeField] ObjectSoundManager soundManager;
 
     [Header("Variables")]
     [SerializeField] float spotValue;
@@ -71,6 +72,7 @@ public class ChaosBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Fix for when player enters trigger box but not in chaosbot's view
         if (fov.lastTarget == null)
         { 
             float range = 100f;
@@ -255,6 +257,7 @@ public class ChaosBot : MonoBehaviour
             }
         }
 
+        // Engaging state
         else if (currState == ChaosBotState.Engaging)
         {
             Debug.Log("Entered Engaging state");
@@ -325,6 +328,7 @@ public class ChaosBot : MonoBehaviour
             }
         }
 
+        // Searching state
         else if (currState == ChaosBotState.Searching)
         {
             Debug.Log("Entered Searching state");
@@ -465,6 +469,16 @@ public class ChaosBot : MonoBehaviour
 
                 Debug.Log("Returning to patrol");
             }
+        }
+
+        // Sound
+        if (!soundManager.moveSfx.isPlaying && anim.GetBool("isMoving"))
+        {
+            soundManager.PlayMove();
+        }
+        else if (soundManager.moveSfx.isPlaying && !anim.GetBool("isMoving"))
+        {
+            soundManager.PauseMove();
         }
     }
 

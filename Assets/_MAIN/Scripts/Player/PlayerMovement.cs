@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(ControllableElectronic))]
+[RequireComponent(typeof(ControllableElectronic), typeof(ObjectSoundManager))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] ControllableElectronic electronicScript;
     [SerializeField] ParticleSystem particle;
     [SerializeField] RepairElectronic repair;
-    [SerializeField] MainIngameUI mainIngameUI;
+    [SerializeField] ObjectSoundManager soundManager;
 
     [Header("Movement")]
     public float moveSpeed;
@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Debugging")]
     [SerializeField] bool grounded;
+    [SerializeField] MainIngameUI mainIngameUI;
 
     float horizontalInput;
     float verticalInput;
@@ -80,24 +81,40 @@ public class PlayerMovement : MonoBehaviour
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
 
+            // If this object is humanoid (minibot), set anim bool
             if (horizontalInput != 0 || verticalInput != 0)
             {
                 if (thisElectronicType == ElectronicType.Humanoid)
                     anim.SetBool("isWalking", true);
+
+                // Play move sfx
+                if (!soundManager.moveSfx.isPlaying)
+                    soundManager.PlayMove();
             }
             else if (thisElectronicType == ElectronicType.Humanoid)
             {
                 anim.SetBool("isWalking", false);
+
+                // Pause move sfx
+                if (soundManager.moveSfx.isPlaying)
+                    soundManager.PauseMove();
             }
+
         }
+
 
         else
         {
             horizontalInput = 0;
             verticalInput = 0;
 
+            // If this object is humanoid, set anim bool
             if (thisElectronicType == ElectronicType.Humanoid)
                 anim.SetBool("isWalking", false);
+
+            // Pause move sfx
+            if (soundManager.moveSfx.isPlaying)
+                soundManager.PauseMove();
         }
 
         // For checking curr speed
