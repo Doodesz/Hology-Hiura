@@ -7,6 +7,7 @@ public enum ElectronicType { Roomba, Camera, Humanoid };
 [RequireComponent(typeof(PlayerTPPDirection))]
 public class ControllableElectronic : MonoBehaviour
 {
+    [Header("Public variables")]
     public CinemachineFreeLook objCamera;
     public ElectronicType thisElectronicType;
     public Animator animator;

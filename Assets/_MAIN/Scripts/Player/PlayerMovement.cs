@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
+    [SerializeField] bool isPushing;
 
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isFalling", true);
         }
 
-        MyInput();
+        MoveInput();
         SpeedControl();
 
         rb.drag = groundDrag;
@@ -74,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
-    private void MyInput()
+    private void MoveInput()
     {
         if (playerController.currPlayerObj == gameObject && electronicScript.isOnline)
         {
@@ -84,8 +85,11 @@ public class PlayerMovement : MonoBehaviour
             // If this object is humanoid (minibot), set anim bool
             if (horizontalInput != 0 || verticalInput != 0)
             {
+                // If this is a humanoid (minibot)
                 if (thisElectronicType == ElectronicType.Humanoid)
+                {
                     anim.SetBool("isWalking", true);
+                }
 
                 // Play move sfx
                 if (!soundManager.moveSfx.isPlaying)
@@ -99,9 +103,7 @@ public class PlayerMovement : MonoBehaviour
                 if (soundManager.moveSfx.isPlaying)
                     soundManager.PauseMove();
             }
-
         }
-
 
         else
         {
@@ -148,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
         electronicScript.isOnline = false;
         anim.SetBool("isOnline", false);
         particle.gameObject.SetActive(true);
+        soundManager.PlayDisabled();
     }
 
     public void EnableMovement()
@@ -156,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
         electronicScript.isOnline = true;
         //anim.SetBool("isOnline", true);       player not in control
         particle.gameObject.SetActive(false);
+        soundManager.PauseDisabled();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -163,7 +167,9 @@ public class PlayerMovement : MonoBehaviour
         // Triggers pushing anim
         if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
             && other.GetComponent<ChaosBot>() == null && other.GetComponent<PlayerMovement>() == null)
+        {
             anim.SetBool("isPushing", true);
+        }
 
         // Show repair prompt when near a disabled electronic
         if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
@@ -180,7 +186,9 @@ public class PlayerMovement : MonoBehaviour
         // Untriggers pushing anim
         if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
             && other.GetComponent<ChaosBot>() == null && other.GetComponent<PlayerMovement>() == null)
+        {
             anim.SetBool("isPushing", false);
+        }
 
         // Show repair prompt when near a disabled electronic
         if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
@@ -188,6 +196,28 @@ public class PlayerMovement : MonoBehaviour
         {
             otherMovement.repair.canFix = false;
             mainIngameUI.gameObject.GetComponent<Animator>().SetBool("showPrompt", false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        // Triggers pushing anim
+        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
+            && other.gameObject.GetComponent<ChaosBot>() == null && other.gameObject.GetComponent<PlayerMovement>() == null)
+        {
+            if (!soundManager.pushSfx.isPlaying)
+                soundManager.PlayPush();
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        // Untriggers pushing anim
+        if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
+            && other.gameObject.GetComponent<ChaosBot>() == null && other.gameObject.GetComponent<PlayerMovement>() == null)
+        {
+            if (soundManager.pushSfx.isPlaying)
+                soundManager.PausePush();
         }
     }
 }
