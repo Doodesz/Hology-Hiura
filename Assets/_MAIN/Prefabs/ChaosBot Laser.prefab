@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a8142900dba7e4180f8c98f57a22e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: 5
   speed: 20
   postImpactLaserObj: {fileID: 1220314741095780781, guid: 7c989c71cd4d6284c8ed12175bf4a2fe,
     type: 3}

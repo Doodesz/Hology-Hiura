@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4798465185225100574}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Obj holder n platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1727352053094356273}
   - component: {fileID: 6065423480273569542}
   - component: {fileID: 2549094931687587733}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7878251291267307481}
   - component: {fileID: 7980760305639981640}
   - component: {fileID: 827188103382299483}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 2, z: -7}
+  m_FollowOffset: {x: 0, y: -2, z: -5}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: -8, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 8, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 2816089388580848432}
   - component: {fileID: 7343585574643369235}
   - component: {fileID: 1426448080151613938}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5103,7 +5103,7 @@ GameObject:
   - component: {fileID: 9122065173980760769}
   - component: {fileID: 3842104758457233299}
   - component: {fileID: 6568457493866042157}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5238,7 +5238,7 @@ GameObject:
   - component: {fileID: 2116662463642607046}
   - component: {fileID: 4408744260057876714}
   - component: {fileID: 2656306660384902565}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Systems Offline UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5338,7 +5338,8 @@ GameObject:
   - component: {fileID: 1212476141759104316}
   - component: {fileID: 815585586697586727}
   - component: {fileID: 1689739855189956421}
-  m_Layer: 0
+  - component: {fileID: 5420896537363705913}
+  m_Layer: 16
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5402,6 +5403,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.5, y: 0.5, z: 5.8}
   m_Center: {x: 0.32, y: 0.08, z: 0}
+--- !u!54 &5420896537363705913
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2180486632251065107}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 131072
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &2467275307822347776
 GameObject:
   m_ObjectHideFlags: 0
@@ -5412,7 +5440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6331882219878557680}
   - component: {fileID: 370456544824893713}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5540,7 +5568,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6173239442490743603}
   - component: {fileID: 5329397479306260646}
-  m_Layer: 7
+  - component: {fileID: 5458718373985678770}
+  m_Layer: 17
   m_Name: MiniDrone Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5556,7 +5585,7 @@ Transform:
   m_GameObject: {fileID: 2767343222423532119}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -7}
+  m_LocalPosition: {x: 0, y: -0.5, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5612,7 +5641,7 @@ MonoBehaviour:
     m_DecelTime: 0.5
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
-    m_InvertInput: 1
+    m_InvertInput: 0
     m_MinValue: 0
     m_MaxValue: 1
     m_Wrap: 0
@@ -5659,17 +5688,47 @@ MonoBehaviour:
   m_BindingMode: 4
   m_SplineCurvature: 0.2
   m_Orbits:
+  - m_Height: 3
+    m_Radius: 3
+  - m_Height: 1.5
+    m_Radius: 7
   - m_Height: -1
-    m_Radius: 7
-  - m_Height: 0
-    m_Radius: 7
-  - m_Height: 1
     m_Radius: 7
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 5619571213175838192}
   - {fileID: 5866007402199594744}
   - {fileID: 5812592196077026758}
+--- !u!114 &5458718373985678770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2767343222423532119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 887
+  m_IgnoreTag: 
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.5
+  m_Strategy: 1
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0.3
+  m_DampingWhenOccluded: 0.1
+  m_OptimalTargetDistance: 0
 --- !u!1 &3547438620680385092
 GameObject:
   m_ObjectHideFlags: 0
@@ -5679,7 +5738,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294377714711454229}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Sound container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5713,7 +5772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2634642731133089683}
   - component: {fileID: 5812592196077026758}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: BottomRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5728,7 +5787,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3747271136976272342}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.20106596, y: 0.000000029193695, z: 0.0000000059922334, w: 0.9795777}
+  m_LocalRotation: {x: 0.5104645, y: 0, z: 0, w: 0.85989887}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5793,7 +5852,7 @@ GameObject:
   - component: {fileID: 7175171148714586070}
   - component: {fileID: 1526671579985371672}
   - component: {fileID: 7241005342496954808}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5866,7 +5925,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 886273746524387644}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5899,7 +5958,7 @@ GameObject:
   - component: {fileID: 7561580271364107036}
   - component: {fileID: 5634572507698519556}
   - component: {fileID: 5160310768969417257}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6032,7 +6091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5503273658130151311}
   - component: {fileID: 2823217884138654577}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Disabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6162,7 +6221,7 @@ GameObject:
   - component: {fileID: 7014342377087133377}
   - component: {fileID: 6479096756248545486}
   - component: {fileID: 5982016593759111594}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6209,7 +6268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 2, z: -7}
+  m_FollowOffset: {x: 0, y: -2, z: -5}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -6262,7 +6321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 4, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: -7, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -6287,7 +6346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5945252977323009077}
   - component: {fileID: 5866007402199594744}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: MiddleRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6302,7 +6361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7852889713605077379}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20106587, y: 0, z: 0, w: 0.9795778}
+  m_LocalRotation: {x: -0.28978428, y: 0, z: 0, w: 0.95709205}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6372,7 +6431,7 @@ GameObject:
   - component: {fileID: 8748440231066866493}
   - component: {fileID: 4253193272096733752}
   - component: {fileID: 7688805447242293861}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: MiniDrone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6428,7 +6487,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 577
-  rb: {fileID: 4253193272096733752}
+  rb: {fileID: 0}
   grounded: 0
   mainIngameUI: {fileID: 0}
 --- !u!114 &3276675356481646036
@@ -6518,7 +6577,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 65664
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -6545,7 +6604,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6, y: 1.5, z: 6}
+  m_Size: {x: 6, y: 1, z: 6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8056257948217410530
 GameObject:
@@ -6557,7 +6616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7020559936412007131}
   - component: {fileID: 5619571213175838192}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: TopRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6572,8 +6631,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8056257948217410530}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.43935147, y: 0, z: 0, w: 0.89831525}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.3985485, y: 0, z: 0, w: 0.9171473}
+  m_LocalPosition: {x: 0, y: 2, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6637,7 +6696,7 @@ GameObject:
   - component: {fileID: 5774282367114935773}
   - component: {fileID: 8451230277855842829}
   - component: {fileID: 1934012282341937}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6713,7 +6772,7 @@ GameObject:
   - component: {fileID: 7371711473005457227}
   - component: {fileID: 1920317644944659861}
   - component: {fileID: 4662379983908070798}
-  m_Layer: 7
+  m_Layer: 17
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6760,7 +6819,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 2, z: -7}
+  m_FollowOffset: {x: 0, y: -2, z: -5}
   m_XDamping: 0
   m_YDamping: 0
   m_ZDamping: 0
@@ -6813,7 +6872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: -2, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 0.5, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -6894,7 +6953,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 76a25d469821c8f489805d145d79833d,
         type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
