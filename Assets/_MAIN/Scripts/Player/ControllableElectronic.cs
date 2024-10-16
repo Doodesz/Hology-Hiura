@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ElectronicType { Roomba, Camera, Humanoid };
+public enum ElectronicType { Roomba, Camera, Humanoid, Drone };
 [RequireComponent(typeof(PlayerTPPDirection))]
 public class ControllableElectronic : MonoBehaviour
 {
