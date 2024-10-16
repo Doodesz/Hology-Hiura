@@ -7,7 +7,6 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] Rigidbody rb;
     [SerializeField] Transform orientation;
     [SerializeField] Animator anim;
     [SerializeField] GameObject systemsOfflineUI;
@@ -18,17 +17,19 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed;
-    public float groundDrag;
+    public float movementDrag;
     [SerializeField] bool isPushing;
 
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
 
     [Header("Ground Check")]
-    public float playerHeight;
+    [Tooltip("Only to check if falling for humanoid")] 
+        public float playerHeight;
     public LayerMask whatIsGround;
 
     [Header("Debugging")]
+    [SerializeField] Rigidbody rb;
     [SerializeField] bool grounded;
     [SerializeField] MainIngameUI mainIngameUI;
 
@@ -67,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
         MoveInput();
         SpeedControl();
 
-        rb.drag = groundDrag;
+        rb.drag = movementDrag;
     }
 
     private void FixedUpdate()
@@ -129,7 +130,15 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+/*        // Since the drone is kinematic, use MovePosition()
+        if (thisElectronicType == ElectronicType.Drone)
+        {
+            rb.MovePosition(transform.position + moveDirection.normalized * Time.deltaTime * moveSpeed);
+        }
+        else*/
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
     }
 
     private void SpeedControl()
@@ -140,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
         if (flatVel.magnitude > moveSpeed / 3)
         {
             Vector3 limitedVel = flatVel.normalized * (moveSpeed/3);
+
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
     }

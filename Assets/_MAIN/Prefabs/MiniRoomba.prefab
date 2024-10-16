@@ -6227,8 +6227,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8002383270037603968}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -223.3612, y: -8.573026, z: -155.39917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6465,7 +6465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b67fc9ad70a69d478e687b6c73e0fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 5671480354475179614}
   orientation: {fileID: 3256284168255857582}
   anim: {fileID: 6803179878405863607}
   systemsOfflineUI: {fileID: 2631762287065448151}
@@ -6474,7 +6473,7 @@ MonoBehaviour:
   repair: {fileID: 8063106624571985478}
   soundManager: {fileID: 9180442965682471254}
   moveSpeed: 32
-  groundDrag: 5
+  movementDrag: 1
   isPushing: 0
   walkSpeed: 0
   sprintSpeed: 0
@@ -6482,6 +6481,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  rb: {fileID: 5671480354475179614}
   grounded: 0
   mainIngameUI: {fileID: 0}
 --- !u!114 &57981541633908062

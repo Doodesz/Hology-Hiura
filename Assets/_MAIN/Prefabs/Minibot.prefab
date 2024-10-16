@@ -6802,7 +6802,7 @@ MonoBehaviour:
   repair: {fileID: 3870421570976013811}
   soundManager: {fileID: 6683248147297498880}
   moveSpeed: 38
-  groundDrag: 5
+  movementDrag: 5
   isPushing: 0
   walkSpeed: 0
   sprintSpeed: 0

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ChaosbotLaser : MonoBehaviour
 {
+    [SerializeField] float lifetime;
     [SerializeField] float speed;
     [SerializeField] GameObject postImpactLaserObj;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(DestroyInSeconds());
     }
 
     // Update is called once per frame
@@ -33,5 +34,12 @@ public class ChaosbotLaser : MonoBehaviour
     private void OnDestroy()
     {
         Instantiate(postImpactLaserObj, transform.position, transform.rotation);
+    }
+
+    IEnumerator DestroyInSeconds()
+    {
+        yield return new WaitForSeconds(lifetime);
+
+        Destroy(gameObject);
     }
 }

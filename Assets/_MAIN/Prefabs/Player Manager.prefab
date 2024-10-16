@@ -48,7 +48,7 @@ MonoBehaviour:
   initialPlayerObj: {fileID: 0}
   layersToCollide:
     serializedVersion: 2
-    m_Bits: 25331
+    m_Bits: 156403
   currPlayerObj: {fileID: 0}
   lastSelected: {fileID: 0}
 --- !u!114 &8508037805462740556
