@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] ControllableElectronic lastSelected;
 
+    public delegate void SwitchElectronic();
+    public static event SwitchElectronic OnSwitchElectronic;
+
     [SerializeField] RaycastHit rayHitInfo;
 
     public static PlayerController Instance;
@@ -70,6 +73,8 @@ public class PlayerController : MonoBehaviour
 
     void SwitchPlayerObject(GameObject objToSwitchTo)
     {
+        OnSwitchElectronic();
+
         // Assigns first player object when scene starts
         if (currPlayerObj == null)
         {
@@ -86,7 +91,15 @@ public class PlayerController : MonoBehaviour
         // Sets offline animation on switched off minibot
         if (currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
             currPlayerObjScript.thisElectronicType == ElectronicType.Roomba)
+        {
             currPlayerObjScript.animator.SetBool("isOnline", false);
+
+            if (currPlayerObjScript.platformCheck != null && currPlayerObjScript.platformCheck.isStandingOnMovingPlatform)
+            {
+                currPlayerObj.GetComponent<Rigidbody>().useGravity = false;
+                currPlayerObj.GetComponent<Rigidbody>().isKinematic = true;
+            }
+        }
         
         // Switches controlled object
         currPlayerObj = objToSwitchTo;
@@ -101,8 +114,12 @@ public class PlayerController : MonoBehaviour
 
         // Sets online animation on switched in minibot
         if ((currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
-            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba) && currPlayerObjScript.isOnline) 
+            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba) && currPlayerObjScript.isOnline)
+        {
             currPlayerObjScript.animator.SetBool("isOnline", true);
+            currPlayerObj.GetComponent<Rigidbody>().useGravity = true;
+            currPlayerObj.GetComponent<Rigidbody>().isKinematic = false;
+        }
 
         // Assigns correct y axis value for different electronic types
         if (currPlayerObjScript.thisElectronicType == ElectronicType.Camera)

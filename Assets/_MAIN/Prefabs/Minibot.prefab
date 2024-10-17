@@ -876,8 +876,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384e36a57c6de0246a652486c17b8b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  electronic: {fileID: 2821725279559409304}
+  thisParent: {fileID: 0}
+  platformItemAnchor: {fileID: 0}
   platformParent: {fileID: 0}
+  platformScript: {fileID: 0}
   isStandingOnMovingPlatform: 0
+  hasPendingReset: 0
 --- !u!65 &3203031766460861434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -897,7 +902,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.2, z: 1}
+  m_Size: {x: 1.5, y: 0.2, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3709145086143601420
 GameObject:
@@ -6824,6 +6829,7 @@ MonoBehaviour:
   particle: {fileID: 2742203426107160277}
   repair: {fileID: 3870421570976013811}
   soundManager: {fileID: 6683248147297498880}
+  rb: {fileID: 8876212193691703550}
   moveSpeed: 38
   movementDrag: 5
   isPushing: 0
@@ -6833,7 +6839,6 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 577
-  rb: {fileID: 8876212193691703550}
   grounded: 0
   mainIngameUI: {fileID: 0}
 --- !u!114 &5459582222070873372
@@ -6869,7 +6874,8 @@ MonoBehaviour:
   animator: {fileID: 5620617193743589336}
   outline: {fileID: 7940345511160391410}
   canvas: {fileID: 6204199950318974543}
-  movingPlatformAnchorObj: {fileID: 0}
+  platform: {fileID: 0}
+  platformCheck: {fileID: 7903424767293354849}
   isOnline: 1
 --- !u!114 &3870421570976013811
 MonoBehaviour:

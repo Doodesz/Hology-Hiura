@@ -5,11 +5,24 @@ using UnityEngine;
 public class MovingPlatformCheck : MonoBehaviour
 {
     [Header("References")]
-    public GameObject platformItemAnchor;
+    [SerializeField] ControllableElectronic electronic;
+    [SerializeField] GameObject thisParent;
 
     [Header("Debugging")]
+    public GameObject platformItemAnchor;
     public GameObject platformParent;
+    public DronePlatform platformScript;
     public bool isStandingOnMovingPlatform;
+    [SerializeField] bool hasPendingReset;
+
+    private void OnEnable()
+    {
+        PlayerController.OnSwitchElectronic += ResetVariables;
+    }
+    private void OnDisable()
+    {
+        PlayerController.OnSwitchElectronic -= ResetVariables;
+    }
 
     GameObject CheckRootParent(GameObject transformToCheck)
     {
@@ -20,13 +33,27 @@ public class MovingPlatformCheck : MonoBehaviour
             return transformToCheck;
     }
 
+    void ResetVariables()
+    {
+        if (hasPendingReset)
+        {
+            isStandingOnMovingPlatform = false;
+            platformParent = null;
+            platformScript = null;
+            platformItemAnchor = null;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 16)
         {
-            //thisParent.transform.SetParent(CheckRootParent(other.transform.gameObject).transform, true);
-            platformParent = CheckRootParent(other.transform.gameObject);
             isStandingOnMovingPlatform = true;
+            platformParent = CheckRootParent(other.transform.gameObject);
+            platformScript = platformParent.GetComponent<DronePlatform>();
+            platformItemAnchor = platformScript.itemAnchor;
+
+            platformScript.CheckCurrentCarry();         // put last to avoid null ref
         }
     }
 
@@ -34,9 +61,19 @@ public class MovingPlatformCheck : MonoBehaviour
     {
         if (other.gameObject.layer == 16)
         {
-            //thisParent.transform.SetParent(null);
-            platformParent = null;
-            isStandingOnMovingPlatform = false;
+            platformScript.CheckCurrentCarry();     // put first to avoid null ref
+            
+            if (PlayerController.Instance.currPlayerObj == thisParent)
+            {
+                isStandingOnMovingPlatform = false;
+                platformParent = null;
+                platformScript = null;
+                platformItemAnchor = null;
+            }
+            else
+            {
+                hasPendingReset = true;
+            }
         }
     }
 }

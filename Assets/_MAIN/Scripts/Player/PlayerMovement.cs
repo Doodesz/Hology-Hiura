@@ -15,6 +15,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] RepairElectronic repair;
     [SerializeField] ObjectSoundManager soundManager;
 
+    [Header("Conditional Ref")]
+    [SerializeField][Tooltip("Assign if rb is not in parent")] 
+        Rigidbody rb;
+
     [Header("Movement")]
     public float moveSpeed;
     public float movementDrag;
@@ -29,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
 
     [Header("Debugging")]
-    [SerializeField] Rigidbody rb;
     [SerializeField] bool grounded;
     [SerializeField] MainIngameUI mainIngameUI;
 
@@ -44,7 +47,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        // If not assigned but component is in gameObject, assign that
+        if (rb == null && TryGetComponent<Rigidbody>(out Rigidbody rbRef))
+            rb = rbRef;
         rb.freezeRotation = true;
 
         playerController = PlayerController.Instance;
@@ -104,6 +109,15 @@ public class PlayerMovement : MonoBehaviour
                 if (soundManager.moveSfx.isPlaying)
                     soundManager.PauseMove();
             }
+
+            // If this is a drone
+            if (thisElectronicType == ElectronicType.Drone)
+            {
+                if (Input.GetKey(KeyCode.Q))
+                    Descend();
+                if (Input.GetKey(KeyCode.E))
+                    Ascend();
+            }
         }
 
         else
@@ -133,6 +147,16 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddRelativeForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         }
+    }
+
+    private void Ascend()
+    {
+        rb.AddRelativeForce(Vector3.up * moveSpeed / 2 * 10f, ForceMode.Force);
+    }
+
+    private void Descend()
+    {
+        rb.AddRelativeForce(Vector3.down * moveSpeed / 2 * 10f, ForceMode.Force);
     }
 
     private void SpeedControl()
