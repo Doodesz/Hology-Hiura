@@ -130,14 +130,8 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-/*        // Since the drone is kinematic, use MovePosition()
-        if (thisElectronicType == ElectronicType.Drone)
         {
-            rb.MovePosition(transform.position + moveDirection.normalized * Time.deltaTime * moveSpeed);
-        }
-        else*/
-        {
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddRelativeForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         }
     }
 

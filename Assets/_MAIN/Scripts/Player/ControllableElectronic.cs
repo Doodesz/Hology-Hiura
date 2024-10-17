@@ -13,6 +13,7 @@ public class ControllableElectronic : MonoBehaviour
     public Animator animator;
     public Outline outline;
     public GameObject canvas;
+    public GameObject movingPlatformAnchorObj;
     //public PlayerMovement playerMovement;
 
     public bool isOnline = true;
