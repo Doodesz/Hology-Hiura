@@ -877,7 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   electronic: {fileID: 2821725279559409304}
-  thisParent: {fileID: 0}
+  thisParent: {fileID: 8792443662300924499}
   platformItemAnchor: {fileID: 0}
   platformParent: {fileID: 0}
   platformScript: {fileID: 0}
@@ -6781,6 +6781,7 @@ GameObject:
   - component: {fileID: 851684662153316650}
   - component: {fileID: 8876212193691703550}
   - component: {fileID: 2936184369757731032}
+  - component: {fileID: 1134917191243666351}
   m_Layer: 7
   m_Name: Minibot
   m_TagString: Heavy
@@ -6841,6 +6842,7 @@ MonoBehaviour:
     m_Bits: 577
   grounded: 0
   mainIngameUI: {fileID: 0}
+  isOverweighted: 0
 --- !u!114 &5459582222070873372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6989,6 +6991,29 @@ CapsuleCollider:
   serializedVersion: 2
   m_Radius: 1.03
   m_Height: 3.31
+  m_Direction: 1
+  m_Center: {x: 0, y: -1, z: -0.06}
+--- !u!136 &1134917191243666351
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8792443662300924499}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: -1, z: -0.06}
 --- !u!1001 &4803392360306106933

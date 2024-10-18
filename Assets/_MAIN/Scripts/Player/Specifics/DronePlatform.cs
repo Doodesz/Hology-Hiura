@@ -5,12 +5,13 @@ using UnityEngine;
 public class DronePlatform : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] PlayerMovement movement;
     public GameObject itemAnchor;
     public bool isCarrying;
     public List<Collider> platformColliders;
 
     [Header("Debugging")]
-    [SerializeField] List<GameObject> platformItems = new List<GameObject>();
+    public List<GameObject> platformItems = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -21,9 +22,32 @@ public class DronePlatform : MonoBehaviour
         PlayerController.OnSwitchElectronic -= TogglePlatformColliders;
     }
 
-    public void CheckCurrentCarry()
+    public void AddLoad(GameObject obj)
     {
-        // if more than 1, start to descend
+        platformItems.Add(obj);
+        CheckCurrentLoad();
+    }
+
+    public void RemoveLoad(GameObject obj)
+    {
+        platformItems.Remove(obj);
+        CheckCurrentLoad();
+    }
+
+    void CheckCurrentLoad()
+    {
+        if (platformItems.Count > 0)
+            isCarrying = true;
+
+        if (platformItems.Count > 1)
+        {
+            movement.isOverweighted = true;
+            // Overloaded and starts to descend
+        }
+        else
+        {
+            movement.isOverweighted = false;
+        }
     }
 
     void TogglePlatformColliders()

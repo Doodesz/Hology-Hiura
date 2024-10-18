@@ -53,7 +53,8 @@ public class MovingPlatformCheck : MonoBehaviour
             platformScript = platformParent.GetComponent<DronePlatform>();
             platformItemAnchor = platformScript.itemAnchor;
 
-            platformScript.CheckCurrentCarry();         // put last to avoid null ref
+            if (!platformScript.platformItems.Contains(gameObject))
+                platformScript.AddLoad(gameObject);         // put last to avoid null ref
         }
     }
 
@@ -61,7 +62,8 @@ public class MovingPlatformCheck : MonoBehaviour
     {
         if (other.gameObject.layer == 16)
         {
-            platformScript.CheckCurrentCarry();     // put first to avoid null ref
+            if (platformScript.platformItems.Contains(gameObject))  
+                platformScript.RemoveLoad(gameObject);     // put first to avoid null ref
             
             if (PlayerController.Instance.currPlayerObj == thisParent)
             {

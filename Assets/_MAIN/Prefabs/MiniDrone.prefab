@@ -6420,6 +6420,7 @@ MonoBehaviour:
     m_Bits: 577
   grounded: 0
   mainIngameUI: {fileID: 0}
+  isOverweighted: 0
 --- !u!114 &3276675356481646036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6452,6 +6453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3514f03676ded5c4a8cb2e915dc4f736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: {fileID: 8689780146113322305}
   itemAnchor: {fileID: 12999262093320680}
   isCarrying: 0
   platformColliders: []
@@ -7668,8 +7670,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.5, y: 0.5, z: 5.8}
-  m_Center: {x: 0.32, y: 0.5, z: 0}
+  m_Size: {x: 2.5, y: 1, z: 5.8}
+  m_Center: {x: 0.32, y: 0.6, z: 0}
 --- !u!65 &7060283580589101198
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7689,5 +7691,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.5, y: 0.5, z: 2.5}
-  m_Center: {x: 0.08, y: 0.5, z: 0}
+  m_Size: {x: 5.5, y: 1, z: 2.5}
+  m_Center: {x: 0.08, y: 0.6, z: 0}

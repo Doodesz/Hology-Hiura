@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] bool grounded;
     [SerializeField] MainIngameUI mainIngameUI;
+    public bool isOverweighted;
 
     float horizontalInput;
     float verticalInput;
