@@ -12,10 +12,4 @@ public class MainIngameUI : MonoBehaviour
     {
         Instance = this;
     }
-
-    private void Start()
-    {
-        if (Instance == null)
-            Instance = this;
-    }
 }

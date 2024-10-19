@@ -24,16 +24,21 @@ public class RepairElectronic : MonoBehaviour
 
     private void Update()
     {
-        if (canFix && Input.GetKey(KeyCode.F) && PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().isOnline)
+        if (canFix)
         {
-            fixValue += Time.deltaTime * fixMultiplier;
-        }
+            promptAnim.SetBool("showPrompt", true);
 
-        if (fixValue >= fixTime && canFix)
-        {
-            playerMovement.EnableMovement();
-            promptAnim.SetBool("showPrompt", false);
-            canFix = false; 
+            if (canFix && Input.GetKey(KeyCode.F) && PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().isOnline)
+            {
+                fixValue += Time.deltaTime * fixMultiplier;
+            }
+
+            if (fixValue >= fixTime && canFix)
+            {
+                playerMovement.EnableMovement();
+                promptAnim.SetBool("showPrompt", false);
+                canFix = false; 
+            }
         }
     }
 
