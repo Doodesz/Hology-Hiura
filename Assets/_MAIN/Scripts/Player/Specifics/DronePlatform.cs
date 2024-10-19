@@ -42,11 +42,13 @@ public class DronePlatform : MonoBehaviour
         if (platformItems.Count > 1)
         {
             movement.isOverweighted = true;
+            itemAnchor.SetActive(false);
             // Overloaded and starts to descend
         }
         else
         {
             movement.isOverweighted = false;
+            itemAnchor.SetActive(true);
         }
     }
 

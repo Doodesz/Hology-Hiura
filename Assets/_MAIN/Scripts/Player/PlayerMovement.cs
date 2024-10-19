@@ -71,6 +71,9 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isFalling", true);
         }
 
+        if (isOverweighted)
+            DescendSlowly();
+
         MoveInput();
         SpeedControl();
 
@@ -160,6 +163,11 @@ public class PlayerMovement : MonoBehaviour
         rb.AddRelativeForce(Vector3.down * moveSpeed / 2 * 10f, ForceMode.Force);
     }
 
+    private void DescendSlowly()
+    {
+        rb.AddRelativeForce(Vector3.down * moveSpeed / 4 * 10f, ForceMode.Force);
+    }
+
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
@@ -199,14 +207,27 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isPushing", true);
         }
+    }
 
+    private void OnTriggerStay(Collider other)
+    {
         // Show repair prompt when near a disabled electronic
         if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)
         {
             otherMovement.repair.canFix = true;
-            mainIngameUI.gameObject.GetComponent<Animator>().SetBool("showPrompt", true);
+            MainIngameUI.Instance.GetComponent<Animator>().SetBool("triggerPrompt", true);
+        }
+        else if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement1)
+            && playerController.currPlayerObj != gameObject)
+        {
+            otherMovement1.repair.canFix = false;
+            MainIngameUI.Instance.GetComponent<Animator>().SetBool("triggerPrompt", false);
+        }
+        else
+        {
+            MainIngameUI.Instance.GetComponent<Animator>().SetBool("triggerPrompt", false);
         }
     }
 
@@ -217,14 +238,6 @@ public class PlayerMovement : MonoBehaviour
             && other.GetComponent<ChaosBot>() == null && other.GetComponent<PlayerMovement>() == null)
         {
             anim.SetBool("isPushing", false);
-        }
-
-        // Show repair prompt when near a disabled electronic
-        if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
-            && !otherMovement.electronicScript.isOnline && electronicScript.isOnline)
-        {
-            otherMovement.repair.canFix = false;
-            mainIngameUI.gameObject.GetComponent<Animator>().SetBool("showPrompt", false);
         }
     }
 

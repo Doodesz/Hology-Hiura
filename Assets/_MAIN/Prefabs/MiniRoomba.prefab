@@ -181,6 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronic: {fileID: 1927904257602888650}
   thisParent: {fileID: 8541148098278607457}
+  rb: {fileID: 5671480354475179614}
   platformItemAnchor: {fileID: 0}
   platformParent: {fileID: 0}
   platformScript: {fileID: 0}

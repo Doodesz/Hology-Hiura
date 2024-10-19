@@ -7,6 +7,7 @@ public class MovingPlatformCheck : MonoBehaviour
     [Header("References")]
     [SerializeField] ControllableElectronic electronic;
     [SerializeField] GameObject thisParent;
+    [SerializeField] Rigidbody rb;
 
     [Header("Debugging")]
     public GameObject platformItemAnchor;
@@ -58,19 +59,33 @@ public class MovingPlatformCheck : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 16)
+        {
+            if (platformScript.platformItems.Count > 1)
+            {
+                rb.useGravity = true;
+            }
+            else
+            {
+                rb.useGravity = false;
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 16)
         {
+            platformScript = CheckRootParent(other.transform.gameObject).GetComponent<DronePlatform>();
+
             if (platformScript.platformItems.Contains(gameObject))  
                 platformScript.RemoveLoad(gameObject);     // put first to avoid null ref
             
             if (PlayerController.Instance.currPlayerObj == thisParent)
             {
-                isStandingOnMovingPlatform = false;
-                platformParent = null;
-                platformScript = null;
-                platformItemAnchor = null;
+                ResetVariables();
             }
             else
             {

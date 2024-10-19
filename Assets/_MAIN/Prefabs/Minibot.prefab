@@ -878,6 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   electronic: {fileID: 2821725279559409304}
   thisParent: {fileID: 8792443662300924499}
+  rb: {fileID: 8876212193691703550}
   platformItemAnchor: {fileID: 0}
   platformParent: {fileID: 0}
   platformScript: {fileID: 0}
@@ -6836,7 +6837,7 @@ MonoBehaviour:
   isPushing: 0
   walkSpeed: 0
   sprintSpeed: 0
-  playerHeight: 2.75
+  playerHeight: 2.3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 577
