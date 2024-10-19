@@ -7822,6 +7822,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883152429}
   - component: {fileID: 1883152428}
+  - component: {fileID: 1883152430}
   m_Layer: 0
   m_Name: Main Canvas
   m_TagString: Untagged
@@ -7841,7 +7842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1762e8ac494325c4bacd5db2c39de03a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  anim: {fileID: 1883152430}
 --- !u!4 &1883152429
 Transform:
   m_ObjectHideFlags: 0
@@ -7858,6 +7859,27 @@ Transform:
   - {fileID: 2042305245}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1883152430
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883152426}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a919932f4f37be34da3efec9555d0460, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1886248441
 PrefabInstance:
   m_ObjectHideFlags: 0

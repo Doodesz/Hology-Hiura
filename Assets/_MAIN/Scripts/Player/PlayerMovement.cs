@@ -217,19 +217,18 @@ public class PlayerMovement : MonoBehaviour
             && playerController.currPlayerObj == gameObject)
         {
             otherMovement.repair.canFix = true;
-            MainIngameUI.Instance.gameObject.GetComponent<Animator>().SetBool("showPrompt", true);
+            mainIngameUI.anim.SetBool("showPrompt", true);
         }
-        /*else if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement1)
+        else if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement1)
             && playerController.currPlayerObj != gameObject)
         {
             otherMovement1.repair.canFix = false;
-            MainIngameUI.Instance.gameObject.GetComponent<Animator>().SetBool("showPrompt", false);
-            Debug.Log("line hit");
+            mainIngameUI.anim.SetBool("showPrompt", false);
         }
         else
         {
-            MainIngameUI.Instance.gameObject.GetComponent<Animator>().SetBool("showPrompt", false);
-        }*/
+            mainIngameUI.anim.SetBool("showPrompt", false);
+        }
     }
 
     private void OnTriggerExit(Collider other)
