@@ -218,14 +218,14 @@ public class PlayerMovement : MonoBehaviour
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)
         {
-            otherMovement.repair.canFix = true;
+            otherMovement.repair.canBeFixed = true;
             //mainIngameUI.anim.SetBool("showPrompt", true);
-            interactManager.SetFixObject(otherMovement.repair, true);
+            //interactManager.SetFixObject(otherMovement.repair, true);
         }
         else if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement1)
             && playerController.currPlayerObj != gameObject)
         {
-            otherMovement1.repair.canFix = false;
+            otherMovement1.repair.canBeFixed = false;
         }
     }
 
@@ -243,7 +243,8 @@ public class PlayerMovement : MonoBehaviour
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)
         {
-            otherMovement.repair.canFix = false;
+            otherMovement.repair.canBeFixed = false;
+            interactManager.CheckIfNoElectronicsCanBeFixed();
         }
     }
 

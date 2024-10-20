@@ -6,6 +6,8 @@ public class InteractManager : MonoBehaviour
 {
     public bool canFix;
     public RepairElectronic fixObj;
+    public List<RepairElectronic> reparableElectronics = new List<RepairElectronic>();
+    public bool noElectronicsCanBeFixed;
 
     public bool canObjective;
     public ObjectiveObject objectiveObject;
@@ -19,6 +21,12 @@ public class InteractManager : MonoBehaviour
     {
         Instance = this;
 
+        // Adds all controllable electronics
+        foreach (RepairElectronic electronic in FindObjectsOfType(typeof(RepairElectronic)))
+        {
+            reparableElectronics.Add(electronic);
+        }
+
         anim = MainIngameUI.Instance.anim;
     }
 
@@ -30,6 +38,8 @@ public class InteractManager : MonoBehaviour
 
         canFix = canFixRef;
         fixObj = fixRefObj;
+
+        CheckIfNoElectronicsCanBeFixed();
     }
 
     public void SetObjectiveObject(ObjectiveObject objectiveObj, bool canObjectiveRef)
@@ -40,6 +50,34 @@ public class InteractManager : MonoBehaviour
 
         canObjective = canObjectiveRef;
         objectiveObject = objectiveObj;
+    }
+
+    public void CheckIfNoElectronicsCanBeFixed()
+    {
+        foreach (RepairElectronic electronic in reparableElectronics)
+        {
+            if (electronic.canBeFixed)
+            {
+                noElectronicsCanBeFixed = false;
+            }
+        }
+
+        noElectronicsCanBeFixed = true;
+    }
+
+    public bool NoElectronicsCanBeFixed()
+    {
+        foreach (RepairElectronic electronic in reparableElectronics)
+        {
+            if (electronic.canBeFixed)
+            {
+                noElectronicsCanBeFixed = false;
+                return false;
+            }
+        }
+
+        noElectronicsCanBeFixed = true;
+        return true;
     }
 
     private void Update()

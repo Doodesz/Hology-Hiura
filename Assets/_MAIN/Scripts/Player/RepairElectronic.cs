@@ -10,12 +10,13 @@ public class RepairElectronic : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] Image fixIcon;
     [SerializeField] Image fixValueIcon;
+    [SerializeField] ControllableElectronic electronic;
 
     [Header("Variables")]
     public float fixValue = 0f;
     [SerializeField] float fixTime = 2f;
     public float fixMultiplier = 1f;
-    public bool canFix = false;
+    public bool canBeFixed = false;
 
     [Header("Debugging")]
     [SerializeField] Animator promptAnim;
@@ -31,24 +32,23 @@ public class RepairElectronic : MonoBehaviour
 
     private void Update()
     {
-        if (canFix)
+        if (electronic.isOnline)
+            UpdateIcons(false, 0f);
+        else
+            UpdateIcons(true, fixValue);
+
+        if (canBeFixed)
         {
             interactManager.SetFixObject(this, true);
-            UpdateIcons(true, fixValue);
         }
-        else
+        else if (interactManager.NoElectronicsCanBeFixed())
         {
             interactManager.SetFixObject(null, false);
-            UpdateIcons(false, fixValue);
         }
 
-        if (fixValue >= fixTime && canFix)
+        if (fixValue >= fixTime && canBeFixed)
         {
-            playerMovement.EnableMovement();
-            canFix = false;
-            UpdateIcons(false, 0f);
-
-            interactManager.SetFixObject(null, false);
+            CompleteElectronicRepair();
         }
     }
 
@@ -57,7 +57,16 @@ public class RepairElectronic : MonoBehaviour
         fixValue = 0f;
     }
 
-    void UpdateIcons(bool enable, float progressBar)
+    public void CompleteElectronicRepair()
+    {
+        playerMovement.EnableMovement();
+        canBeFixed = false;
+        fixValue = 0f;
+
+        interactManager.SetFixObject(null, false);
+    }
+
+    public void UpdateIcons(bool enable, float progressBar)
     {
         fixIcon.enabled = enable;
         fixValueIcon.fillAmount = progressBar / fixTime;

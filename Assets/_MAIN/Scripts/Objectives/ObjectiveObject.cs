@@ -29,7 +29,6 @@ public class ObjectiveObject : MonoBehaviour
             timeToCompleteValue += Time.deltaTime;
             CheckStatus();
         }
-
     }
 
     void CheckStatus()
@@ -44,6 +43,8 @@ public class ObjectiveObject : MonoBehaviour
     {
         isCompleted = true;
         ObjectiveManager.Instance.UpdateNewObjective();
+
+        interactManager.SetObjectiveObject(null, false);
     }
 
     private void OnTriggerStay(Collider other)

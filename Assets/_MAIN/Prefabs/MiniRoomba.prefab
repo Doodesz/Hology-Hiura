@@ -6848,6 +6848,7 @@ MonoBehaviour:
   playerMovement: {fileID: 4856672475802740141}
   fixIcon: {fileID: 6754425994917516896}
   fixValueIcon: {fileID: 1358364274902131458}
+  electronic: {fileID: 1927904257602888650}
   fixValue: 0
   fixTime: 2
   fixMultiplier: 1
