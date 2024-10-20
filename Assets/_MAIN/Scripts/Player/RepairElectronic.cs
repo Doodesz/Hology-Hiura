@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ControllableElectronic), typeof(PlayerMovement))]
 public class RepairElectronic : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] Image fixIcon;
+    [SerializeField] Image fixValueIcon;
 
     [Header("Variables")]
     public float fixValue = 0f;
@@ -22,19 +25,28 @@ public class RepairElectronic : MonoBehaviour
     {
         promptAnim = MainIngameUI.Instance.GetComponent<Animator>();
         interactManager = InteractManager.Instance;
+
+        UpdateIcons(false, 0f);
     }
 
     private void Update()
     {
         if (canFix)
+        {
             interactManager.SetFixObject(this, true);
+            UpdateIcons(true, fixValue);
+        }
         else
+        {
             interactManager.SetFixObject(null, false);
+            UpdateIcons(false, fixValue);
+        }
 
         if (fixValue >= fixTime && canFix)
         {
             playerMovement.EnableMovement();
             canFix = false;
+            UpdateIcons(false, 0f);
 
             interactManager.SetFixObject(null, false);
         }
@@ -43,5 +55,11 @@ public class RepairElectronic : MonoBehaviour
     public void InitializeDisabledBehaviour()
     {
         fixValue = 0f;
+    }
+
+    void UpdateIcons(bool enable, float progressBar)
+    {
+        fixIcon.enabled = enable;
+        fixValueIcon.fillAmount = progressBar / fixTime;
     }
 }
