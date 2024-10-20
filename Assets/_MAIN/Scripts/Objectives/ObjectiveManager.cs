@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[System.Serializable]
+public class Objective
+{
+    public bool isCompleted;
+    public string desc;
+    public ObjectiveObject objectiveObject;
+}
+
 public class ObjectiveManager : MonoBehaviour
 {
-    struct Objective
-    {
-        public bool isCompleted;
-        public string desc;
-
-        public void SetComplete() { isCompleted = true; }
-        public void SetIncomplete() { isCompleted = false; }
-    }
-
     //public delegate void ObjectiveDelegate();
     //public static event ObjectiveDelegate OnObjectiveComplete;
 
-
-    [Header("References")]
-    [SerializeField] TextMeshProUGUI objectiveText;
-
     [Header("Variables")]
-    List<Objective> objectives;
+    public List<Objective> objectives;
+
+    [Header("Debugging")]
+    [SerializeField] TextMeshProUGUI objectiveText;
     public int currIndex;
 
     [HideInInspector] public static ObjectiveManager Instance;
@@ -32,10 +30,24 @@ public class ObjectiveManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        // Get ref
+        objectiveText = MainIngameUI.Instance.objectiveText;
+
+        // Sets curr objective to 0
+        currIndex = 0;
+        foreach (var objective in objectives)
+        {
+            objective.isCompleted = false;
+        }
+        objectiveText.text = objectives[currIndex].desc;
+    }
+
     public void UpdateNewObjective()
     {
         // Get next objective
-        objectives[currIndex].SetComplete();
+        objectives[currIndex].isCompleted = true;
         currIndex++;
 
         // Update instruction

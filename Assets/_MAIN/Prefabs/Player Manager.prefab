@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6780198046622343858}
   - component: {fileID: 2074842777677847031}
+  - component: {fileID: 47341024210988319}
+  - component: {fileID: 7358322249025377296}
   - component: {fileID: 8508037805462740556}
   m_Layer: 0
   m_Name: Player Manager
@@ -51,6 +53,38 @@ MonoBehaviour:
     m_Bits: 156403
   currPlayerObj: {fileID: 0}
   lastSelected: {fileID: 0}
+--- !u!114 &47341024210988319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363179526868339359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833414aa2ae9ef142b21bcdcf6f17791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectives: []
+  objectiveText: {fileID: 0}
+  currIndex: 0
+--- !u!114 &7358322249025377296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363179526868339359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba968f2b68b66a5468d3b1286266310e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canFix: 0
+  fixObj: {fileID: 0}
+  canObjective: 0
+  objectiveObject: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &8508037805462740556
 MonoBehaviour:
   m_ObjectHideFlags: 0

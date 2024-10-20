@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] bool grounded;
     [SerializeField] MainIngameUI mainIngameUI;
+    [SerializeField] InteractManager interactManager;
     public bool isOverweighted;
 
     float horizontalInput;
@@ -55,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
         playerController = PlayerController.Instance;
         mainIngameUI = MainIngameUI.Instance;
+        interactManager = InteractManager.Instance;
 
         thisElectronicType = GetComponent<ControllableElectronic>().thisElectronicType;
     }
@@ -217,17 +219,23 @@ public class PlayerMovement : MonoBehaviour
             && playerController.currPlayerObj == gameObject)
         {
             otherMovement.repair.canFix = true;
-            mainIngameUI.anim.SetBool("showPrompt", true);
+            //mainIngameUI.anim.SetBool("showPrompt", true);
+            interactManager.SetFixObject(otherMovement.repair, true);
         }
         else if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement1)
             && playerController.currPlayerObj != gameObject)
         {
             otherMovement1.repair.canFix = false;
-            mainIngameUI.anim.SetBool("showPrompt", false);
+            //mainIngameUI.anim.SetBool("showPrompt", false);
+
+            if (interactManager.fixObj == null)
+                interactManager.SetFixObject(null, false);
         }
         else
         {
-            mainIngameUI.anim.SetBool("showPrompt", false);
+            //mainIngameUI.anim.SetBool("showPrompt", false);
+            if (interactManager.fixObj == null)
+                interactManager.SetFixObject(null, false);
         }
     }
 
@@ -246,7 +254,9 @@ public class PlayerMovement : MonoBehaviour
             && playerController.currPlayerObj == gameObject)
         {
             otherMovement.repair.canFix = false;
-            MainIngameUI.Instance.gameObject.GetComponent<Animator>().SetBool("showPrompt", false);
+            //mainIngameUI.anim.SetBool("showPrompt", false);
+            if (interactManager.fixObj != null)
+                interactManager.SetFixObject(null, false);
         }
     }
 

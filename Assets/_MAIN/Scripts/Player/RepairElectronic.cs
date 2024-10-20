@@ -9,31 +9,35 @@ public class RepairElectronic : MonoBehaviour
     [SerializeField] PlayerMovement playerMovement;
 
     [Header("Variables")]
-    [SerializeField] float fixValue = 0f;
+    public float fixValue = 0f;
     [SerializeField] float fixTime = 2f;
-    [SerializeField] float fixMultiplier = 1f;
+    public float fixMultiplier = 1f;
     public bool canFix = false;
 
     [Header("Debugging")]
     [SerializeField] Animator promptAnim;
+    [SerializeField] InteractManager interactManager;
 
     private void Start()
     {
-        promptAnim = MainIngameUI.Instance.GetComponent<Animator>(); 
+        promptAnim = MainIngameUI.Instance.GetComponent<Animator>();
+        interactManager = InteractManager.Instance;
     }
 
     private void Update()
     {
-        if (canFix && Input.GetKey(KeyCode.F) && PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().isOnline)
+        /*if (canFix && Input.GetKey(KeyCode.F) && PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().isOnline)
         {
             fixValue += Time.deltaTime * fixMultiplier;
-        }
+        }*/
 
         if (fixValue >= fixTime && canFix)
         {
             playerMovement.EnableMovement();
-            promptAnim.SetBool("showPrompt", false);
-            canFix = false; 
+            //promptAnim.SetBool("showPrompt", false);
+            canFix = false;
+
+            interactManager.SetFixObject(null, false);
         }
     }
 

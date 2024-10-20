@@ -8,8 +8,16 @@ public class ObjectiveObject : MonoBehaviour
     [SerializeField] float timeToComplete;
 
     [Header("Debugging")]
-    [SerializeField] float timeToCompleteValue;
+    public float timeToCompleteValue;
     [SerializeField] bool canBeInteracted;
+    [SerializeField] ObjectiveManager objectiveManager;
+    [SerializeField] InteractManager interactManager;
+
+    private void Start()
+    {
+        objectiveManager = ObjectiveManager.Instance;
+        interactManager = InteractManager.Instance;
+    }
 
     private void Update()
     {
@@ -37,13 +45,28 @@ public class ObjectiveObject : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 7 && other.gameObject == PlayerController.Instance.currPlayerObj)
+        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
+            && otherScript.gameObject == PlayerController.Instance.currPlayerObj
+            && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
         {
             canBeInteracted = true;
+            interactManager.SetObjectiveObject(this, true);
         }
         else
         {
             canBeInteracted = false;
+            interactManager.SetObjectiveObject(null, false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
+            && otherScript.gameObject == PlayerController.Instance.currPlayerObj
+            && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+        {
+            canBeInteracted = false;
+            interactManager.SetObjectiveObject(null, false);
         }
     }
 }

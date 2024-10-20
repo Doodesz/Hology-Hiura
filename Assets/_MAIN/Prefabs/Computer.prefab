@@ -286,7 +286,8 @@ GameObject:
   - component: {fileID: 968323491150702770}
   - component: {fileID: 1939052823144576391}
   - component: {fileID: 214550629616683032}
-  m_Layer: 0
+  - component: {fileID: 9188325782986183910}
+  m_Layer: 2
   m_Name: Computer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,5 +350,22 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.6, y: 8.937733, z: 2.7}
+  m_Size: {x: 13, y: 8.937733, z: 6}
   m_Center: {x: 0, y: 3.9688663, z: 0}
+--- !u!114 &9188325782986183910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973793826088283778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df16f24c64c342c4f8da8300bc9327c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCompleted: 0
+  timeToComplete: 3
+  timeToCompleteValue: 0
+  canBeInteracted: 0
+  objectiveManager: {fileID: 0}
