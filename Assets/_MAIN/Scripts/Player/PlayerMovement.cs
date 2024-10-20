@@ -209,6 +209,15 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isPushing", true);
         }
+
+        // Show repair prompt when near a disabled electronic
+        if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+            && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
+            && playerController.currPlayerObj == gameObject)
+        {
+            otherMovement.repair.canBeFixed = true;
+            interactManager.CheckIfNoElectronicsCanBeFixed();
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -236,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("isPushing", false);
         }
 
-        // Show repair prompt when near a disabled electronic
+        // Hide repair prompt when far from a disabled electronic
         if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)

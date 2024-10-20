@@ -71,7 +71,8 @@ public class ObjectiveObject : MonoBehaviour
         {
             if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
                 && otherScript.gameObject == PlayerController.Instance.currPlayerObj
-                && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+                && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this
+                && otherScript.thisElectronicType == ElectronicType.Humanoid)
             {
                 if (type == ObjectiveType.Interact)
                 {
@@ -82,6 +83,12 @@ public class ObjectiveObject : MonoBehaviour
                 {
                     OnInteractCompleted();
                 }
+            }
+            else if (other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript1) 
+                && (otherScript1.thisElectronicType == ElectronicType.Roomba
+                || otherScript1.thisElectronicType == ElectronicType.Drone))
+            {
+                // hint can only use minibot
             }
             else
             {
