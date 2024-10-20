@@ -16,6 +16,7 @@ public class InteractManager : MonoBehaviour
 
     [Header("Debugging")]
     [SerializeField] Animator anim;
+    [SerializeField] PlayerController playerController;
 
     public static InteractManager Instance;
 
@@ -26,12 +27,13 @@ public class InteractManager : MonoBehaviour
 
     private void Start()
     { 
-        // Adds all controllable electronics
+        playerController = PlayerController.Instance;
+
+        // Adds all controllable electronics and objectives
         foreach (RepairElectronic electronic in FindObjectsOfType(typeof(RepairElectronic)))
         {
             reparableElectronics.Add(electronic);
         }
-
         foreach (ObjectiveObject objectiveObject in FindObjectsOfType(typeof(ObjectiveObject)))
         {
             objectiveObjects.Add(objectiveObject);
@@ -129,7 +131,8 @@ public class InteractManager : MonoBehaviour
                 fixObj.fixValue += Time.deltaTime * fixObj.fixMultiplier;
             }
         }
-        else if (canObjective)
+        else if (canObjective 
+            && playerController.currPlayerObj.GetComponent<ControllableElectronic>().thisElectronicType == ElectronicType.Humanoid)
         {
             anim.SetBool("showPrompt", true);
 
