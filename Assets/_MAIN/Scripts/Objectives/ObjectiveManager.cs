@@ -13,8 +13,8 @@ public class Objective
 
 public class ObjectiveManager : MonoBehaviour
 {
-    //public delegate void ObjectiveDelegate();
-    //public static event ObjectiveDelegate OnObjectiveComplete;
+    public delegate void ObjectiveDelegate();
+    public static event ObjectiveDelegate OnLevelComplete;
 
     [Header("Variables")]
     public List<Objective> objectives;
@@ -50,9 +50,21 @@ public class ObjectiveManager : MonoBehaviour
         objectives[currIndex].isCompleted = true;
         currIndex++;
 
+        // If next index is beyond available index, complete level
+        if (currIndex > objectives.Count)
+        {
+            CompleteLevel();
+            return;
+        }
+
         // Update instruction
         objectiveText.text = objectives[currIndex].desc;
     }
 
-    
+    private void CompleteLevel()
+    {
+        OnLevelComplete();
+
+        Time.timeScale = 0f;
+    }
 }

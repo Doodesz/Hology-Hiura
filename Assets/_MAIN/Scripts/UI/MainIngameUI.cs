@@ -14,4 +14,19 @@ public class MainIngameUI : MonoBehaviour
     {
         Instance = this;
     }
+
+    private void OnEnable()
+    {
+        ObjectiveManager.OnLevelComplete += ShowLevelCompleteScreen;
+    }
+
+    private void OnDisable()
+    {
+        ObjectiveManager.OnLevelComplete -= ShowLevelCompleteScreen;
+    }
+
+    void ShowLevelCompleteScreen()
+    {
+
+    }
 }

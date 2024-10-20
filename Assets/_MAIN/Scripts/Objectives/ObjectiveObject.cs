@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ObjectiveType { Interact, Exit  };
+
 public class ObjectiveObject : MonoBehaviour
 {
     [SerializeField] bool isCompleted;
     [SerializeField] float timeToComplete;
+    [SerializeField] ObjectiveType type;
 
     [Header("Debugging")]
     public float timeToCompleteValue;
@@ -24,14 +27,14 @@ public class ObjectiveObject : MonoBehaviour
         if (canBeInteracted && Input.GetKey(KeyCode.F) && !isCompleted)
         {
             timeToCompleteValue += Time.deltaTime;
+            CheckStatus();
         }
 
-        CheckStatus();
     }
 
     void CheckStatus()
     {
-        if (timeToCompleteValue > timeToComplete)
+        if (timeToCompleteValue > timeToComplete && !isCompleted)
         {
             OnInteractCompleted();
         }
@@ -45,28 +48,49 @@ public class ObjectiveObject : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
-            && otherScript.gameObject == PlayerController.Instance.currPlayerObj
-            && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+        if (!isCompleted)
         {
-            canBeInteracted = true;
-            interactManager.SetObjectiveObject(this, true);
-        }
-        else
-        {
-            canBeInteracted = false;
-            interactManager.SetObjectiveObject(null, false);
+            if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
+                && otherScript.gameObject == PlayerController.Instance.currPlayerObj
+                && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+            {
+                if (type == ObjectiveType.Interact)
+                {
+                    canBeInteracted = true;
+                    interactManager.SetObjectiveObject(this, true);
+                }
+                else if (type == ObjectiveType.Exit)
+                {
+                    OnInteractCompleted();
+                }
+            }
+            else
+            {
+                if (type == ObjectiveType.Interact)
+                {
+                    canBeInteracted = false;
+                    interactManager.SetObjectiveObject(null, false);
+                }
+
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
-            && otherScript.gameObject == PlayerController.Instance.currPlayerObj
-            && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+        if (!isCompleted)
         {
-            canBeInteracted = false;
-            interactManager.SetObjectiveObject(null, false);
+            if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
+                && otherScript.gameObject == PlayerController.Instance.currPlayerObj
+                && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+            {
+                if (type == ObjectiveType.Interact)
+                {
+                    canBeInteracted = false;
+                    interactManager.SetObjectiveObject(null, false);
+                }
+            }
+
         }
     }
 }
