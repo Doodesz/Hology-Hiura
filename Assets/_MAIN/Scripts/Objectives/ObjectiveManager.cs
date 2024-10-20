@@ -57,8 +57,9 @@ public class ObjectiveManager : MonoBehaviour
             return;
         }
 
-        // Update instruction
+        // Update instruction and indicator
         objectiveText.text = objectives[currIndex].desc;
+        objectives[currIndex].objectiveObject.objectiveIcon.enabled = true;
     }
 
     private void CompleteLevel()

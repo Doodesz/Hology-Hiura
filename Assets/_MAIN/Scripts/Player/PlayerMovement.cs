@@ -219,8 +219,6 @@ public class PlayerMovement : MonoBehaviour
             && playerController.currPlayerObj == gameObject)
         {
             otherMovement.repair.canBeFixed = true;
-            //mainIngameUI.anim.SetBool("showPrompt", true);
-            //interactManager.SetFixObject(otherMovement.repair, true);
         }
         else if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement1)
             && playerController.currPlayerObj != gameObject)

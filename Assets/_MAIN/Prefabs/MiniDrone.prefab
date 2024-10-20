@@ -5531,7 +5531,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f65cd162346a0d8429fce4335fbb1a60, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6854,7 +6854,7 @@ MonoBehaviour:
   fixValue: 0
   fixTime: 2
   fixMultiplier: 1
-  canFix: 0
+  canBeFixed: 0
   promptAnim: {fileID: 0}
   interactManager: {fileID: 0}
 --- !u!114 &1468813370019341080

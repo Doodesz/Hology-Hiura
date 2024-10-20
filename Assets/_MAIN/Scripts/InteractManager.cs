@@ -11,6 +11,8 @@ public class InteractManager : MonoBehaviour
 
     public bool canObjective;
     public ObjectiveObject objectiveObject;
+    public List<ObjectiveObject> objectiveObjects = new List<ObjectiveObject>();
+    public bool noObjectivesCanBeInteracted;
 
     [Header("Debugging")]
     [SerializeField] Animator anim;
@@ -65,6 +67,19 @@ public class InteractManager : MonoBehaviour
         noElectronicsCanBeFixed = true;
     }
 
+    public void CheckIfNoObjectivesCanBeInteracted()
+    {
+        foreach (ObjectiveObject obj in objectiveObjects)
+        {
+            if (obj.canBeInteracted)
+            {
+                noObjectivesCanBeInteracted = false;
+            }
+        }
+
+        noObjectivesCanBeInteracted = true;
+    }
+
     public bool NoElectronicsCanBeFixed()
     {
         foreach (RepairElectronic electronic in reparableElectronics)
@@ -77,6 +92,21 @@ public class InteractManager : MonoBehaviour
         }
 
         noElectronicsCanBeFixed = true;
+        return true;
+    }
+
+    public bool NoObjectivesCanBeInteracted()
+    {
+        foreach (ObjectiveObject obj in objectiveObjects)
+        {
+            if (obj.canBeInteracted)
+            {
+                noObjectivesCanBeInteracted = false;
+                return false;
+            }
+        }
+
+        noObjectivesCanBeInteracted = true;
         return true;
     }
 
