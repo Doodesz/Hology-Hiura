@@ -226,16 +226,6 @@ public class PlayerMovement : MonoBehaviour
             && playerController.currPlayerObj != gameObject)
         {
             otherMovement1.repair.canFix = false;
-            //mainIngameUI.anim.SetBool("showPrompt", false);
-
-            if (interactManager.fixObj == null)
-                interactManager.SetFixObject(null, false);
-        }
-        else
-        {
-            //mainIngameUI.anim.SetBool("showPrompt", false);
-            if (interactManager.fixObj == null)
-                interactManager.SetFixObject(null, false);
         }
     }
 
@@ -254,9 +244,6 @@ public class PlayerMovement : MonoBehaviour
             && playerController.currPlayerObj == gameObject)
         {
             otherMovement.repair.canFix = false;
-            //mainIngameUI.anim.SetBool("showPrompt", false);
-            if (interactManager.fixObj != null)
-                interactManager.SetFixObject(null, false);
         }
     }
 
