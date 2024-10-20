@@ -670,7 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 887
+    m_Bits: 883
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
@@ -7167,7 +7167,7 @@ MonoBehaviour:
   fixValue: 0
   fixTime: 2
   fixMultiplier: 1
-  canFix: 0
+  canBeFixed: 0
   promptAnim: {fileID: 0}
   interactManager: {fileID: 0}
 --- !u!114 &6683248147297498880
