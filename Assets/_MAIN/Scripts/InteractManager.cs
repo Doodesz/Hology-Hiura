@@ -19,14 +19,22 @@ public class InteractManager : MonoBehaviour
 
     public static InteractManager Instance;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
+    }
 
+    private void Start()
+    { 
         // Adds all controllable electronics
         foreach (RepairElectronic electronic in FindObjectsOfType(typeof(RepairElectronic)))
         {
             reparableElectronics.Add(electronic);
+        }
+
+        foreach (ObjectiveObject objectiveObject in FindObjectsOfType(typeof(ObjectiveObject)))
+        {
+            objectiveObjects.Add(objectiveObject);
         }
 
         anim = MainIngameUI.Instance.anim;
