@@ -66,5 +66,7 @@ public class ObjectiveManager : MonoBehaviour
         OnLevelComplete();
 
         Time.timeScale = 0f;
+
+        Debug.Log("Level completed!");
     }
 }
