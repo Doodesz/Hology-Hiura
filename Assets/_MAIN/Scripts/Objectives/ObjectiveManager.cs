@@ -51,22 +51,28 @@ public class ObjectiveManager : MonoBehaviour
         currIndex++;
 
         // If next index is beyond available index, complete level
-        if (currIndex > objectives.Count)
+        if (currIndex > objectives.Count - 1)
         {
             CompleteLevel();
-            return;
         }
-
-        // Update instruction and indicator
-        objectiveText.text = objectives[currIndex].desc;
-        objectives[currIndex].objectiveObject.objectiveIcon.enabled = true;
+        else
+        {
+            // Update instruction and indicator
+            objectiveText.text = objectives[currIndex].desc;
+            objectives[currIndex].objectiveObject.objectiveIcon.enabled = true;
+        }
     }
 
     private void CompleteLevel()
     {
         OnLevelComplete();
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 0f;
+
+        foreach (AudioSource audio in FindObjectsOfType(typeof(AudioSource)))
+            audio.volume = 0.05f;        
 
         Debug.Log("Level completed!");
     }

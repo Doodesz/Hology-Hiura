@@ -7,6 +7,7 @@ public class MainIngameUI : MonoBehaviour
 {
     public Animator anim;
     public TextMeshProUGUI objectiveText;
+    public GameObject levelCompleteObj;
 
     public static MainIngameUI Instance;
 
@@ -27,6 +28,6 @@ public class MainIngameUI : MonoBehaviour
 
     void ShowLevelCompleteScreen()
     {
-
+        levelCompleteObj.SetActive(true);
     }
 }

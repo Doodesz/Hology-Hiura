@@ -69,7 +69,8 @@ public class ObjectiveObject : MonoBehaviour
     {
         if (!isCompleted)
         {
-            if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
+            if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) 
+                && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
                 && otherScript.gameObject == PlayerController.Instance.currPlayerObj
                 && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
             {
