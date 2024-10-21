@@ -7101,7 +7101,7 @@ MonoBehaviour:
   repair: {fileID: 3870421570976013811}
   soundManager: {fileID: 6683248147297498880}
   rb: {fileID: 8876212193691703550}
-  moveSpeed: 38
+  moveSpeed: 45
   movementDrag: 5
   isPushing: 0
   walkSpeed: 0
@@ -7226,7 +7226,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8792443662300924499}
   serializedVersion: 4
-  m_Mass: 5
+  m_Mass: 7
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 1, z: 0}
@@ -7439,7 +7439,7 @@ MonoBehaviour:
   outlineMode: 1
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 5
-  precomputeOutline: 1
+  precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
 --- !u!199 &2425027981122980230

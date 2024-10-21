@@ -107,23 +107,16 @@ public class PlayerMovement : MonoBehaviour
                 if (!soundManager.moveSfx.isPlaying)
                     soundManager.PlayMove();
             }
-            else if (thisElectronicType == ElectronicType.Humanoid)
+            else 
             {
-                anim.SetBool("isWalking", false);
-
+                if (thisElectronicType == ElectronicType.Humanoid)
+                    anim.SetBool("isWalking", false);
+                
                 // Pause move sfx
                 if (soundManager.moveSfx.isPlaying)
                     soundManager.PauseMove();
             }
 
-            // If this is a drone
-            if (thisElectronicType == ElectronicType.Drone)
-            {
-                if (Input.GetKey(KeyCode.Q))
-                    Descend();
-                if (Input.GetKey(KeyCode.E))
-                    Ascend();
-            }
         }
 
         else
@@ -136,8 +129,23 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isWalking", false);
 
             // Pause move sfx
-            if (soundManager.moveSfx.isPlaying)
+            if (soundManager.moveSfx.isPlaying && thisElectronicType != ElectronicType.Drone)
                 soundManager.PauseMove();
+        }
+
+        // If this is a drone
+        if (thisElectronicType == ElectronicType.Drone && playerController.currPlayerObj == gameObject)
+        {
+            if (Input.GetKey(KeyCode.Q))
+                Descend();
+            if (Input.GetKey(KeyCode.E))
+                Ascend();
+
+            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Q))
+            {
+                if (!soundManager.moveSfx.isPlaying)
+                    soundManager.PlayMove();
+            }
         }
 
         // For checking curr speed

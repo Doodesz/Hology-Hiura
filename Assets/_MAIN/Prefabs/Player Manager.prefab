@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 47341024210988319}
   - component: {fileID: 7358322249025377296}
   - component: {fileID: 8508037805462740556}
+  - component: {fileID: 7163993455544180899}
   m_Layer: 0
   m_Name: Player Manager
   m_TagString: Untagged
@@ -65,7 +66,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833414aa2ae9ef142b21bcdcf6f17791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectives: []
+  objectives:
+  - isCompleted: 0
+    desc: Ambil Data di Komputer 1!
+    objectiveObject: {fileID: 0}
+  - isCompleted: 0
+    desc: Ambil Data di Komputer 2!
+    objectiveObject: {fileID: 0}
+  - isCompleted: 0
+    desc: Cari Cara untuk Kabur!
+    objectiveObject: {fileID: 0}
   objectiveText: {fileID: 0}
   currIndex: 0
 --- !u!114 &7358322249025377296
@@ -82,9 +92,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canFix: 0
   fixObj: {fileID: 0}
+  reparableElectronics: []
+  noElectronicsCanBeFixed: 0
   canObjective: 0
   objectiveObject: {fileID: 0}
+  objectiveObjects: []
+  noObjectivesCanBeInteracted: 0
   anim: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!114 &8508037805462740556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +127,103 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.26666668
+  m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 9f1db5e6b8ea391499779778eea91c72, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 73a5e6cf4af9c164cba898f869d3f5b1, type: 2}
   m_BuildHeightMesh: 0
+--- !u!82 &7163993455544180899
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363179526868339359}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 291658ebe7069b645a5827e9a27564f1, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.25
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
