@@ -927,11 +927,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6075882574298291388, guid: e48ed360a83e6ce45be7e2ae0235efb3,
         type: 3}
-      propertyPath: objectsToTrigger.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075882574298291388, guid: e48ed360a83e6ce45be7e2ae0235efb3,
-        type: 3}
       propertyPath: objectsToTrigger.Array.data[0]
       value: 
       objectReference: {fileID: 220870871}
@@ -990,6 +985,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e48ed360a83e6ce45be7e2ae0235efb3, type: 3}
+--- !u!114 &215667548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7965712919934847502, guid: e48ed360a83e6ce45be7e2ae0235efb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 215667547}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df16f24c64c342c4f8da8300bc9327c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &220870870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9343,6 +9350,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
+      propertyPath: objectives.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
+        type: 3}
+      propertyPath: objectives.Array.data[3].desc
+      value: Cari Cara untuk Kabur!
+      objectReference: {fileID: 0}
+    - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
+        type: 3}
       propertyPath: objectives.Array.data[0].objectiveObject
       value: 
       objectReference: {fileID: 4335353197668772049}
@@ -9354,6 +9371,11 @@ PrefabInstance:
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[2].objectiveObject
+      value: 
+      objectReference: {fileID: 215667548}
+    - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
+        type: 3}
+      propertyPath: objectives.Array.data[3].objectiveObject
       value: 
       objectReference: {fileID: 1941514515}
     - target: {fileID: 363179526868339359, guid: 14af6e5d4c686e645929070fce58fcad,

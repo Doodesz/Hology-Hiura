@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,17 +28,16 @@ public class ObjectiveObject : MonoBehaviour
         objectiveManager = ObjectiveManager.Instance;
         interactManager = InteractManager.Instance;
 
+        objectiveIcon.enabled = false;
         if (objectiveManager.objectives[0].objectiveObject == this)
             objectiveIcon.enabled = true;
-        else
-            objectiveIcon.enabled = false;
 
         objectiveValueIcon.fillAmount = 0;
     }
 
     private void Update()
     {
-        if (canBeInteracted && Input.GetKey(KeyCode.F) && !isCompleted)
+        if (canBeInteracted && Input.GetKey(KeyCode.F) && !isCompleted && type != ObjectiveType.Hold)
         {
             //timeToCompleteValue += Time.deltaTime;
             CheckStatus();
@@ -57,7 +57,7 @@ public class ObjectiveObject : MonoBehaviour
     void OnInteractCompleted()
     {
         isCompleted = true;
-        ObjectiveManager.Instance.UpdateNewObjective();
+        objectiveManager.UpdateNewObjective();
 
         interactManager.SetObjectiveObject(null, false);
 
@@ -67,7 +67,7 @@ public class ObjectiveObject : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!isCompleted)
+        if (!isCompleted && type != ObjectiveType.Hold)
         {
             if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) 
                 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
@@ -100,19 +100,32 @@ public class ObjectiveObject : MonoBehaviour
 
             }
         }
+
+        else if (type == ObjectiveType.Hold && (other.gameObject.layer == 7 || other.gameObject.layer == 13))
+        {
+                isCompleted = true;
+                objectiveManager.UpdateNewObjective();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
             && otherScript.gameObject == PlayerController.Instance.currPlayerObj
-            && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+            && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this
+            && type != ObjectiveType.Hold)
         {
             if (type == ObjectiveType.Interact)
             {
                 canBeInteracted = false;
                 interactManager.SetObjectiveObject(null, false);
             }
+        }
+
+        else if (type == ObjectiveType.Hold && (other.gameObject.layer == 7 || other.gameObject.layer == 13))
+        {
+            isCompleted = false;
+            objectiveManager.UpdateNewObjective();
         }
     }
 }

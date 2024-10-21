@@ -46,6 +46,9 @@ public class ObjectiveManager : MonoBehaviour
 
     public void UpdateNewObjective()
     {
+        // Resets before checking for new value
+        currIndex = 0;
+
         // Updates objective list based on their object completion state
         foreach (var objective in objectives)
         { 
@@ -69,6 +72,10 @@ public class ObjectiveManager : MonoBehaviour
         {
             // Update instruction and indicator
             objectiveText.text = objectives[currIndex].desc;
+
+            foreach (var objective in objectives)
+                objective.objectiveObject.objectiveIcon.enabled = false;
+
             objectives[currIndex].objectiveObject.objectiveIcon.enabled = true;
         }
     }
