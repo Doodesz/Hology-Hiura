@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ObjectiveType { Interact, Exit  };
+public enum ObjectiveType { Interact, Exit, Hold };
 
 public class ObjectiveObject : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class ObjectiveObject : MonoBehaviour
     [SerializeField] Image objectiveValueIcon;
 
     [Header("Variables")]
-    [SerializeField] bool isCompleted;
+    public bool isCompleted;
     [SerializeField] float timeToComplete;
     [SerializeField] ObjectiveType type;
 

@@ -46,12 +46,22 @@ public class ObjectiveManager : MonoBehaviour
 
     public void UpdateNewObjective()
     {
-        // Get next objective
-        objectives[currIndex].isCompleted = true;
-        currIndex++;
+        // Updates objective list based on their object completion state
+        foreach (var objective in objectives)
+        { 
+            objective.isCompleted = objective.objectiveObject.isCompleted;
+        }
+
+        // Updates currIndex based on the first incomplete objective object in list
+        foreach (var objective in objectives)
+        {
+            if (!objective.isCompleted)
+                break;
+            currIndex++;
+        }
 
         // If next index is beyond available index, complete level
-        if (currIndex > objectives.Count - 1)
+        if (currIndex >= objectives.Count - 1 && objectives[currIndex].objectiveObject.isCompleted)
         {
             CompleteLevel();
         }
