@@ -63,8 +63,8 @@ public class FieldOfView : MonoBehaviour
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, obj.transform.position);
 
-                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask)
-                        && obj.layer == 7 && obj.transform.position.y < transform.position.y + 10f
+                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget + 10f, obstructionMask)
+                        && (obj.layer == 7 || obj.layer == 17 ) && obj.transform.position.y < transform.position.y + 10f
                         && obj.TryGetComponent<ControllableElectronic>(out ControllableElectronic script)
                         && script.isOnline == true)
                     {

@@ -50,11 +50,15 @@ public class PlayerController : MonoBehaviour
         {
             // Updates lastSelected obj and fix when multiple obj is hit
             if (lastSelected != null && controllableObject != lastSelected)
-                lastSelected.outline.enabled = false;
+            {
+                lastSelected.outline.OutlineColor = Color.black;
+                lastSelected.outline.OutlineMode = Outline.Mode.OutlineVisible;
+            }
             lastSelected = controllableObject;
 
             // Outlines the selected object
-            controllableObject.outline.enabled = true;
+            controllableObject.outline.OutlineColor = Color.white;
+            controllableObject.outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
 
             // Switch to object when right-clicked
             if (Input.GetMouseButtonUp(1))
@@ -67,7 +71,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (lastSelected != null)
         {
-            lastSelected.outline.enabled = false;
+            lastSelected.outline.OutlineColor = Color.black;
+            lastSelected.outline.OutlineMode = Outline.Mode.OutlineVisible;
         }
     }
 

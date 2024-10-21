@@ -559,7 +559,7 @@ public class ChaosBot : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script)
+        if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script)
             && other.GetComponent<ControllableElectronic>().isOnline)
         { 
             electronicIsClose = true;
@@ -571,7 +571,7 @@ public class ChaosBot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 7 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script) 
+        if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic script) 
             && other.GetComponent<ControllableElectronic>().isOnline)
         {
             electronicIsClose = true;
@@ -581,7 +581,7 @@ public class ChaosBot : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 7)
+        if ((other.gameObject.layer == 7 || other.gameObject.layer == 17))
         {
             if (oneOfPlayerObjs.Contains(other.gameObject))
                 oneOfPlayerObjs.Remove(other.gameObject);

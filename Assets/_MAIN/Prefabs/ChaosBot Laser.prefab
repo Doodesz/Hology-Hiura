@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 5
-  speed: 20
+  speed: 10
   postImpactLaserObj: {fileID: 1220314741095780781, guid: 7c989c71cd4d6284c8ed12175bf4a2fe,
     type: 3}
 --- !u!65 &9028949260823341243
