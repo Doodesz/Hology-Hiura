@@ -72,7 +72,9 @@ public class ObjectiveManager : MonoBehaviour
         Time.timeScale = 0f;
 
         foreach (AudioSource audio in FindObjectsOfType(typeof(AudioSource)))
-            audio.volume = 0.05f;        
+            audio.volume = 0.05f;
+
+        BlurManager.Instance.BlurCamera();
 
         Debug.Log("Level completed!");
     }

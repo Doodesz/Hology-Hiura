@@ -9,6 +9,7 @@ public class MainIngameUI : MonoBehaviour
     public TextMeshProUGUI objectiveText;
     public GameObject levelCompleteObj;
     public GameObject pauseScreen;
+    public List<GameObject> hiddenObjsOnPause = new List<GameObject>();
 
     public static MainIngameUI Instance;
 

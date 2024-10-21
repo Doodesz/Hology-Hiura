@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] MainIngameUI ui;
     [SerializeField] GameObject pauseScreen;
+    List<Canvas> chaosbotCanvases = new List<Canvas>();
+    [SerializeField] List<GameObject> hiddenObjsOnPause;
 
     public static GameManager Instance;
 
@@ -35,6 +37,13 @@ public class GameManager : MonoBehaviour
     {
         ui = MainIngameUI.Instance;
         pauseScreen = ui.pauseScreen;
+        hiddenObjsOnPause = ui.hiddenObjsOnPause;
+
+        foreach (Canvas canvas in FindObjectsOfType(typeof(Canvas)))
+        {
+            if (canvas.transform.parent.gameObject.layer == 12)
+                chaosbotCanvases.Add(canvas);
+        }
     }
 
     // Update is called once per frame
@@ -72,21 +81,33 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = false;
         
         BlurManager.Instance.BlurCamera();
+
+        foreach (Canvas canvas in chaosbotCanvases)
+            canvas.gameObject.SetActive(false);
+
+        foreach (GameObject obj in hiddenObjsOnPause)
+            obj.SetActive(false);
     }
 
     public void UnpauseGame()
     {
+        gamePaused = false;
+
+        Time.timeScale = 1f;
+
         ui.anim.SetBool("isPaused", false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        gamePaused = false;
-
-        Time.timeScale = 1f;
-
         PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = true;
 
         BlurManager.Instance.UnblurCamera();
+
+        foreach (Canvas canvas in chaosbotCanvases)
+            canvas.gameObject.SetActive(true);
+
+        foreach (GameObject obj in hiddenObjsOnPause)
+            obj.SetActive(true);
     }
 }
