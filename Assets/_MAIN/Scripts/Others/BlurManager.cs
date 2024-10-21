@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class BlurManager : MonoBehaviour
 {
-    //[SerializeField] Volume volume;
-    [SerializeField] DepthOfField dof;
+    VolumeProfile volumeProfile;
+    DepthOfField dof;
 
     public static BlurManager Instance;
 
@@ -19,19 +17,19 @@ public class BlurManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //volume = GetComponent<Volume>();
-        dof = GetComponent<DepthOfField>();
-
-        dof.focusDistance = new MinFloatParameter(20f, 0.1f, false);
+        volumeProfile = GetComponent<Volume>().profile;
+        if (!volumeProfile.TryGet(out dof)) throw new System.NullReferenceException(nameof(dof));
+        
+        dof.focusDistance.Override(20f);
     }
 
     public void BlurCamera()
     {
-        dof.focusDistance = new MinFloatParameter(20f, 0.1f, false);
+        dof.focusDistance.Override(0.01f);
     }
 
     public void UnblurCamera()
     {
-        dof.focusDistance = new MinFloatParameter(0.01f, 0.1f, false);
+        dof.focusDistance.Override(20f);
     }
 }

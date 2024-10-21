@@ -8,6 +8,7 @@ public class MainIngameUI : MonoBehaviour
     public Animator anim;
     public TextMeshProUGUI objectiveText;
     public GameObject levelCompleteObj;
+    public GameObject pauseScreen;
 
     public static MainIngameUI Instance;
 

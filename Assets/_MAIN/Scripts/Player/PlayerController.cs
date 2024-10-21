@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] ControllableElectronic lastSelected;
 
-    public delegate void SwitchElectronic();
-    public static event SwitchElectronic OnSwitchElectronic;
+    public delegate void PlayerControllerDelegate();
+    public static event PlayerControllerDelegate OnSwitchElectronic;
 
     [SerializeField] RaycastHit rayHitInfo;
 

@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class PauseScreenButtons : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnResumeClicked()
     {
-        
+        GameManager.Instance.UnpauseGame();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnQuitClicked()
     {
-        
+        // return to main menu
     }
 }
