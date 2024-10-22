@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 enum ExitingTo { None, EnterLevel, Quit };
 
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] Animator anim;
-    [SerializeField] bool isExitingScene;
+    [SerializeField] bool exitingScene;
     [SerializeField] ExitingTo exitingTo;
-    public string targetScene;
+    public string newSceneName;
 
     public static MainMenuManager Instance;
 
@@ -18,16 +19,25 @@ public class MainMenuManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (anim.GetCurrentAnimatorStateInfo(1).IsName("Trigger State"))
+        {
+            SceneManager.LoadScene(newSceneName);
+        }
+    }
+
     public void OnPlayClick()
     {
-        if (!isExitingScene)
+        if (!exitingScene)
         {
-            anim.SetTrigger("exitScene");
-            isExitingScene = true;
-            exitingTo = ExitingTo.EnterLevel;
+            /*anim.SetTrigger("exitScene");
+            exitingScene = true;
+            exitingTo = ExitingTo.EnterLevel;*/
 
             // load last saved level
 
+            GoToScene("Level 1");
         }
     }
 
@@ -43,12 +53,22 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnExitClick()
     {
-        if (!isExitingScene)
+        if (!exitingScene)
         {
             anim.SetTrigger("exitScene");
-            isExitingScene = true;
+            exitingScene = true;
             exitingTo = ExitingTo.Quit;
 
+        }
+    }
+
+    public void GoToScene(string sceneName)
+    {
+        if (!exitingScene)
+        {
+            anim.SetTrigger("exitScene");
+            exitingScene = true;
+            newSceneName = sceneName;
         }
     }
 }

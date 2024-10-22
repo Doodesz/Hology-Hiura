@@ -9,13 +9,11 @@ public class LevelCompleteButtons : MonoBehaviour
 
     public void GoToNextLevel()
     {
-        SceneManager.LoadSceneAsync(nextLevelSceneName);
-        Time.timeScale = 1.0f;
+        GameManager.Instance.GoToScene(nextLevelSceneName);
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadSceneAsync("MainMenu");
-        Time.timeScale = 1.0f;
+        GameManager.Instance.QuitToMainMenu();
     }
 }

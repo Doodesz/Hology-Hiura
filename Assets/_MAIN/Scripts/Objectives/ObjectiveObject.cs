@@ -11,6 +11,7 @@ public class ObjectiveObject : MonoBehaviour
     [Header("References")]
     public Image objectiveIcon;
     [SerializeField] Image objectiveValueIcon;
+    [SerializeField] Computer computer;
 
     [Header("Variables")]
     public bool isCompleted;
@@ -63,6 +64,9 @@ public class ObjectiveObject : MonoBehaviour
 
         objectiveIcon.enabled = false;
         objectiveValueIcon.fillAmount = 0f;
+
+        if (type == ObjectiveType.Interact)
+            computer.PlayVideo();
     }
 
     private void OnTriggerStay(Collider other)

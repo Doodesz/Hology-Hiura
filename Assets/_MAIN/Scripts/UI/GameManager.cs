@@ -6,13 +6,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public bool gamePaused;
+    public List<GameObject> hiddenObjsOnPause;
 
     [Header("Debugging")]
     [SerializeField] MainIngameUI ui;
     [SerializeField] GameObject pauseScreen;
     List<Canvas> chaosbotCanvases = new List<Canvas>();
-    [SerializeField] List<GameObject> hiddenObjsOnPause;
     [SerializeField] bool exitingScene;
+    [SerializeField] bool goingToNewScene;
+    [SerializeField] string newSceneName;
+    [SerializeField] bool goingToMainMenu;
+    public bool isPlayingAVideo;
 
     public static GameManager Instance;
 
@@ -53,7 +57,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene)
+        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene && !isPlayingAVideo)
         {
             OnPauseClicked();
         }
@@ -61,7 +65,15 @@ public class GameManager : MonoBehaviour
         if (ui.anim.GetCurrentAnimatorStateInfo(2).IsName("Trigger State Quit"))
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene("MainMenu");
+
+            if (goingToMainMenu)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+            else if (goingToNewScene)
+            {
+                SceneManager.LoadScene(newSceneName);
+            }
         }
     }
 
@@ -95,11 +107,7 @@ public class GameManager : MonoBehaviour
         
         BlurManager.Instance.BlurCamera();
 
-        foreach (Canvas canvas in chaosbotCanvases)
-            canvas.gameObject.SetActive(false);
-
-        foreach (GameObject obj in hiddenObjsOnPause)
-            obj.SetActive(false);
+        HideUIObjects();
     }
 
     public void UnpauseGame()
@@ -117,16 +125,43 @@ public class GameManager : MonoBehaviour
 
         BlurManager.Instance.UnblurCamera();
 
-        foreach (Canvas canvas in chaosbotCanvases)
-            canvas.gameObject.SetActive(true);
-
-        foreach (GameObject obj in hiddenObjsOnPause)
-            obj.SetActive(true);
+        ShowUIObjects();
     }
 
     public void QuitToMainMenu()
     {
-        ui.anim.SetTrigger("exitScene");
-        exitingScene = true;
+        if (!goingToNewScene)
+        {
+            ui.anim.SetTrigger("exitScene");
+            exitingScene = true;
+            goingToMainMenu = true;
+        }
+    }
+
+    public void GoToScene(string sceneName)
+    {
+        if (!goingToMainMenu)
+        {
+            ui.anim.SetTrigger("exitScene");
+            exitingScene = true;
+            goingToNewScene = true;
+            newSceneName = sceneName;
+        }
+    }
+
+    public void HideUIObjects()
+    {
+        foreach (GameObject obj in hiddenObjsOnPause)
+            obj.SetActive(false);
+        foreach (Canvas canvas in chaosbotCanvases)
+            canvas.gameObject.SetActive(false);
+    }
+
+    public void ShowUIObjects()
+    {
+        foreach (GameObject obj in hiddenObjsOnPause)
+            obj.SetActive(true);
+        foreach (Canvas canvas in chaosbotCanvases)
+            canvas.gameObject.SetActive(true);
     }
 }
