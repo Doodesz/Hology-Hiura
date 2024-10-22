@@ -1330,6 +1330,7 @@ MonoBehaviour:
   hiddenObjsOnPause:
   - {fileID: 4009480005943693755}
   - {fileID: 3670194454814629802}
+  - {fileID: 5952039854074031121}
 --- !u!95 &7581197694775376831
 Animator:
   serializedVersion: 5

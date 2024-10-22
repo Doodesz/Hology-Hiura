@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: showBorder
+    m_ConditionEvent: showVideo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2095727773967448448}
@@ -116,7 +116,7 @@ AnimatorController:
   m_Name: Computer Video
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: showBorder
+  - m_Name: showVideo
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -144,7 +144,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: showBorder
+    m_ConditionEvent: showVideo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5621238234701033731}
@@ -196,7 +196,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: showBorder
+    m_ConditionEvent: showVideo
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5621238234701033731}
