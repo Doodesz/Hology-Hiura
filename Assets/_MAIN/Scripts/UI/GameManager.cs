@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pauseScreen;
     List<Canvas> chaosbotCanvases = new List<Canvas>();
     [SerializeField] List<GameObject> hiddenObjsOnPause;
+    [SerializeField] bool exitingScene;
 
     public static GameManager Instance;
 
@@ -39,6 +41,8 @@ public class GameManager : MonoBehaviour
         pauseScreen = ui.pauseScreen;
         hiddenObjsOnPause = ui.hiddenObjsOnPause;
 
+        Time.timeScale = 1f;
+
         foreach (Canvas canvas in FindObjectsOfType(typeof(Canvas)))
         {
             if (canvas.transform.parent.gameObject.layer == 12)
@@ -49,19 +53,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene)
         {
             OnPauseClicked();
+        }
+
+        if (ui.anim.GetCurrentAnimatorStateInfo(2).IsName("Trigger State Quit"))
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
     public void TogglePauseGame()
     {
-        if (!gamePaused && (ui.anim.GetCurrentAnimatorStateInfo(1).IsName("Unpaused")
-            || ui.anim.GetCurrentAnimatorStateInfo(1).IsName("New State")))
-            PauseGame();
-        else if (gamePaused)
-            UnpauseGame();
+        if (!exitingScene)
+        {
+            if (!gamePaused && (ui.anim.GetCurrentAnimatorStateInfo(1).IsName("Unpaused")
+                || ui.anim.GetCurrentAnimatorStateInfo(1).IsName("New State")))
+                PauseGame();
+            else if (gamePaused)
+                UnpauseGame();
+        }
     }
 
     void PauseGame()
@@ -109,5 +122,11 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject obj in hiddenObjsOnPause)
             obj.SetActive(true);
+    }
+
+    public void QuitToMainMenu()
+    {
+        ui.anim.SetTrigger("exitScene");
+        exitingScene = true;
     }
 }

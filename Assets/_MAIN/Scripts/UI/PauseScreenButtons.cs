@@ -11,6 +11,6 @@ public class PauseScreenButtons : MonoBehaviour
 
     public void OnQuitClicked()
     {
-        // return to main menu
+        GameManager.Instance.QuitToMainMenu();
     }
 }

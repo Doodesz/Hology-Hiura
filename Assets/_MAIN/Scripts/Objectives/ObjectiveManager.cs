@@ -63,8 +63,10 @@ public class ObjectiveManager : MonoBehaviour
             currIndex++;
         }
 
+        
+
         // If next index is beyond available index, complete level
-        if (currIndex >= objectives.Count - 1 && objectives[currIndex].objectiveObject.isCompleted)
+        if (currIndex >= objectives.Count)
         {
             CompleteLevel();
         }

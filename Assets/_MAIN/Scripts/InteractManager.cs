@@ -122,23 +122,30 @@ public class InteractManager : MonoBehaviour
 
     private void Update()
     {
-        if (canFix)
+        if (playerController.currPlayerObj.GetComponent<ControllableElectronic>().isOnline)
         {
-            anim.SetBool("showPrompt", true);
-
-            if (Input.GetKey(KeyCode.F))
+            if (canFix)
             {
-                fixObj.fixValue += Time.deltaTime * fixObj.fixMultiplier;
+                anim.SetBool("showPrompt", true);
+
+                if (Input.GetKey(KeyCode.F))
+                {
+                    fixObj.fixValue += Time.deltaTime * fixObj.fixMultiplier;
+                }
             }
-        }
-        else if (canObjective 
-            && playerController.currPlayerObj.GetComponent<ControllableElectronic>().thisElectronicType == ElectronicType.Humanoid)
-        {
-            anim.SetBool("showPrompt", true);
-
-            if (Input.GetKey(KeyCode.F))
+            else if (canObjective 
+                && playerController.currPlayerObj.GetComponent<ControllableElectronic>().thisElectronicType == ElectronicType.Humanoid)
             {
-                objectiveObject.timeToCompleteValue += Time.deltaTime;
+                anim.SetBool("showPrompt", true);
+
+                if (Input.GetKey(KeyCode.F))
+                {
+                    objectiveObject.timeToCompleteValue += Time.deltaTime;
+                }
+            }
+            else
+            {
+                anim.SetBool("showPrompt", false);
             }
         }
         else
