@@ -30,12 +30,15 @@ public class Computer : MonoBehaviour
 
         anim.SetBool("showVideo", false);
 
-        GameManager.Instance.HideUIObjects();
+        GameManager.Instance.ShowUIObjects();
         GameManager.Instance.isPlayingAVideo = false;
     }
 
     public void PlayVideo()
     {
+        if (vid.clip == null)
+            return;
+
         Time.timeScale = 0f;
 
         foreach (AudioSource audio in FindObjectsOfType(typeof(AudioSource)))

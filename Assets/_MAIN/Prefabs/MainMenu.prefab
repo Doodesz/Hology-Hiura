@@ -572,6 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c26cf76c68671b4ba2742bcc77074c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newGameSceneName: Level 1.1
   anim: {fileID: 5641175618979921134}
   exitingScene: 0
   exitingTo: 0

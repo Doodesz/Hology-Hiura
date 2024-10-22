@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,11 @@ enum ExitingTo { None, EnterLevel, Quit };
 
 public class MainMenuManager : MonoBehaviour
 {
+    [Header("Variables")]
+    [SerializeField] string newGameSceneName;
     [SerializeField] Animator anim;
+
+    [Header("Debugging")]
     [SerializeField] bool exitingScene;
     [SerializeField] ExitingTo exitingTo;
     public string newSceneName;
@@ -37,7 +42,7 @@ public class MainMenuManager : MonoBehaviour
 
             // load last saved level
 
-            GoToScene("Level 1");
+            GoToScene(newGameSceneName);
         }
     }
 
