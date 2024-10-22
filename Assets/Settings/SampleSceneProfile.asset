@@ -18,10 +18,10 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.9
+    m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1.1
   scatter:
     m_OverrideState: 0
     m_Value: 0.087
@@ -30,7 +30,7 @@ MonoBehaviour:
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 0.4764596, g: 0.65163624, b: 0.7830189, a: 1}
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
@@ -77,13 +77,13 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 20
+    m_Value: 5.8
   aperture:
     m_OverrideState: 1
-    m_Value: 16
+    m_Value: 1.7
   focalLength:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 62
   bladeCount:
     m_OverrideState: 0
     m_Value: 5
