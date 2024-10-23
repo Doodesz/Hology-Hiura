@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.5, y: 2.5}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8019437608465426331
 CanvasRenderer:
@@ -201,9 +201,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6876769815720315020}
   - component: {fileID: 6075882574298291388}
-  - component: {fileID: 3192329525849760999}
   - component: {fileID: 1744945166908213540}
   - component: {fileID: 7965712919934847502}
+  - component: {fileID: 558266071510750809}
   m_Layer: 0
   m_Name: Pressure Plate
   m_TagString: Untagged
@@ -244,27 +244,6 @@ MonoBehaviour:
   - {fileID: 0}
   objectsOnPlate: []
   isPressed: 0
---- !u!135 &3192329525849760999
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5065638915423967099}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.53
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &1744945166908213540
 Animator:
   serializedVersion: 5
@@ -300,6 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectiveIcon: {fileID: 6869188308813867351}
   objectiveValueIcon: {fileID: 4082281874567518223}
+  computer: {fileID: 0}
   isCompleted: 0
   timeToComplete: 0
   type: 2
@@ -307,6 +287,28 @@ MonoBehaviour:
   canBeInteracted: 0
   objectiveManager: {fileID: 0}
   interactManager: {fileID: 0}
+--- !u!64 &558266071510750809
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5065638915423967099}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4579454407841743219, guid: fc4e4aa890b74b840a143c090d1cdce9, type: 3}
 --- !u!1 &6291347518294540273
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +344,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.5, y: 2.5}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &495392649698664288
 CanvasRenderer:
