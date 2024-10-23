@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
             controllableObject.outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
 
             // Switch to object when right-clicked
-            if (Input.GetMouseButtonUp(1))
+            if (Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.Space))
             {
                 SwitchPlayerObject(rayHitInfo.collider.gameObject);
 

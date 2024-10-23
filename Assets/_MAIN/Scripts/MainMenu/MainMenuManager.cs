@@ -64,6 +64,7 @@ public class MainMenuManager : MonoBehaviour
             exitingScene = true;
             exitingTo = ExitingTo.Quit;
 
+            Application.Quit();
         }
     }
 
@@ -75,5 +76,45 @@ public class MainMenuManager : MonoBehaviour
             exitingScene = true;
             newSceneName = sceneName;
         }
+    }
+
+    public void OnLevel1_1Clicked()
+    {
+        GoToScene("Level 1.1");
+    }
+
+    public void OnLevel1_2Clicked()
+    {
+        GoToScene("Level 1.2");
+    }
+
+    public void OnLevel2_1Clicked()
+    {
+        GoToScene("Level 2.1");
+    }
+
+    public void OnLevel2_2Clicked()
+    {
+        GoToScene("Level 2.2");
+    }
+
+    public void OnLevel3_1Clicked()
+    {
+        GoToScene("Level 3.1");
+    }
+
+    public void OnLevel3_2Clicked()
+    {
+        GoToScene("Level 3.2");
+    }
+
+    public void OnLevel4_1Clicked()
+    {
+        GoToScene("Level 4.1");
+    }
+
+    public void OnLevel4_2Cliced()
+    {
+        GoToScene("Level 4.2");
     }
 }
