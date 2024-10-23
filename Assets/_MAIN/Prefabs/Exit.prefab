@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectiveIcon: {fileID: 3426946868161640097}
   objectiveValueIcon: {fileID: 7356771588666738071}
+  computer: {fileID: 0}
   isCompleted: 0
   timeToComplete: 0
   type: 1

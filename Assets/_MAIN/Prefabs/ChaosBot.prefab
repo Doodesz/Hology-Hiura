@@ -481,9 +481,7 @@ MonoBehaviour:
   fov: {fileID: 6377965916785837053}
   anim: {fileID: 1369897733711754751}
   ai: {fileID: 5143554483455627291}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  patrolPoints: []
   targetPoint: 0
   turnSpeed: 0
   speed: 2
@@ -503,7 +501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raySource: {fileID: 1376229932290381370}
   radius: 20
-  angle: 80
+  angle: 100
   targetMask:
     serializedVersion: 2
     m_Bits: 131200
@@ -613,7 +611,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 131072
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -686,7 +684,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 28407
+    m_Bits: 159479
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

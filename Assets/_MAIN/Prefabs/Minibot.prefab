@@ -7106,7 +7106,7 @@ MonoBehaviour:
   isPushing: 0
   walkSpeed: 0
   sprintSpeed: 0
-  playerHeight: 2.4
+  playerHeight: 2.6
   whatIsGround:
     serializedVersion: 2
     m_Bits: 577

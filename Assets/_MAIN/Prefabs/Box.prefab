@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7478935552609516697}
   - component: {fileID: 4061766332307029868}
+  - component: {fileID: 3730566097852701678}
   - component: {fileID: 3933422597341598204}
   - component: {fileID: 5821388134156585600}
   - component: {fileID: 5472254716763854855}
@@ -49,9 +50,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: {fileID: 0}
-  gravityMultiplier: 3
-  decreaseGravMultiplier: 0
+  gravityMultiplier: 2
+  decreaseGravMultiplier: 0.3
   layerToReduceGrav: 10
+--- !u!114 &3730566097852701678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660113688861093070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384e36a57c6de0246a652486c17b8b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  electronic: {fileID: 0}
+  thisParent: {fileID: 0}
+  rb: {fileID: 0}
+  platformItemAnchor: {fileID: 0}
+  platformParent: {fileID: 0}
+  platformScript: {fileID: 0}
+  isStandingOnMovingPlatform: 0
+  hasPendingReset: 0
 --- !u!65 &3933422597341598204
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -81,7 +102,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6660113688861093070}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: -3, z: 0}

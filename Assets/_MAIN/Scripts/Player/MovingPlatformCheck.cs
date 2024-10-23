@@ -47,7 +47,7 @@ public class MovingPlatformCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 16)
+        if (other.gameObject.layer == 16 || other.gameObject.layer == 13)
         {
             isStandingOnMovingPlatform = true;
             platformParent = CheckRootParent(other.transform.gameObject);
@@ -61,7 +61,7 @@ public class MovingPlatformCheck : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 16)
+        if (other.gameObject.layer == 16 || other.gameObject.layer == 13)
         {
             if (platformScript.platformItems.Count > 1)
             {
@@ -76,7 +76,7 @@ public class MovingPlatformCheck : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 16)
+        if (other.gameObject.layer == 16 || other.gameObject.layer == 13)
         {
             platformScript = CheckRootParent(other.transform.gameObject).GetComponent<DronePlatform>();
 
