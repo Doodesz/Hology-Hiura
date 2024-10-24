@@ -275,15 +275,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionStay(Collision other)
     {
         // Triggers pushing anim
         if (other.gameObject.CompareTag("Heavy") && thisElectronicType == ElectronicType.Humanoid
-            && other.gameObject.GetComponent<ChaosBot>() == null && other.gameObject.GetComponent<PlayerMovement>() == null)
+            && other.gameObject.GetComponent<ChaosBot>() == null && other.gameObject.GetComponent<PlayerMovement>() == null
+            && anim.GetBool("isWalking"))
         {
             if (!soundManager.pushSfx.isPlaying)
                 soundManager.PlayPush();
         }
+        
     }
 
     private void OnCollisionExit(Collision other)
