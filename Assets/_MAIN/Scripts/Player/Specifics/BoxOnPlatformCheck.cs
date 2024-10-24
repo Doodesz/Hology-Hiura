@@ -11,14 +11,14 @@ public class BoxOnPlatformCheck : MonoBehaviour
     [SerializeField] float triggerExitTimeoutValue = 3f;
     [SerializeField] bool hasExitedTrigger = true;
 
-    void CheckCurrentCondition()
+/*    void CheckCurrentCondition()
     {
         if (PlayerController.Instance.currPlayerObj != null && PlayerController.Instance.currPlayerObj == platformScript.gameObject)
         {
             GetComponent<Rigidbody>().useGravity = true;
             GetComponent<GravityModifier>().gravityMultiplier = 1f;
         }
-    }
+    }*/
 
     private void Update()
     {
@@ -67,10 +67,10 @@ public class BoxOnPlatformCheck : MonoBehaviour
                 platformScript.AddLoad(gameObject);
             
             GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<GravityModifier>().gravityMultiplier = 0f;
+            GetComponent<GravityModifier>().gravityMultiplier = 0.1f;
             
             hasExitedTrigger = false;
-            triggerExitTimeoutValue = 0.2f;
+            triggerExitTimeoutValue = 0.5f;
 
             if (PlayerController.Instance.currPlayerObj != CheckRootParent(other.gameObject))
             {

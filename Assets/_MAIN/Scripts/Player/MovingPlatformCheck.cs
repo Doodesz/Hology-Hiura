@@ -19,14 +19,14 @@ public class MovingPlatformCheck : MonoBehaviour
     [SerializeField] float triggerExitTimeoutValue;
     [SerializeField] bool hasExitedTrigger;
 
-    private void OnEnable()
+/*    private void OnEnable()
     {
         PlayerController.OnSwitchElectronic += ResetVariables;
     }
     private void OnDisable()
     {
         PlayerController.OnSwitchElectronic -= ResetVariables;
-    }
+    }*/
 
     private void Update()
     {
@@ -74,7 +74,7 @@ public class MovingPlatformCheck : MonoBehaviour
 
     void ResetVariables()
     {
-        if (hasPendingReset || PlayerController.Instance.currPlayerObj != thisParent)
+        if (hasPendingReset || PlayerController.Instance.currPlayerObj == thisParent)
         {
             isStandingOnMovingPlatform = false;
             platformParent = null;
@@ -94,7 +94,7 @@ public class MovingPlatformCheck : MonoBehaviour
             platformItemAnchor = platformScript.itemAnchor[FindIndex()];
 
             hasExitedTrigger = false;
-            triggerExitTimeoutValue = 3f;
+            triggerExitTimeoutValue = 0.2f;
 
             if (platformScript.platformItems.Count > 1)
             {
@@ -107,11 +107,11 @@ public class MovingPlatformCheck : MonoBehaviour
         }
     }
 
-    /*private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == 16)
         {
-
+            rb.useGravity = true;
         }
-    }*/
+    }
 }

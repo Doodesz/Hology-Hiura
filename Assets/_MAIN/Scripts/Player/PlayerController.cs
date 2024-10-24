@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     void SwitchPlayerObject(GameObject objToSwitchTo)
     {
-        OnSwitchElectronic();
+        //OnSwitchElectronic();
 
         // Assigns first player object when scene starts
         if (currPlayerObj == null)
