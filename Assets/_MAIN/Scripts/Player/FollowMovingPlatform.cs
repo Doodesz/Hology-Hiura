@@ -6,22 +6,29 @@ public class FollowMovingPlatform : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] MovingPlatformCheck check;
+    [SerializeField] GameObject objToRotate;
 
     [Header("Debugging")]
     [SerializeField] GameObject objectToFollow;
 
     void Update()
     {
-        if (check.isStandingOnMovingPlatform)
+        // If this is a bot
+        if (check != null && check.isStandingOnMovingPlatform)
+        {
             objectToFollow = check.platformItemAnchor;
 
-        if (check.isStandingOnMovingPlatform && PlayerController.Instance.currPlayerObj == gameObject)
-        {
-            objectToFollow.transform.position = gameObject.transform.position;
-        }
-        else if (check.isStandingOnMovingPlatform)
-        {
-            gameObject.transform.position = objectToFollow.transform.position;
+            // Update anchor when not controlling drone
+            if (PlayerController.Instance.currPlayerObj == gameObject)
+            {
+                objectToFollow.transform.position = gameObject.transform.position;
+                objectToFollow.transform.rotation = objToRotate.transform.rotation;
+            }
+            else // Follows drone platform when controlling said drone
+            {
+                gameObject.transform.position = objectToFollow.transform.position;
+                objToRotate.transform.rotation = objectToFollow.transform.rotation;
+            }
         }
     }
 }

@@ -15,6 +15,9 @@ public class MovingPlatformCheck : MonoBehaviour
     public DronePlatform platformScript;
     public bool isStandingOnMovingPlatform;
     [SerializeField] bool hasPendingReset;
+    [SerializeField] float triggerExitTimeout;
+    [SerializeField] float triggerExitTimeoutValue;
+    [SerializeField] bool hasExitedTrigger;
 
     private void OnEnable()
     {
@@ -23,6 +26,29 @@ public class MovingPlatformCheck : MonoBehaviour
     private void OnDisable()
     {
         PlayerController.OnSwitchElectronic -= ResetVariables;
+    }
+
+    private void Update()
+    {
+        if (triggerExitTimeoutValue <= 0 && !hasExitedTrigger)
+        {
+            hasExitedTrigger = true;
+            
+            platformScript.RemoveLoad(gameObject);     // put first to avoid null ref
+
+            platformScript = null;
+
+            if (PlayerController.Instance.currPlayerObj == thisParent)
+            {
+                ResetVariables();
+            }
+            else
+            {
+                hasPendingReset = true;
+            }
+        }
+        else
+            triggerExitTimeoutValue -= Time.deltaTime;
     }
 
     GameObject CheckRootParent(GameObject transformToCheck)
@@ -34,9 +60,21 @@ public class MovingPlatformCheck : MonoBehaviour
             return transformToCheck;
     }
 
+    int FindIndex()
+    {
+        int i = 0;
+        foreach (GameObject obj in platformScript.platformItems)
+        {
+            if (obj == gameObject)
+                return i;
+            ++i;
+        }
+        return i;
+    }
+
     void ResetVariables()
     {
-        if (hasPendingReset)
+        if (hasPendingReset || PlayerController.Instance.currPlayerObj != thisParent)
         {
             isStandingOnMovingPlatform = false;
             platformParent = null;
@@ -45,24 +83,19 @@ public class MovingPlatformCheck : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 16 || other.gameObject.layer == 13)
+        if (other.gameObject.layer == 16)
         {
             isStandingOnMovingPlatform = true;
             platformParent = CheckRootParent(other.transform.gameObject);
             platformScript = platformParent.GetComponent<DronePlatform>();
-            platformItemAnchor = platformScript.itemAnchor;
+            platformScript.AddLoad(gameObject);         // put last to avoid null ref
+            platformItemAnchor = platformScript.itemAnchor[FindIndex()];
 
-            if (!platformScript.platformItems.Contains(gameObject))
-                platformScript.AddLoad(gameObject);         // put last to avoid null ref
-        }
-    }
+            hasExitedTrigger = false;
+            triggerExitTimeoutValue = 3f;
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.layer == 16 || other.gameObject.layer == 13)
-        {
             if (platformScript.platformItems.Count > 1)
             {
                 rb.useGravity = true;
@@ -74,23 +107,11 @@ public class MovingPlatformCheck : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 16 || other.gameObject.layer == 13)
+        if (other.gameObject.layer == 16)
         {
-            platformScript = CheckRootParent(other.transform.gameObject).GetComponent<DronePlatform>();
 
-            if (platformScript.platformItems.Contains(gameObject))  
-                platformScript.RemoveLoad(gameObject);     // put first to avoid null ref
-            
-            if (PlayerController.Instance.currPlayerObj == thisParent)
-            {
-                ResetVariables();
-            }
-            else
-            {
-                hasPendingReset = true;
-            }
         }
-    }
+    }*/
 }

@@ -859,7 +859,7 @@ Transform:
   m_GameObject: {fileID: 3647127575480368665}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.388, z: 0}
+  m_LocalPosition: {x: 0, y: -1.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -885,6 +885,9 @@ MonoBehaviour:
   platformScript: {fileID: 0}
   isStandingOnMovingPlatform: 0
   hasPendingReset: 0
+  triggerExitTimeout: 0
+  triggerExitTimeoutValue: 3
+  hasExitedTrigger: 1
 --- !u!65 &3203031766460861434
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -904,7 +907,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 0.2, z: 1.5}
+  m_Size: {x: 0.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3709145086143601420
 GameObject:
@@ -7201,6 +7204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   check: {fileID: 7903424767293354849}
+  objToRotate: {fileID: 5649900109661724516}
   objectToFollow: {fileID: 0}
 --- !u!114 &851684662153316650
 MonoBehaviour:

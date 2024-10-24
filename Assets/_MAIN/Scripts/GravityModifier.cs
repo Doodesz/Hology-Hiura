@@ -6,8 +6,8 @@ public class GravityModifier : MonoBehaviour
 {
     [Header("Gravity")]
     public ConstantForce gravity;
-    [SerializeField] float gravityMultiplier = 1;
-    [SerializeField][Range(0f,1f)] float decreaseGravMultiplier;
+    public float gravityMultiplier = 1;
+    [Range(0f,1f)] public float decreaseGravMultiplier;
     float initGravMult;
 
     [Header("Layer Reference")]

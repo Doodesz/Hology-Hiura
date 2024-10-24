@@ -85,6 +85,9 @@ MonoBehaviour:
   platformScript: {fileID: 0}
   isStandingOnMovingPlatform: 0
   hasPendingReset: 0
+  triggerExitTimeout: 0
+  triggerExitTimeoutValue: 3
+  hasExitedTrigger: 1
 --- !u!65 &2567836055334046620
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6909,6 +6912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   check: {fileID: 498061839474252144}
+  objToRotate: {fileID: 740257088013254970}
   objectToFollow: {fileID: 0}
 --- !u!114 &8063106624571985478
 MonoBehaviour:

@@ -6,31 +6,24 @@ public class DronePlatform : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PlayerMovement movement;
-    public GameObject itemAnchor;
+    public List<GameObject> itemAnchor;
     public bool isCarrying;
     public List<Collider> platformColliders;
 
     [Header("Debugging")]
     public List<GameObject> platformItems = new List<GameObject>();
 
-    private void OnEnable()
-    {
-        PlayerController.OnSwitchElectronic += TogglePlatformColliders;
-    }
-    private void OnDisable()
-    {
-        PlayerController.OnSwitchElectronic -= TogglePlatformColliders;
-    }
-
     public void AddLoad(GameObject obj)
     {
-        platformItems.Add(obj);
+        if (!platformItems.Contains(obj))
+            platformItems.Add(obj);
         CheckCurrentLoad();
     }
 
     public void RemoveLoad(GameObject obj)
     {
-        platformItems.Remove(obj);
+        if (platformItems.Contains(obj))
+            platformItems.Remove(obj);
         CheckCurrentLoad();
     }
 
@@ -38,35 +31,16 @@ public class DronePlatform : MonoBehaviour
     {
         if (platformItems.Count > 0)
             isCarrying = true;
+        if (platformItems.Count <= 0)
+            isCarrying = false;
 
         if (platformItems.Count > 1)
         {
             movement.isOverweighted = true;
-            itemAnchor.SetActive(false);
-            // Overloaded and starts to descend
         }
         else
         {
             movement.isOverweighted = false;
-            itemAnchor.SetActive(true);
-        }
-    }
-
-    void TogglePlatformColliders()
-    {
-        if (PlayerController.Instance.currPlayerObj == gameObject)
-        {
-            foreach(Collider collider in platformColliders)
-            {
-                collider.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            foreach(Collider collider in platformColliders)
-            {
-                collider.gameObject.SetActive(true);
-            }
         }
     }
 }
