@@ -671,7 +671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CollideAgainst:
     serializedVersion: 2
-    m_Bits: 883
+    m_Bits: 339
   m_IgnoreTag: 
   m_TransparentLayers:
     serializedVersion: 2
@@ -7106,7 +7106,7 @@ MonoBehaviour:
   isPushing: 0
   walkSpeed: 0
   sprintSpeed: 0
-  playerHeight: 2.6
+  playerHeight: 2.32
   whatIsGround:
     serializedVersion: 2
     m_Bits: 577

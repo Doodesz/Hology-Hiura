@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raySource: {fileID: 1376229932290381370}
-  radius: 20
+  radius: 25
   angle: 100
   targetMask:
     serializedVersion: 2

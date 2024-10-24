@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
             lastSelected.outline.OutlineColor = Color.black;
             lastSelected.outline.OutlineMode = Outline.Mode.OutlineVisible;
         }
+        
+        //Debug.Log(rayHitInfo.collider.gameObject.layer);
     }
 
     void SwitchPlayerObject(GameObject objToSwitchTo)

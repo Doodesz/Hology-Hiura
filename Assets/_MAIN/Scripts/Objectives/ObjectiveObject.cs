@@ -78,7 +78,7 @@ public class ObjectiveObject : MonoBehaviour
                 && otherScript.gameObject == PlayerController.Instance.currPlayerObj
                 && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
             {
-                if (type == ObjectiveType.Interact)
+                if (type == ObjectiveType.Interact && otherScript.thisElectronicType == ElectronicType.Humanoid)
                 {
                     canBeInteracted = true;
                     interactManager.SetObjectiveObject(this, true);
@@ -87,12 +87,6 @@ public class ObjectiveObject : MonoBehaviour
                 {
                     OnInteractCompleted();
                 }
-            }
-            else if (other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript1) 
-                && (otherScript1.thisElectronicType == ElectronicType.Roomba
-                || otherScript1.thisElectronicType == ElectronicType.Drone))
-            {
-                // hint can only use minibot
             }
             else
             {

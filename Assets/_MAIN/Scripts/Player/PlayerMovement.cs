@@ -59,20 +59,12 @@ public class PlayerMovement : MonoBehaviour
         interactManager = InteractManager.Instance;
 
         thisElectronicType = GetComponent<ControllableElectronic>().thisElectronicType;
+
+        StartCoroutine(CheckGround());
     }
 
     private void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight);
-        if (thisElectronicType == ElectronicType.Humanoid)
-        {
-            if (grounded)
-                anim.SetBool("isFalling", false);
-            else
-                anim.SetBool("isFalling", true);
-        }
-
         if (isOverweighted)
             DescendSlowly();
 
@@ -212,6 +204,23 @@ public class PlayerMovement : MonoBehaviour
         soundManager.PauseDisabled();
     }
 
+    IEnumerator CheckGround()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        // ground check
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight);
+        if (thisElectronicType == ElectronicType.Humanoid)
+        {
+            if (grounded)
+                anim.SetBool("isFalling", false);
+            else
+                anim.SetBool("isFalling", true);
+        }
+
+        StartCoroutine(CheckGround());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // Triggers pushing anim
@@ -222,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Show repair prompt when near a disabled electronic
-        if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+        if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)
         {
@@ -234,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         // Show repair prompt when near a disabled electronic
-        if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+        if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)
         {
@@ -257,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Hide repair prompt when far from a disabled electronic
-        if (other.gameObject.layer == 7 && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
+        if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) && other.TryGetComponent<PlayerMovement>(out PlayerMovement otherMovement)
             && !otherMovement.electronicScript.isOnline && electronicScript.isOnline
             && playerController.currPlayerObj == gameObject)
         {
