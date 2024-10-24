@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
 
         if (thisElectronicType == ElectronicType.Drone && !electronicScript.isOnline)
-            DescendSlowly();
+            Descend();
 
         rb.drag = movementDrag;
     }
