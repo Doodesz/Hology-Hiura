@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: {fileID: 0}
-  gravityMultiplier: 2
+  gravityMultiplier: 3
   decreaseGravMultiplier: 0.3
   layerToReduceGrav: 10
 --- !u!114 &7184911996506658092
