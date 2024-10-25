@@ -6,7 +6,7 @@ public class MovingPlatformCheck : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] ControllableElectronic electronic;
-    [SerializeField] GameObject thisParent;
+    [SerializeField] GameObject thisObject;
     [SerializeField] Rigidbody rb;
 
     [Header("Debugging")]
@@ -38,7 +38,7 @@ public class MovingPlatformCheck : MonoBehaviour
 
             platformScript = null;
 
-            if (PlayerController.Instance.currPlayerObj == thisParent)
+            if (PlayerController.Instance.currPlayerObj == thisObject)
             {
                 ResetVariables();
             }
@@ -74,7 +74,7 @@ public class MovingPlatformCheck : MonoBehaviour
 
     void ResetVariables()
     {
-        if (hasPendingReset || PlayerController.Instance.currPlayerObj == thisParent)
+        if (hasPendingReset || PlayerController.Instance.currPlayerObj == thisObject)
         {
             isStandingOnMovingPlatform = false;
             platformParent = null;
@@ -96,12 +96,14 @@ public class MovingPlatformCheck : MonoBehaviour
             hasExitedTrigger = false;
             triggerExitTimeoutValue = 0.2f;
 
-            if (platformScript.platformItems.Count > 1)
+            /*if (platformScript.platformItems.Count > 1)
             {
-                rb.useGravity = true;
+                //thisObject.GetComponent<GravityModifier>().gravityMultiplier = 1f;
+                //rb.useGravity = true;
             }
-            else
+            else*/
             {
+                thisObject.GetComponent<GravityModifier>().gravityMultiplier = 0f;
                 rb.useGravity = false;
             }
         }
@@ -111,6 +113,7 @@ public class MovingPlatformCheck : MonoBehaviour
     {
         if (other.gameObject.layer == 16)
         {
+            thisObject.GetComponent<GravityModifier>().gravityMultiplier = 25f;
             rb.useGravity = true;
         }
     }

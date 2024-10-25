@@ -3144,10 +3144,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 435440288242760387, guid: 5e8f223102e28d443958049892a5b35d,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 435440288242760387, guid: 5e8f223102e28d443958049892a5b35d,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 435440288242760387, guid: 5e8f223102e28d443958049892a5b35d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 746
+      objectReference: {fileID: 0}
     - target: {fileID: 1122941597426857326, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
       propertyPath: m_Name
       value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681538375592192629, guid: 5e8f223102e28d443958049892a5b35d,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1870397569048643520, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}

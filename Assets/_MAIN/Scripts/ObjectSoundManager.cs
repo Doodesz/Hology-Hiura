@@ -11,17 +11,17 @@ public class ObjectSoundManager : MonoBehaviour
 
     public void MuteAll()
     {
-        moveSfx.mute = true;
-        disabledUISfx.mute = true;
-        disabledSfx.mute = true;
-        pushSfx.mute = true;
+        if (moveSfx != null) moveSfx.mute = true;
+        if (disabledUISfx != null) disabledUISfx.mute = true;
+        if (disabledSfx != null) disabledSfx.mute = true;
+        if (pushSfx != null) pushSfx.mute = true;
     }
     public void UnmuteAll()
     {
-        moveSfx.mute = false;
-        disabledUISfx.mute = false;
-        disabledSfx.mute = false;
-        pushSfx.mute = false;
+        if (moveSfx != null) moveSfx.mute = false;
+        if (disabledUISfx != null) disabledUISfx.mute = false;
+        if (disabledSfx != null) disabledSfx.mute = false;
+        if (pushSfx != null) pushSfx.mute = false;
     }
 
     public void PlayMove()

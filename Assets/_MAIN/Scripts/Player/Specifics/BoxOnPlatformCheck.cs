@@ -27,7 +27,7 @@ public class BoxOnPlatformCheck : MonoBehaviour
             hasExitedTrigger = true;
 
             GetComponent<Rigidbody>().useGravity = true;
-            GetComponent<GravityModifier>().gravityMultiplier = 1f;
+            GetComponent<GravityModifier>().gravityMultiplier = 2f;
 
             if (platformScript.platformItems.Contains(gameObject))
                 platformScript.RemoveLoad(gameObject);

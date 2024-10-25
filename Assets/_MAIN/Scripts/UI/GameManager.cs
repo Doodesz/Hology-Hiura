@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
             if (canvas.transform.parent.gameObject.layer == 12)
                 chaosbotCanvases.Add(canvas);
         }
+
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     // Update is called once per frame
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
         BlurManager.Instance.BlurCamera();
 
         HideUIObjects();
+        MuteAllSceneSfx();
     }
 
     public void UnpauseGame()
@@ -127,6 +131,7 @@ public class GameManager : MonoBehaviour
         BlurManager.Instance.UnblurCamera();
 
         ShowUIObjects();
+        UnmuteAllSceneSfx();
     }
 
     public void QuitToMainMenu()
@@ -172,6 +177,8 @@ public class GameManager : MonoBehaviour
         {
             if (sound.TryGetComponent<ChaosBot>(out ChaosBot chaosBot))
                 sound.MuteAll();
+            if (sound.TryGetComponent<PlayerMovement>(out PlayerMovement playerMovement))
+                sound.MuteAll();
         }
     }
     public void UnmuteAllSceneSfx()
@@ -179,6 +186,8 @@ public class GameManager : MonoBehaviour
         foreach (ObjectSoundManager sound in FindObjectsOfType<ObjectSoundManager>())
         {
             if (sound.TryGetComponent<ChaosBot>(out ChaosBot chaosBot))
+                sound.UnmuteAll();
+            if (sound.TryGetComponent<PlayerMovement>(out PlayerMovement playerMovement))
                 sound.UnmuteAll();
         }
     }

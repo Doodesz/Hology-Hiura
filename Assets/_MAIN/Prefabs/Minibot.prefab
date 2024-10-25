@@ -877,7 +877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   electronic: {fileID: 2821725279559409304}
-  thisParent: {fileID: 8792443662300924499}
+  thisObject: {fileID: 8792443662300924499}
   rb: {fileID: 8876212193691703550}
   platformItemAnchor: {fileID: 0}
   platformParent: {fileID: 0}
@@ -6468,7 +6468,7 @@ GameObject:
   - component: {fileID: 1553271289332515231}
   - component: {fileID: 4358001391650615295}
   - component: {fileID: 9118643445798219025}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Ground Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6484,7 +6484,7 @@ Transform:
   m_GameObject: {fileID: 7109916200183841860}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.601, z: 0}
+  m_LocalPosition: {x: 0, y: -2.746, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6506,6 +6506,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 77381
   anim: {fileID: 5620617193743589336}
+  isFalling: 0
 --- !u!65 &9118643445798219025
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7173,6 +7174,7 @@ MonoBehaviour:
   particle: {fileID: 2742203426107160277}
   repair: {fileID: 3870421570976013811}
   soundManager: {fileID: 6683248147297498880}
+  dronePlatform: {fileID: 0}
   rb: {fileID: 8876212193691703550}
   moveSpeed: 45
   movementDrag: 5

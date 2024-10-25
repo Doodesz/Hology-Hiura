@@ -483,7 +483,7 @@ public class ChaosBot : MonoBehaviour
 
         // Anim
         if (currState != ChaosBotState.Patrolling && (ai.remainingDistance == 0f || ai.isStopped))
-            anim.SetBool("isMoving", true);
+            anim.SetBool("isMoving", false);
     }
 
     IEnumerator ChaseTimeout(float time)

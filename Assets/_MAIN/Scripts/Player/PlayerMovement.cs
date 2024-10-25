@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] ParticleSystem particle;
     [SerializeField] RepairElectronic repair;
     [SerializeField] ObjectSoundManager soundManager;
+    [SerializeField] DronePlatform dronePlatform;
 
     [Header("Conditional Ref")]
     [SerializeField][Tooltip("Assign if rb is not in parent")] 
@@ -63,21 +64,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (isOverweighted)
-            DescendSlowly();
-
-        MoveInput();
-        SpeedControl();
-
-        if (thisElectronicType == ElectronicType.Drone && !electronicScript.isOnline)
-            Descend();
-
         rb.drag = movementDrag;
     }
 
     private void FixedUpdate()
     {
+        MoveInput();
         MovePlayer();
+        SpeedControl();
+
+        if (isOverweighted)
+            DescendSlowly();
+
+        if (thisElectronicType == ElectronicType.Drone && !electronicScript.isOnline)
+            Descend();
     }
 
     private void MoveInput()
@@ -140,10 +140,6 @@ public class PlayerMovement : MonoBehaviour
                     soundManager.PlayMove();
             }
         }
-
-        // For checking curr speed
-/*        if (rb.velocity.magnitude != 0f)
-            Debug.Log(rb.velocity.magnitude);*/
     }
 
     private void MovePlayer()
@@ -158,12 +154,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Ascend()
     {
-        rb.AddRelativeForce(Vector3.up * moveSpeed / 2 * 10f, ForceMode.Force);
+        /*if (dronePlatform.platformItems.Count > 0)
+            rb.AddRelativeForce(Vector3.up * moveSpeed * 10f, ForceMode.Force);
+        else*/
+            rb.AddRelativeForce(Vector3.up * moveSpeed * 10f, ForceMode.Force);
+
     }
 
     private void Descend()
     {
-        rb.AddRelativeForce(Vector3.down * moveSpeed / 2 * 10f, ForceMode.Force);
+        rb.AddRelativeForce(Vector3.down * moveSpeed * 10f, ForceMode.Force);
     }
 
     private void DescendSlowly()
