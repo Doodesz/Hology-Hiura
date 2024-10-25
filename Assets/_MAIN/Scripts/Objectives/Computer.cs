@@ -33,7 +33,7 @@ public class Computer : MonoBehaviour
 
     private void Update()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(1).IsName("Showing Readable") && GameManager.Instance.isReading)
+        if (anim.GetCurrentAnimatorStateInfo(1).IsName("Trigger State Exit") && GameManager.Instance.isReading)
         {
             HideReadable();
         }
@@ -89,12 +89,14 @@ public class Computer : MonoBehaviour
 
     public void CloseReadable()
     {
-        anim.SetTrigger("hideReadable");
+        anim.SetTrigger("toggleReadable");
     }
 
     void ShowReadable()
     {
         readObj.SetActive(true);
+
+        anim.SetTrigger("toggleReadable");
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

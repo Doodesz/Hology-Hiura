@@ -702,6 +702,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Computer
       objectReference: {fileID: 0}
+    - target: {fileID: 4866980380405982808, guid: c5fe768f5fb1c7a41add53b56934b94e,
+        type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 1ee15872e3763d5409de503a1c140442,
+        type: 3}
+    - target: {fileID: 6905365025720034925, guid: c5fe768f5fb1c7a41add53b56934b94e,
+        type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
