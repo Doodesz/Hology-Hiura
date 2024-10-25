@@ -465,6 +465,10 @@ MonoBehaviour:
   oneOfPlayerObjs: []
   electronicIsClose: 0
   isChargingShot: 0
+  isStuck: 0
+  stuckTimeoutValue: 0
+  stuckTimeout: 3.5
+  lastPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1448831706016909290
 MonoBehaviour:
   m_ObjectHideFlags: 0

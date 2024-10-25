@@ -7,6 +7,7 @@ public class EventObject : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Animator anim;
+    [SerializeField] AudioSource _audio;
 
     [Header("Modifiers")]
     public bool canBeRetriggered = false;
@@ -20,7 +21,9 @@ public class EventObject : MonoBehaviour
     {
         if (canBeRetriggered || !hasBeenTriggered)
         {
-            if (!isActivated)     
+            _audio.Play();
+
+            if (!isActivated)
                 TriggerObject();        
             else if (isActivated)
                 UntriggerObject();

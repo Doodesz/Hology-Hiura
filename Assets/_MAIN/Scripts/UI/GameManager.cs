@@ -33,11 +33,15 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         OnPauseClicked += TogglePauseGame;
+        ObjectiveManager.OnLevelComplete += HideUIObjects;
+        ObjectiveManager.OnLevelComplete += MuteAllSceneSfx;
     }
 
     private void OnDisable()
     {
         OnPauseClicked -= TogglePauseGame;
+        ObjectiveManager.OnLevelComplete -= HideUIObjects;
+        ObjectiveManager.OnLevelComplete -= MuteAllSceneSfx;
     }
 
     // Start is called before the first frame update

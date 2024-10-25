@@ -76,6 +76,7 @@ MonoBehaviour:
   newSceneName: 
   goingToMainMenu: 0
   isPlayingAVideo: 0
+  isReading: 0
 --- !u!114 &47341024210988319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +166,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 291658ebe7069b645a5827e9a27564f1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0

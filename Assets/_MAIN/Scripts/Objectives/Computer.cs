@@ -21,7 +21,7 @@ public class Computer : MonoBehaviour
     {
         if (type == PostInteractType.Video)
         {
-            vid.loopPointReached += CheckOver;
+            vid.loopPointReached += OnVideoOver;
 
             vid = GetComponent<VideoPlayer>();
         }
@@ -47,7 +47,7 @@ public class Computer : MonoBehaviour
             ShowReadable();
     }
 
-    void CheckOver(VideoPlayer vp)
+    void OnVideoOver(VideoPlayer vp)
     {
         Time.timeScale = 1f;
 
@@ -62,6 +62,8 @@ public class Computer : MonoBehaviour
 
         GameManager.Instance.ShowUIObjects();
         GameManager.Instance.isPlayingAVideo = false;
+
+        PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = true;
     }
 
     public void PlayVideo()
@@ -85,6 +87,8 @@ public class Computer : MonoBehaviour
 
         GameManager.Instance.HideUIObjects();
         GameManager.Instance.isPlayingAVideo = true;
+
+        PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = false;
     }
 
     public void CloseReadable()
@@ -101,6 +105,8 @@ public class Computer : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = false;
+
         Time.timeScale = 0f;
         GameManager.Instance.HideUIObjects();
         GameManager.Instance.MuteAllSceneSfx();
@@ -114,6 +120,8 @@ public class Computer : MonoBehaviour
         
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = true;
 
         Time.timeScale = 1f;
         GameManager.Instance.ShowUIObjects();

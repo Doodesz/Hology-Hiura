@@ -75,10 +75,10 @@ public class ObjectiveObject : MonoBehaviour
         {
             if ((other.gameObject.layer == 7 || other.gameObject.layer == 17) 
                 && other.TryGetComponent<ControllableElectronic>(out ControllableElectronic otherScript)
-                && otherScript.gameObject == PlayerController.Instance.currPlayerObj
-                && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
+                && otherScript.gameObject == PlayerController.Instance.currPlayerObj)
             {
-                if (type == ObjectiveType.Interact && otherScript.thisElectronicType == ElectronicType.Humanoid)
+                if (type == ObjectiveType.Interact && otherScript.thisElectronicType == ElectronicType.Humanoid
+                    && objectiveManager.objectives[objectiveManager.currIndex].objectiveObject == this)
                 {
                     canBeInteracted = true;
                     interactManager.SetObjectiveObject(this, true);

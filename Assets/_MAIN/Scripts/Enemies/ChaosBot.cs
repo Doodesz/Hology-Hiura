@@ -56,6 +56,10 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] List<GameObject> oneOfPlayerObjs;
     [SerializeField] bool electronicIsClose;
     [SerializeField] bool isChargingShot;
+    [SerializeField] bool isStuck;
+    [SerializeField] float stuckTimeoutValue;
+    [SerializeField] float stuckTimeout = 3.5f;
+    [SerializeField] Vector3 lastPos;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +69,7 @@ public class ChaosBot : MonoBehaviour
         navMeshSurface = PlayerController.Instance.gameObject.GetComponent<NavMeshSurface>();
         obstructionMask = fov.obstructionMask;
         randomSearch.enabled = false;
+        lastPos = Vector3.zero;
 
         StartCoroutine(BakeNavMeshRoutine());
     }
@@ -72,6 +77,18 @@ public class ChaosBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Determines if stuck or not
+        if (lastPos == transform.position)
+            stuckTimeoutValue += Time.deltaTime;
+        else
+            stuckTimeoutValue = 0f;
+
+        if (stuckTimeoutValue > stuckTimeout)
+        {
+            isStuck = true;
+        }
+
+
         // Fix for when player enters trigger box but not in chaosbot's view
         if (fov.lastTarget == null)
         { 
@@ -529,7 +546,13 @@ public class ChaosBot : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        navMeshSurface.BuildNavMesh();
+        if (isStuck)
+        {
+            navMeshSurface.BuildNavMesh();
+            stuckTimeoutValue = 0f;
+            isStuck = false;
+        }
+    
         StartCoroutine(BakeNavMeshRoutine());
     }
 

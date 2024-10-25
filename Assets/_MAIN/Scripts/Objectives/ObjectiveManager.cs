@@ -94,6 +94,7 @@ public class ObjectiveManager : MonoBehaviour
             audio.volume = 0.05f;
 
         BlurManager.Instance.BlurCamera();
+        GameManager.Instance.MuteAllSceneSfx();
 
         Debug.Log("Level completed!");
     }

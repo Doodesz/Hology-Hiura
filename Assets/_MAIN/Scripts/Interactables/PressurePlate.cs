@@ -6,6 +6,8 @@ public class PressurePlate : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] List<EventObject> objectsToTrigger = new List<EventObject>();
+    [SerializeField] AudioSource _audio;
+
     [Header("Debugging")]
     [SerializeField] List<GameObject> objectsOnPlate = new List<GameObject>();
     [SerializeField] bool isPressed;
@@ -20,7 +22,9 @@ public class PressurePlate : MonoBehaviour
     private void TriggerEvent()
     {
         //Debug.Log("Pressure plate hit");
-        // play sfx
+        
+        _audio.Play();
+
         foreach (EventObject obj in objectsToTrigger)
         {
             obj.TriggerObjectEvent();
