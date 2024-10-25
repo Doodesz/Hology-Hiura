@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c26cf76c68671b4ba2742bcc77074c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newGameSceneName: Level 1.1
+  newGameSceneName: Prologue
   anim: {fileID: 5641175618979921134}
   exitingScene: 0
   exitingTo: 0
@@ -3062,7 +3062,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 4.A
+  m_text: 'Level 4
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d9afd77322f0b94a8a89c90477bb462, type: 2}
   m_sharedMaterial: {fileID: -5388444249948553751, guid: 8d9afd77322f0b94a8a89c90477bb462,
@@ -4200,7 +4202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8152518097364337419}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: OnLevel4_1Clicked
+        m_MethodName: OnLevel4Clicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

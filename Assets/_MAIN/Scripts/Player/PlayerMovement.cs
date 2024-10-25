@@ -59,8 +59,6 @@ public class PlayerMovement : MonoBehaviour
         interactManager = InteractManager.Instance;
 
         thisElectronicType = GetComponent<ControllableElectronic>().thisElectronicType;
-
-        StartCoroutine(CheckGround());
     }
 
     private void Update()
@@ -202,23 +200,6 @@ public class PlayerMovement : MonoBehaviour
         //anim.SetBool("isOnline", true);       player not in control
         particle.gameObject.SetActive(false);
         soundManager.PauseDisabled();
-    }
-
-    IEnumerator CheckGround()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight);
-        if (thisElectronicType == ElectronicType.Humanoid)
-        {
-            if (grounded)
-                anim.SetBool("isFalling", false);
-            else
-                anim.SetBool("isFalling", true);
-        }
-
-        StartCoroutine(CheckGround());
     }
 
     private void OnTriggerEnter(Collider other)

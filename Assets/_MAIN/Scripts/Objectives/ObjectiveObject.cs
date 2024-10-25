@@ -66,7 +66,7 @@ public class ObjectiveObject : MonoBehaviour
         objectiveValueIcon.fillAmount = 0f;
 
         if (type == ObjectiveType.Interact)
-            computer.PlayVideo();
+            computer.OnAfterInteraction();
     }
 
     private void OnTriggerStay(Collider other)

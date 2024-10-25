@@ -108,6 +108,11 @@ public class MainMenuManager : MonoBehaviour
         GoToScene("Level 3.2");
     }
 
+    public void OnLevel4Clicked()
+    {
+        GoToScene("Level 4");
+    }
+
     public void OnLevel4_1Clicked()
     {
         GoToScene("Level 4.1");

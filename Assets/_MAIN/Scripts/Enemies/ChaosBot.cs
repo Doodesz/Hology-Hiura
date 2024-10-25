@@ -480,6 +480,10 @@ public class ChaosBot : MonoBehaviour
         {
             soundManager.PauseMove();
         }
+
+        // Anim
+        if (currState != ChaosBotState.Patrolling && (ai.remainingDistance == 0f || ai.isStopped))
+            anim.SetBool("isMoving", true);
     }
 
     IEnumerator ChaseTimeout(float time)

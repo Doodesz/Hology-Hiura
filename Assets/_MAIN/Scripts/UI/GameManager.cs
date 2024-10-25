@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] string newSceneName;
     [SerializeField] bool goingToMainMenu;
     public bool isPlayingAVideo;
+    public bool isReading;
 
     public static GameManager Instance;
 
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene && !isPlayingAVideo)
+        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene && !isPlayingAVideo && !isReading)
         {
             OnPauseClicked();
         }
@@ -163,5 +164,22 @@ public class GameManager : MonoBehaviour
             obj.SetActive(true);
         foreach (Canvas canvas in chaosbotCanvases)
             canvas.gameObject.SetActive(true);
+    }
+
+    public void MuteAllSceneSfx()
+    {
+        foreach (ObjectSoundManager sound in FindObjectsOfType<ObjectSoundManager>())
+        {
+            if (sound.TryGetComponent<ChaosBot>(out ChaosBot chaosBot))
+                sound.MuteAll();
+        }
+    }
+    public void UnmuteAllSceneSfx()
+    {
+        foreach (ObjectSoundManager sound in FindObjectsOfType<ObjectSoundManager>())
+        {
+            if (sound.TryGetComponent<ChaosBot>(out ChaosBot chaosBot))
+                sound.UnmuteAll();
+        }
     }
 }

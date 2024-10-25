@@ -90,6 +90,8 @@ public class Patrol : MonoBehaviour
 
         stopped = false;
         ChangeTargetPatrolPoint();
+        
+        if (!ai.isStopped)
         anim.SetBool("isMoving", true);
     }
 
