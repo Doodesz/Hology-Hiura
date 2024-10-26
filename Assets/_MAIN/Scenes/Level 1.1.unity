@@ -1056,11 +1056,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Computer
       objectReference: {fileID: 0}
-    - target: {fileID: 2621758454947612413, guid: c5fe768f5fb1c7a41add53b56934b94e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4408488576562570918, guid: c5fe768f5fb1c7a41add53b56934b94e,
         type: 3}
       propertyPath: m_SizeDelta.x

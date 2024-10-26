@@ -10,6 +10,9 @@ public class ObjectSoundManager : MonoBehaviour
     public AudioSource pushSfx;
     public AudioSource idleSfx;
 
+    [Header("Debugging")]
+    [SerializeField] bool isPushing;
+
     public void MuteAll()
     {
         if (moveSfx != null)
@@ -23,6 +26,9 @@ public class ObjectSoundManager : MonoBehaviour
         {
             pushSfx.mute = true;
             pushSfx.Pause();
+
+            if (pushSfx.isPlaying) isPushing = true;
+            else isPushing = false;
         }
         if (idleSfx != null)
         {
@@ -42,7 +48,9 @@ public class ObjectSoundManager : MonoBehaviour
         if (pushSfx != null)
         {
             pushSfx.mute = false;
-            pushSfx.UnPause();
+
+            if (isPushing)
+                pushSfx.UnPause();
         }
         if (idleSfx != null) 
         { 

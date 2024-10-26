@@ -4684,16 +4684,6 @@ PrefabInstance:
       value: Laser ini akan menghalang apapun, termasuk properti ChaosBot Inc. itu
         sendiri! Lihat sekitarmu dan cari mekanik yang dapat mematikannya!
       objectReference: {fileID: 0}
-    - target: {fileID: 7668530675936757645, guid: 5b01c013893a7324ca92c04f74f6cb1c,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7668530675936757645, guid: 5b01c013893a7324ca92c04f74f6cb1c,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -1922.4
-      objectReference: {fileID: 0}
     - target: {fileID: 8015959201077395287, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_text
