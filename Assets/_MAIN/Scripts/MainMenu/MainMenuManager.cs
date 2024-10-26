@@ -139,4 +139,10 @@ public class MainMenuManager : MonoBehaviour
         clickSfx.Play();
         GoToScene("Level Hidden");
     }
+
+    public void OnLevelButtonClicked(string levelSceneName)
+    {
+        clickSfx.Play();
+        GoToScene(levelSceneName);
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using Unity.AI.Navigation;
 using Unity.VisualScripting;
@@ -148,12 +149,14 @@ public class ChaosBot : MonoBehaviour
                 playerSpotted = true;
                 Debug.Log("Player spotted");
 
+                ai.CalculatePath(lastKnownPlayerPos, ai.path);
+
                 if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
                     Debug.Log("Engaging player");
                 }
-                else
+                else if (ai.pathStatus == NavMeshPathStatus.PathComplete)
                 {
                     currState = ChaosBotState.Chasing;
                     Debug.Log("Chasing player");
@@ -180,6 +183,10 @@ public class ChaosBot : MonoBehaviour
                 spotBar.fillAmount = 0;
                 spotIcon.enabled = false;
             }
+
+            // Limits max value
+            if (spotValue > unawareSpotTime)
+                spotValue = unawareSpotTime;
         }
 
         // Chasing state
@@ -194,8 +201,10 @@ public class ChaosBot : MonoBehaviour
 
             ai.isStopped = false;
 
+            ai.CalculatePath(lastKnownPlayerPos, ai.path);
+
             // Chase player
-            if (fov.canSeePlayerElectronic)
+            if (fov.canSeePlayerElectronic && ai.pathStatus == NavMeshPathStatus.PathComplete)
             {
                 ai.SetDestination(fov.lastTarget.transform.position);
                 lastKnownPlayerPos = fov.lastTarget.transform.position;
@@ -321,12 +330,13 @@ public class ChaosBot : MonoBehaviour
                 Debug.Log("Returning to patrol");
             }
 
+            //ai.CalculatePath(lastKnownPlayerPos, ai.path);
 
             // When player is not in view or is far...
             if (((!fov.canSeePlayerElectronic && !(electronicIsClose &&
                 !Physics.Raycast(fovLight.transform.position, dirToTarget, distanceToTarget, layersToCollide))) 
                 || Vector3.Distance(transform.position, fov.lastTarget.transform.position) > engagingRange + (engagingRange / 2))
-                && fov.lastTarget.GetComponent<ControllableElectronic>().isOnline)
+                && fov.lastTarget.GetComponent<ControllableElectronic>().isOnline && ai.pathStatus == NavMeshPathStatus.PathComplete)
             {
                 currState = ChaosBotState.Chasing;
 
@@ -461,13 +471,16 @@ public class ChaosBot : MonoBehaviour
                 randomSearch.enabled = false;
                 Debug.Log("Player respotted");
 
+                ai.CalculatePath(lastKnownPlayerPos, ai.path);
+
                 // Switch to engaging state when in range
                 if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
                     Debug.Log("Engaging player");
                 }
-                else // Otherwise switch to chasing state
+                // Otherwise switch to chasing state
+                else if (ai.pathStatus == NavMeshPathStatus.PathComplete)
                 {
                     currState = ChaosBotState.Chasing;
                     Debug.Log("Chasing player");
@@ -486,6 +499,10 @@ public class ChaosBot : MonoBehaviour
 
                 Debug.Log("Returning to patrol");
             }
+
+            // Limits aearch value
+            if (searchingValue > searchTimeoutTime)
+                searchingValue = searchTimeoutTime;
         }
 
         // Sound

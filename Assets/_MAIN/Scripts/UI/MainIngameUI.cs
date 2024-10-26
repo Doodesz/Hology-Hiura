@@ -23,6 +23,14 @@ public class MainIngameUI : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+
+        }
+    }
+
     private void OnEnable()
     {
         ObjectiveManager.OnLevelComplete += ShowLevelCompleteScreen;

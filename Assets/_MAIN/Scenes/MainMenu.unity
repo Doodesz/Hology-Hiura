@@ -2859,6 +2859,37 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1 &1595936363
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1595936364}
+  m_Layer: 0
+  m_Name: Data Persistence Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1595936364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595936363}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -67.54341, y: 9.818353, z: -89.33728}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1630629354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3251,6 +3282,11 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4283075573
       objectReference: {fileID: 0}
+    - target: {fileID: 1047736235146404119, guid: 5e8f223102e28d443958049892a5b35d,
+        type: 3}
+      propertyPath: m_Name
+      value: Level Hidden
+      objectReference: {fileID: 0}
     - target: {fileID: 1122941597426857326, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
       propertyPath: m_Name
@@ -3304,12 +3340,12 @@ PrefabInstance:
     - target: {fileID: 2563950375396986866, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2563950375396986866, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 2835412557823067677, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
@@ -3618,3 +3654,4 @@ SceneRoots:
   - {fileID: 1516117137}
   - {fileID: 1630629354}
   - {fileID: 8145904554965221943}
+  - {fileID: 1595936364}
