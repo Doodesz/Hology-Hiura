@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Tutorial : MonoBehaviour
@@ -11,11 +12,13 @@ public class Tutorial : MonoBehaviour
     [SerializeField] GameObject tutorial;
     [SerializeField] Animator anim;
 
+    public static Tutorial Instance;
+
     // Start is called before the first frame update
     void Start()
     {
         if (hasTutorial)
-            ShowTutorial();
+            StartCoroutine(DelayTutorial());
         else
             tutorial.SetActive(false);
     }
@@ -65,5 +68,12 @@ public class Tutorial : MonoBehaviour
         GameManager.Instance.UnmuteAllSceneSfx();
         GameManager.Instance.isReading = false;
         BlurManager.Instance.UnblurCamera();
+    }
+
+    IEnumerator DelayTutorial()
+    {
+        yield return new WaitForNextFrameUnit();
+
+        ShowTutorial();
     }
 }
