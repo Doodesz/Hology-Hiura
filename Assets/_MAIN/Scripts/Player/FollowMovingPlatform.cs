@@ -26,7 +26,7 @@ public class FollowMovingPlatform : MonoBehaviour
             }
             else // Follows drone platform when controlling said drone
             {
-                gameObject.transform.position = objectToFollow.transform.position + Vector3.up * 0.3f;
+                gameObject.transform.position = objectToFollow.transform.position + Vector3.up * 0.2f;
                 objToRotate.transform.rotation = objectToFollow.transform.rotation;
             }
         }
