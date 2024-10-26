@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("References")]
+    public AudioSource pauseSfx;
+    public AudioSource unpauseSfx;
+
+    [Header("Variables")]
     public bool gamePaused;
     public List<GameObject> hiddenObjsOnPause;
 
@@ -20,6 +25,7 @@ public class GameManager : MonoBehaviour
     public bool isPlayingAVideo;
     public bool isReading;
     public bool isTutorial;
+    [SerializeField] List<AudioSource> audioSources = new List<AudioSource>();
 
     public static GameManager Instance;
 
@@ -61,6 +67,12 @@ public class GameManager : MonoBehaviour
         }
 
         GetComponent<NavMeshSurface>().BuildNavMesh();
+
+        // debuggin
+        foreach (AudioSource audioSource in FindObjectsOfType<AudioSource>())
+        {
+            audioSources.Add(audioSource);
+        }
     }
 
     // Update is called once per frame
@@ -102,6 +114,11 @@ public class GameManager : MonoBehaviour
     {
         //pauseScreen.SetActive(true);
 
+        pauseSfx.Play();
+
+        HideUIObjects();
+        MuteAllSceneSfx();
+
         gamePaused = true;
 
         Time.timeScale = 0f;
@@ -115,13 +132,15 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = false;
         
         BlurManager.Instance.BlurCamera();
-
-        HideUIObjects();
-        MuteAllSceneSfx();
     }
 
     public void UnpauseGame()
     {
+        unpauseSfx.Play();
+
+        ShowUIObjects();
+        UnmuteAllSceneSfx();
+
         gamePaused = false;
 
         Time.timeScale = 1f;
@@ -134,9 +153,6 @@ public class GameManager : MonoBehaviour
         PlayerController.Instance.currPlayerObj.GetComponent<ControllableElectronic>().objCamera.enabled = true;
 
         BlurManager.Instance.UnblurCamera();
-
-        ShowUIObjects();
-        UnmuteAllSceneSfx();
     }
 
     public void QuitToMainMenu()
@@ -178,12 +194,21 @@ public class GameManager : MonoBehaviour
 
     public void MuteAllSceneSfx()
     {
-        foreach (ObjectSoundManager sound in FindObjectsOfType<ObjectSoundManager>())
+        foreach (ObjectSoundManager soundManager in FindObjectsOfType<ObjectSoundManager>())
         {
-            if (sound.TryGetComponent<ChaosBot>(out ChaosBot chaosBot))
-                sound.MuteAll();
-            if (sound.TryGetComponent<PlayerMovement>(out PlayerMovement playerMovement))
-                sound.MuteAll();
+            if (soundManager.TryGetComponent<ChaosBot>(out ChaosBot chaosBot))
+                soundManager.MuteAll();
+            if (soundManager.TryGetComponent<PlayerMovement>(out PlayerMovement playerMovement))
+                soundManager.MuteAll();
+        }
+
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+        {
+            if (audio.TryGetComponent<Computer>(out Computer computer))
+                audio.mute = true;
+            if (audio.name == "Background Chaosbot" || audio.name == "Pipe"
+                || audio.name == "Laser Idle Sfx") 
+                audio.mute = true;
         }
     }
     public void UnmuteAllSceneSfx()
@@ -194,6 +219,15 @@ public class GameManager : MonoBehaviour
                 sound.UnmuteAll();
             if (sound.TryGetComponent<PlayerMovement>(out PlayerMovement playerMovement))
                 sound.UnmuteAll();
+        }
+
+        foreach (AudioSource audio in FindObjectsOfType<AudioSource>())
+        {
+            if (audio.TryGetComponent<Computer>(out Computer computer))
+                audio.mute = false;
+            if (audio.name == "Background Chaosbot" || audio.name == "Pipe"
+                || audio.name == "Laser Idle Sfx")
+                audio.mute = false;
         }
     }
 }

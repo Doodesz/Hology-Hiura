@@ -8,20 +8,39 @@ public class ObjectSoundManager : MonoBehaviour
     public AudioSource disabledUISfx;
     public AudioSource disabledSfx;
     public AudioSource pushSfx;
+    public AudioSource idleSfx;
 
     public void MuteAll()
     {
-        if (moveSfx != null) moveSfx.mute = true;
+        if (moveSfx != null)
+        {
+            moveSfx.mute = true;
+            moveSfx.Pause();
+        }
         if (disabledUISfx != null) disabledUISfx.mute = true;
         if (disabledSfx != null) disabledSfx.mute = true;
         if (pushSfx != null) pushSfx.mute = true;
+        if (idleSfx != null)
+        {
+            idleSfx.mute = false;
+            idleSfx.Pause();
+        }
     }
     public void UnmuteAll()
     {
-        if (moveSfx != null) moveSfx.mute = false;
+        if (moveSfx != null)
+        {
+            moveSfx.mute = false;
+            moveSfx.Play();
+        }
         if (disabledUISfx != null) disabledUISfx.mute = false;
         if (disabledSfx != null) disabledSfx.mute = false;
         if (pushSfx != null) pushSfx.mute = false;
+        if (idleSfx != null) 
+        { 
+            idleSfx.mute = false;
+            idleSfx.Play();
+        }
     }
 
     public void PlayMove()

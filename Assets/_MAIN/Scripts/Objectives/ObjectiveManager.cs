@@ -91,7 +91,10 @@ public class ObjectiveManager : MonoBehaviour
         Time.timeScale = 0f;
 
         foreach (AudioSource audio in FindObjectsOfType(typeof(AudioSource)))
-            audio.volume = 0.05f;
+        {
+            if (audio.name != "On Complete Sfx")
+                audio.volume = 0.05f;
+        }
 
         BlurManager.Instance.BlurCamera();
         GameManager.Instance.MuteAllSceneSfx();

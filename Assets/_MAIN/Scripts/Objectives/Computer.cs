@@ -94,6 +94,7 @@ public class Computer : MonoBehaviour
     public void CloseReadable()
     {
         anim.SetTrigger("toggleReadable");
+        MainIngameUI.Instance.exitButtonAudio.Play();
     }
 
     void ShowReadable()
@@ -101,6 +102,7 @@ public class Computer : MonoBehaviour
         readObj.SetActive(true);
 
         anim.SetTrigger("toggleReadable");
+        MainIngameUI.Instance.buttonAudio.Play();
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveInput()
     {
-        if (playerController.currPlayerObj == gameObject && electronicScript.isOnline)
+        if (!GameManager.Instance.gamePaused && playerController.currPlayerObj == gameObject && electronicScript.isOnline)
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
@@ -111,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-
         else
         {
             horizontalInput = 0;
@@ -122,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
                 anim.SetBool("isWalking", false);
 
             // Pause move sfx
-            if (soundManager.moveSfx.isPlaying && thisElectronicType != ElectronicType.Drone)
+            if (soundManager.moveSfx.isPlaying)
                 soundManager.PauseMove();
         }
 
@@ -134,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.E))
                 Ascend();
 
-            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Q))
+            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Q) && !GameManager.Instance.gamePaused)
             {
                 if (!soundManager.moveSfx.isPlaying)
                     soundManager.PlayMove();

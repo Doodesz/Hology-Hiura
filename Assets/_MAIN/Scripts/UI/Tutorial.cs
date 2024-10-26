@@ -35,6 +35,7 @@ public class Tutorial : MonoBehaviour
 
     public void CloseTutorial()
     {
+        MainIngameUI.Instance.buttonAudio.Play();
         anim.SetTrigger("toggleTutorial");
     }
 

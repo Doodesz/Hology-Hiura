@@ -185,7 +185,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5be7cd490b3bde74591ab5a4d96c2a49,
         type: 3}
       propertyPath: m_Name
-      value: ChaosBot_Typing (2)
+      value: Background Chaosbot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -199,6 +199,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1825635573}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5be7cd490b3bde74591ab5a4d96c2a49,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1825635574}
   m_SourcePrefab: {fileID: 100100000, guid: 5be7cd490b3bde74591ab5a4d96c2a49, type: 3}
 --- !u!1 &62958075
 GameObject:
@@ -1770,7 +1774,7 @@ GameObject:
   - component: {fileID: 456726074}
   - component: {fileID: 456726073}
   m_Layer: 0
-  m_Name: Computer (4)
+  m_Name: omputer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2286,7 +2290,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5be7cd490b3bde74591ab5a4d96c2a49,
         type: 3}
       propertyPath: m_Name
-      value: ChaosBot_Typing (1)
+      value: Background Chaosbot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2971,7 +2975,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5be7cd490b3bde74591ab5a4d96c2a49,
         type: 3}
       propertyPath: m_Name
-      value: ChaosBot_Typing
+      value: Background Chaosbot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3555,7 +3559,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5be7cd490b3bde74591ab5a4d96c2a49,
         type: 3}
       propertyPath: m_Name
-      value: ChaosBot_Typing (4)
+      value: Background Chaosbot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4320,6 +4324,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8938453667612410593, guid: eba0b2346b5b9f145b259d8f01503c1e,
+        type: 3}
+      propertyPath: m_Name
+      value: Pipe
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -1246822234137420708, guid: eba0b2346b5b9f145b259d8f01503c1e, type: 3}
@@ -4685,7 +4694,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5be7cd490b3bde74591ab5a4d96c2a49,
         type: 3}
       propertyPath: m_Name
-      value: ChaosBot_Typing (7)
+      value: Background Chaosbot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5113,7 +5122,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5be7cd490b3bde74591ab5a4d96c2a49,
         type: 3}
       propertyPath: m_Name
-      value: ChaosBot_Typing (3)
+      value: Background Chaosbot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5784,6 +5793,102 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &1825635574
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825635570}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 6f820e1d012af3f44a92bb948263cc0c, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!64 &1829519524
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6440,7 +6545,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7163993455544180899, guid: 14af6e5d4c686e645929070fce58fcad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

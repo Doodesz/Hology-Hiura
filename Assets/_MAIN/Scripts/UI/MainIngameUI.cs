@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class MainIngameUI : MonoBehaviour
 {
+    [Header("References")]
     public Animator anim;
     public TextMeshProUGUI objectiveText;
     public GameObject levelCompleteObj;
     public GameObject pauseScreen;
     public List<GameObject> hiddenObjsOnPause = new List<GameObject>();
+
+    [Header("Audio References")]
+    public AudioSource buttonAudio;
+    public AudioSource exitButtonAudio;
 
     public static MainIngameUI Instance;
 
