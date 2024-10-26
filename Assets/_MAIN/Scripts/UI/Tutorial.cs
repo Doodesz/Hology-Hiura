@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Tutorial : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject tutorial;
     [SerializeField] Animator anim;
+    [SerializeField] Scrollbar scrollbar;
 
     public static Tutorial Instance;
 
@@ -25,7 +27,7 @@ public class Tutorial : MonoBehaviour
 
     private void Update()
     {
-        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Trigger State Exit") && GameManager.Instance.isReading)
+        if (anim.GetCurrentAnimatorStateInfo(3).IsName("Trigger State Exit") && GameManager.Instance.isTutorial)
         {
             HideTutorial();
         }
@@ -50,8 +52,10 @@ public class Tutorial : MonoBehaviour
         Time.timeScale = 0f;
         GameManager.Instance.HideUIObjects();
         GameManager.Instance.MuteAllSceneSfx();
-        GameManager.Instance.isReading = true;
+        GameManager.Instance.isTutorial = true;
         BlurManager.Instance.BlurCamera();
+
+        scrollbar.value = 0f;
     }
 
     public void HideTutorial()
@@ -66,10 +70,10 @@ public class Tutorial : MonoBehaviour
         Time.timeScale = 1f;
         GameManager.Instance.ShowUIObjects();
         GameManager.Instance.UnmuteAllSceneSfx();
-        GameManager.Instance.isReading = false;
+        GameManager.Instance.isTutorial = false;
         BlurManager.Instance.UnblurCamera();
     }
-
+    
     IEnumerator DelayTutorial()
     {
         yield return new WaitForNextFrameUnit();

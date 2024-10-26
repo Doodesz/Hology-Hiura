@@ -1750,7 +1750,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8299427116950879221}
   m_HandleRect: {fileID: 1245246262646114106}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 0.01
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2288,7 +2288,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 2000
+  m_Spacing: 1800
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -2504,7 +2504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8627451}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.972549}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2786,6 +2786,7 @@ MonoBehaviour:
   hasTutorial: 1
   tutorial: {fileID: 2813890289546899713}
   anim: {fileID: 7581197694775376831}
+  scrollbar: {fileID: 200391509955229690}
 --- !u!1 &5296590578036761710
 GameObject:
   m_ObjectHideFlags: 0
@@ -2881,9 +2882,9 @@ MonoBehaviour:
   m_Horizontal: 1
   m_Vertical: 0
   m_MovementType: 1
-  m_Elasticity: 0.02
+  m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 0.00005
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 5930919747066117914}
   m_HorizontalScrollbar: {fileID: 200391509955229690}

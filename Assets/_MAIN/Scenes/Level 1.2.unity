@@ -4564,6 +4564,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 710479124490082235, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 905423632457834854, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3328516883828879649, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_text
@@ -4630,11 +4640,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7451355556351375663, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_text
+      value: Laser ini akan menghalang apapun, termasuk properti ChaosBot Inc. itu
+        sendiri! Lihat sekitarmu dan cari mekanik yang dapat mematikannya!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8015959201077395287, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_text
+      value: Laser Keamanan
+      objectReference: {fileID: 0}
     - target: {fileID: 8993772161809787279, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_text
-      value: 'Laser ini akan menghalang apapun, termasuk properti ChaosBot Inc. sendiri.
-        Lihat sekitarmu dan cari mekanik '
+      value: Laser ini akan menghalang apapun, termasuk properti ChaosBot Inc. itu
+        sendiri! Lihat sekitarmu dan cari mekanik yang dapat mematikannya!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

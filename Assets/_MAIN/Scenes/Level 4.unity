@@ -487,6 +487,7 @@ MonoBehaviour:
   hasTutorial: 0
   tutorial: {fileID: 0}
   anim: {fileID: 0}
+  scrollbar: {fileID: 0}
 --- !u!1001 &45023216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10288,7 +10289,7 @@ PrefabInstance:
     - target: {fileID: 6876769815720315020, guid: e48ed360a83e6ce45be7e2ae0235efb3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 44.7563
+      value: 45.03
       objectReference: {fileID: 0}
     - target: {fileID: 6876769815720315020, guid: e48ed360a83e6ce45be7e2ae0235efb3,
         type: 3}
@@ -12390,7 +12391,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 139.7
+  m_Intensity: 119.3
   m_Range: 44.44
   m_SpotAngle: 131.28537
   m_InnerSpotAngle: 108.0822
@@ -17276,7 +17277,7 @@ PrefabInstance:
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[0].desc
-      value: Cari Cara untuk Keluar!
+      value: Periksa Komputer!
       objectReference: {fileID: 0}
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
@@ -17291,7 +17292,7 @@ PrefabInstance:
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[3].desc
-      value: Periksa Komputer!
+      value: Cari Cara untuk Keluar!
       objectReference: {fileID: 0}
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
@@ -17311,28 +17312,28 @@ PrefabInstance:
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[7].desc
-      value: Waktunya Kabur dari Fasilitas!!!
+      value: Waktunya Kabur!!!
       objectReference: {fileID: 0}
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[0].objectiveObject
       value: 
-      objectReference: {fileID: 454176897}
+      objectReference: {fileID: 1513711912}
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[1].objectiveObject
       value: 
-      objectReference: {fileID: 1243728496}
+      objectReference: {fileID: 454176897}
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[2].objectiveObject
       value: 
-      objectReference: {fileID: 1780500136}
+      objectReference: {fileID: 1243728496}
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[3].objectiveObject
       value: 
-      objectReference: {fileID: 1513711912}
+      objectReference: {fileID: 1780500136}
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
       propertyPath: objectives.Array.data[4].objectiveObject
@@ -17489,6 +17490,11 @@ PrefabInstance:
     - target: {fileID: 5534332789399394555, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022654908638455651, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: hasTutorial
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

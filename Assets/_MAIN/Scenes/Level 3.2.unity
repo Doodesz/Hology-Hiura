@@ -8110,7 +8110,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 424.34
+  m_Intensity: 89.99
   m_Range: 32.7
   m_SpotAngle: 115.22777
   m_InnerSpotAngle: 84.52199
@@ -8149,7 +8149,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -12452,6 +12452,11 @@ PrefabInstance:
     - target: {fileID: 5534332789399394555, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022654908638455651, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: hasTutorial
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

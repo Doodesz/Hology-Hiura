@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool goingToMainMenu;
     public bool isPlayingAVideo;
     public bool isReading;
+    public bool isTutorial;
 
     public static GameManager Instance;
 
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene && !isPlayingAVideo && !isReading)
+        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene && !isPlayingAVideo && !isReading && !isTutorial)
         {
             OnPauseClicked();
         }

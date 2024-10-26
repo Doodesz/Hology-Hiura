@@ -4796,6 +4796,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df16f24c64c342c4f8da8300bc9327c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1630185856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 200391509955229690, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4281828909713592499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1646234629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6428,6 +6440,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 710479124490082235, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 905423632457834854, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3328516883828879649, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_text
+      value: MiniRoomba merupakan varian dari robot pintar buatan Mini Inc. yang
+        dapat membersihkan tempat sela-sela sempit.
+      objectReference: {fileID: 0}
     - target: {fileID: 3762854197614838666, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: nextLevelSceneName
@@ -6488,6 +6516,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5583094016258566066, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_Elasticity
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7451355556351375663, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_text
+      value: Dengan menggunakan MiniRoomba, <b>kamu bisa masuk ke tempat yang sempit
+        yang sebelumnya tidak bisa dilewati oleh MiniBot,</b> seperti lubang ventilasi!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8015959201077395287, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_text
+      value: MiniRoomba
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022654908638455651, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: scrollbar
+      value: 
+      objectReference: {fileID: 1630185856}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
