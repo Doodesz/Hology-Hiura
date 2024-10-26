@@ -4584,6 +4584,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1234276111191788320, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2d1da0ca30a27049a2cfac3dac168a2,
+        type: 3}
+    - target: {fileID: 3023214665314821420, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: eb11079bba94b5c4d8a9dbcea21d34be,
+        type: 3}
     - target: {fileID: 3328516883828879649, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_text
@@ -4595,6 +4607,12 @@ PrefabInstance:
       propertyPath: nextLevelSceneName
       value: Level 2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4801572754403626640, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e7ed79b063c98640a58148c585d4440,
+        type: 3}
     - target: {fileID: 5196294594662226363, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_Name
@@ -4659,7 +4677,7 @@ PrefabInstance:
     - target: {fileID: 8015959201077395287, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_text
-      value: Laser Keamanan
+      value: Dinding Laser
       objectReference: {fileID: 0}
     - target: {fileID: 8993772161809787279, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}

@@ -19,7 +19,11 @@ public class ObjectSoundManager : MonoBehaviour
         }
         if (disabledUISfx != null) disabledUISfx.mute = true;
         if (disabledSfx != null) disabledSfx.mute = true;
-        if (pushSfx != null) pushSfx.mute = true;
+        if (pushSfx != null)
+        {
+            pushSfx.mute = true;
+            pushSfx.Pause();
+        }
         if (idleSfx != null)
         {
             idleSfx.mute = false;
@@ -35,7 +39,11 @@ public class ObjectSoundManager : MonoBehaviour
         }
         if (disabledUISfx != null) disabledUISfx.mute = false;
         if (disabledSfx != null) disabledSfx.mute = false;
-        if (pushSfx != null) pushSfx.mute = false;
+        if (pushSfx != null)
+        {
+            pushSfx.mute = false;
+            pushSfx.UnPause();
+        }
         if (idleSfx != null) 
         { 
             idleSfx.mute = false;

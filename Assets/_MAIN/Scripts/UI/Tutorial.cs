@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +39,8 @@ public class Tutorial : MonoBehaviour
 
     void ShowTutorial()
     {
+        MainIngameUI.Instance.buttonAudio.Play();
+
         tutorial.SetActive(true);
 
         anim.SetTrigger("toggleTutorial");
@@ -77,7 +77,7 @@ public class Tutorial : MonoBehaviour
     
     IEnumerator DelayTutorial()
     {
-        yield return new WaitForNextFrameUnit();
+        yield return new WaitForSecondsRealtime(0.3f);
 
         ShowTutorial();
     }
