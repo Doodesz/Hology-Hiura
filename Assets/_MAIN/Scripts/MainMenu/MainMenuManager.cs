@@ -11,6 +11,8 @@ public class MainMenuManager : MonoBehaviour
     [Header("Variables")]
     [SerializeField] string newGameSceneName;
     [SerializeField] Animator anim;
+    [SerializeField] GameObject continueButton;
+    [SerializeField] GameObject continueIcon;
 
     [Header("Audio References")]
     [SerializeField] AudioSource clickSfx;
@@ -20,6 +22,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] bool exitingScene;
     [SerializeField] ExitingTo exitingTo;
     public string newSceneName;
+    [SerializeField] float specialKeyHoldValue;
 
     public static MainMenuManager Instance;
 
@@ -28,12 +31,48 @@ public class MainMenuManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (!PlayerPrefs.HasKey("lastLevelPlayed"))
+        {
+            continueButton.SetActive(false);
+            continueIcon.SetActive(false);
+        }
+    }
+
     private void Update()
     {
         if (anim.GetCurrentAnimatorStateInfo(1).IsName("Trigger State"))
         {
             SceneManager.LoadScene(newSceneName);
         }
+
+        if (Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.I))
+        {
+            specialKeyHoldValue += Time.deltaTime;
+
+            if (specialKeyHoldValue > 3)
+            {
+                LevelLockManager.Instance.UnlockAllLevels();
+            }
+        }
+        else if (Input.GetKey(KeyCode.U) && Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.A))
+        {
+            specialKeyHoldValue += Time.deltaTime;
+
+            if (specialKeyHoldValue > 3)
+            {
+                LevelLockManager.Instance.DeletePlayerPrefs();
+            }
+        }
+        else
+            specialKeyHoldValue = 0;
+    }
+
+    public void OnContinueClick()
+    {
+        clickSfx.Play();
+        GoToScene(PlayerPrefs.GetString("lastPlayedLevel", "Prologue"));
     }
 
     public void OnPlayClick()
@@ -144,5 +183,10 @@ public class MainMenuManager : MonoBehaviour
     {
         clickSfx.Play();
         GoToScene(levelSceneName);
+    }
+
+    void UnlockAllLevels()
+    {
+
     }
 }

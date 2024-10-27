@@ -120,7 +120,7 @@ public class ChaosBot : MonoBehaviour
                 dirToTarget = (fov.lastTarget.transform.position - fovLight.transform.position).normalized;
                 distanceToTarget = Vector3.Distance(fovLight.transform.position, fov.lastTarget.transform.position);
                 
-                Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+                //Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
             }
 
             // When player is in view or is close and can be seen...
@@ -140,26 +140,26 @@ public class ChaosBot : MonoBehaviour
                 if (spotValue > 0)
                     spotValue -= despottingRate * Time.deltaTime;
                 fovLight.color = unawareColor;
-                Debug.Log("Despotting player");
+                //Debug.Log("Despotting player");
             }
 
             // Spot player when exposed for a certain time
             if (spotValue >= unawareSpotTime)
             {
                 playerSpotted = true;
-                Debug.Log("Player spotted");
+                //Debug.Log("Player spotted");
 
                 ai.CalculatePath(lastKnownPlayerPos, ai.path);
 
                 if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
-                    Debug.Log("Engaging player");
+                    //Debug.Log("Engaging player");
                 }
                 else if (ai.pathStatus == NavMeshPathStatus.PathComplete)
                 {
                     currState = ChaosBotState.Chasing;
-                    Debug.Log("Chasing player");
+                    //Debug.Log("Chasing player");
                 }
             }
             // Resume patrol when player is out of view and spotting bar is 0
@@ -168,7 +168,7 @@ public class ChaosBot : MonoBehaviour
                 patrolScript.ResumePatrol();
                 playerSpotted = false;
                 anim.SetBool("isAlerted", false);
-                Debug.Log("Disengaging player");
+                //Debug.Log("Disengaging player");
             }
 
             // Update radial spotting bar
@@ -227,7 +227,7 @@ public class ChaosBot : MonoBehaviour
                 if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
                     oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
 
-                Debug.Log("Returning to patrol");
+                //Debug.Log("Returning to patrol");
             }
 
             // Start a timeout timer when player is out of view
@@ -253,7 +253,7 @@ public class ChaosBot : MonoBehaviour
             else if (Vector3.Distance(transform.position, lastKnownPlayerPos) < 1f
                 && !fov.canSeePlayerElectronic)
             {
-                Debug.Log("Line hit");
+                //Debug.Log("Line hit");
                 currState = ChaosBotState.Searching;
                 ai.isStopped = true;
                 searchingValue = searchTimeoutTime;
@@ -270,7 +270,7 @@ public class ChaosBot : MonoBehaviour
                 StopAllCoroutines();
                 StartCoroutine(BakeNavMeshRoutine()); 
                 chaseTimingOut = false;
-                Debug.Log("Chase continued");
+                //Debug.Log("Chase continued");
             }
 
             // Switch to engaging state when entering firing range
@@ -279,14 +279,14 @@ public class ChaosBot : MonoBehaviour
                 currState = ChaosBotState.Engaging;
                 ai.isStopped = true;
 
-                Debug.Log("Switching to Engaging state");
+                //Debug.Log("Switching to Engaging state");
             }
         }
 
         // Engaging state
         else if (currState == ChaosBotState.Engaging)
         {
-            Debug.Log("Entered Engaging state");
+            //Debug.Log("Entered Engaging state");
 
             spotBar.fillAmount = 1;
             spotIcon.text = "!!";
@@ -307,7 +307,7 @@ public class ChaosBot : MonoBehaviour
                 dirToTarget = (fov.lastTarget.transform.position - fovLight.transform.position).normalized;
                 distanceToTarget = Vector3.Distance(fovLight.transform.position, fov.lastTarget.transform.position);
 
-                Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
+                //Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
             }
 
             // Return to patrol when target is already offline
@@ -327,7 +327,7 @@ public class ChaosBot : MonoBehaviour
                 if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
                     oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
 
-                Debug.Log("Returning to patrol");
+                //Debug.Log("Returning to patrol");
             }
 
             //ai.CalculatePath(lastKnownPlayerPos, ai.path);
@@ -340,7 +340,7 @@ public class ChaosBot : MonoBehaviour
             {
                 currState = ChaosBotState.Chasing;
 
-                Debug.Log("Switching to chasing state");
+                //Debug.Log("Switching to chasing state");
 
                 StopAllCoroutines();
                 StartCoroutine(BakeNavMeshRoutine()); 
@@ -358,7 +358,7 @@ public class ChaosBot : MonoBehaviour
         // Searching state
         else if (currState == ChaosBotState.Searching)
         {
-            Debug.Log("Entered Searching state");
+            //Debug.Log("Entered Searching state");
             
             // Resets current path upon first entering state
             if (randomSearch.enabled == false)
@@ -392,7 +392,7 @@ public class ChaosBot : MonoBehaviour
                 if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
                     oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
 
-                Debug.Log("Returning to patrol");
+                //Debug.Log("Returning to patrol");
             }
 
             // Increase/decrease spot bar when inside/outside of view
@@ -436,7 +436,7 @@ public class ChaosBot : MonoBehaviour
                         turnSpeed * Time.deltaTime);
                 }
 
-                Debug.Log("Spotting player");
+                //Debug.Log("Spotting player");
             }
             else // Otherwise...
             {
@@ -461,7 +461,7 @@ public class ChaosBot : MonoBehaviour
                     spotBar.color = searchingColor;
                 }
 
-                Debug.Log("Despotting player");
+                //Debug.Log("Despotting player");
             }
 
             // Spot player when in view for a certain time
@@ -469,7 +469,7 @@ public class ChaosBot : MonoBehaviour
             {
                 playerSpotted = true;
                 randomSearch.enabled = false;
-                Debug.Log("Player respotted");
+                //Debug.Log("Player respotted");
 
                 ai.CalculatePath(lastKnownPlayerPos, ai.path);
 
@@ -477,13 +477,13 @@ public class ChaosBot : MonoBehaviour
                 if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
                 {
                     currState = ChaosBotState.Engaging;
-                    Debug.Log("Engaging player");
+                    //Debug.Log("Engaging player");
                 }
                 // Otherwise switch to chasing state
                 else if (ai.pathStatus == NavMeshPathStatus.PathComplete)
                 {
                     currState = ChaosBotState.Chasing;
-                    Debug.Log("Chasing player");
+                    //Debug.Log("Chasing player");
                 }
             }
 
@@ -497,7 +497,7 @@ public class ChaosBot : MonoBehaviour
                 anim.SetBool("isAlerted", false);
                 randomSearch.enabled = false;
 
-                Debug.Log("Returning to patrol");
+                //Debug.Log("Returning to patrol");
             }
 
             // Limits aearch value
@@ -526,7 +526,7 @@ public class ChaosBot : MonoBehaviour
         if (chaseTimingOut) 
             yield break;
         chaseTimingOut = true;
-        Debug.Log("Chase timing out");
+        //Debug.Log("Chase timing out");
 
         yield return new WaitForSeconds(time);
 
@@ -538,10 +538,10 @@ public class ChaosBot : MonoBehaviour
             searchingValue = searchTimeoutTime;
             spotValue = 0f;
 
-            Debug.Log("Chase timed out, switching to Searching state");
+            //Debug.Log("Chase timed out, switching to Searching state");
         }
-        else
-            Debug.Log("Chase continued");
+        //else
+            //Debug.Log("Chase continued");
 
         chaseTimingOut = false;
     }
