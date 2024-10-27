@@ -74,13 +74,13 @@ public class BoxOnPlatformCheck : MonoBehaviour
 
             if (PlayerController.Instance.currPlayerObj != CheckRootParent(other.gameObject))
             {
-                platformScript.itemAnchor[FindIndex(platformScript)].transform.position = transform.position;
-                platformScript.itemAnchor[FindIndex(platformScript)].transform.rotation = transform.rotation;
+                platformScript.itemAnchor[2].transform.position = transform.position;
+                platformScript.itemAnchor[2].transform.rotation = transform.rotation;
             }
             else
             {
-                transform.position = platformScript.itemAnchor[FindIndex(platformScript)].transform.position;
-                transform.rotation = platformScript.itemAnchor[FindIndex(platformScript)].transform.rotation;
+                transform.position = platformScript.itemAnchor[2].transform.position;
+                transform.rotation = platformScript.itemAnchor[2].transform.rotation;
             }
 
         }

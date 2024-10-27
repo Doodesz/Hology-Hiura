@@ -1256,6 +1256,7 @@ MonoBehaviour:
     - collectible level 4
     collectibleKeysCollected: 8
     lockObj: {fileID: 1331293105788697112}
+  continueScene: 
 --- !u!95 &5641175618979921134
 Animator:
   serializedVersion: 5
@@ -8558,7 +8559,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8152518097364337419}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: OnPlayClick
+        m_MethodName: OnContinueClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

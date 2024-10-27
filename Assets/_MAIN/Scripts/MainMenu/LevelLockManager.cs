@@ -56,6 +56,7 @@ public class LevelLockManager : MonoBehaviour
 
     public List<LevelLock> levelLocks = new List<LevelLock>();
     public LevelHiddenLock levelHiddenLock = new LevelHiddenLock();
+    public string continueScene;
 
     public static LevelLockManager Instance;
 
@@ -67,6 +68,8 @@ public class LevelLockManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        continueScene = PlayerPrefs.GetString("lastPlayedLevel");
+
         // Unlocks level
         foreach(var levelLock in levelLocks)
         {

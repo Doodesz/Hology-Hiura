@@ -33,7 +33,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        if (!PlayerPrefs.HasKey("lastLevelPlayed"))
+        if (!PlayerPrefs.HasKey("lastPlayedLevel") || PlayerPrefs.GetString("lastPlayedLevel") == "Epilogue")
         {
             continueButton.SetActive(false);
             continueIcon.SetActive(false);

@@ -23,10 +23,10 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.380429, g: 0.49436942, b: 0.7830189, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: cb5d521f6270e8c41afc552d88a617cf, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0.5
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 410087040}
   m_UseRadianceAmbientProbe: 0
@@ -3240,7 +3240,7 @@ PrefabInstance:
     - target: {fileID: 154122071888748969, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00024978587
+      value: 0.00013606824
       objectReference: {fileID: 0}
     - target: {fileID: 391637141998872239, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
@@ -3310,12 +3310,12 @@ PrefabInstance:
     - target: {fileID: 2563950375396986866, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2563950375396986866, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3452384206089595547, guid: 5e8f223102e28d443958049892a5b35d,
         type: 3}

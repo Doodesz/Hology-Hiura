@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.6
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.380429, g: 0.49436942, b: 0.7830189, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: cb5d521f6270e8c41afc552d88a617cf, type: 2}
@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0.7
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -7148,6 +7148,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 411490409233611033, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1234276111191788320, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_Sprite
@@ -7183,6 +7188,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1530853396295890097, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 1799084306932110082, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
@@ -7226,6 +7236,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5392672385109920497, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283075573
       objectReference: {fileID: 0}
     - target: {fileID: 5534332789399394555, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
@@ -7277,6 +7292,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5617758826516550228, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283075573
+      objectReference: {fileID: 0}
     - target: {fileID: 5930919747066117914, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -7291,6 +7311,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705284117682188918, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280578803
       objectReference: {fileID: 0}
     - target: {fileID: 7037815597288205844, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
@@ -7327,6 +7352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: MiniBot dan Chaos Inc.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144139130365954259, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4283075573
       objectReference: {fileID: 0}
     - target: {fileID: 8993772161809787279, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}

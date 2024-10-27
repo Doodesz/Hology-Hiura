@@ -27,7 +27,12 @@ public class MainIngameUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            anim.SetBool("pressingF", true);
+        }
 
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            anim.SetBool("pressingF", false);
         }
     }
 
