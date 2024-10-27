@@ -20062,6 +20062,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
         type: 3}
+      propertyPath: levelKey
+      value: level hidden
+      objectReference: {fileID: 0}
+    - target: {fileID: 47341024210988319, guid: 14af6e5d4c686e645929070fce58fcad,
+        type: 3}
       propertyPath: objectives.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -20224,6 +20229,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3454758911928677448, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ae27ccb9555474d4a80bd6c9f961437d,
+        type: 3}
     - target: {fileID: 3762854197614838666, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: nextLevelSceneName
@@ -20282,6 +20293,11 @@ PrefabInstance:
     - target: {fileID: 5534332789399394555, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8935147595352404466, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9022654908638455651, guid: 5b01c013893a7324ca92c04f74f6cb1c,

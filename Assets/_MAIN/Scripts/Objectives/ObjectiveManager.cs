@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Objective
@@ -18,6 +19,7 @@ public class ObjectiveManager : MonoBehaviour
 
     [Header("Variables")]
     public List<Objective> objectives;
+    [SerializeField] string levelKey;
 
     [Header("Debugging")]
     [SerializeField] TextMeshProUGUI objectiveText;
@@ -100,5 +102,14 @@ public class ObjectiveManager : MonoBehaviour
         GameManager.Instance.MuteAllSceneSfx();
 
         Debug.Log("Level completed!");
+
+        SaveLevel();
+    }
+
+    void SaveLevel()
+    {
+        PlayerPrefs.SetInt(levelKey, 1);
+        PlayerPrefs.Save();
+        PlayerPrefs.SetString("lastPlayedLevel", MainIngameUI.Instance.GetComponent<LevelCompleteButtons>().nextLevelSceneName);
     }
 }
