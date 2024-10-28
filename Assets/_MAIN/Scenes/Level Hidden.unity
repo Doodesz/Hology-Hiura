@@ -10625,7 +10625,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: -1444460858095362738, guid: 92a0a346319e21440b502aeb24a57bd9, type: 3}
   - {fileID: -389402008792246631, guid: 92a0a346319e21440b502aeb24a57bd9, type: 3}
-  - {fileID: 2100000, guid: 7c0aa86722224aa4a835d5286e1bd1f1, type: 2}
+  - {fileID: 2100000, guid: 697ede5410e52ff4fbfbd79f3a36228c, type: 2}
   - {fileID: -1444460858095362738, guid: 905545194ab5b06498d46481c5cbcc82, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -11377,7 +11377,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: -1444460858095362738, guid: 92a0a346319e21440b502aeb24a57bd9, type: 3}
   - {fileID: -389402008792246631, guid: 92a0a346319e21440b502aeb24a57bd9, type: 3}
-  - {fileID: 2100000, guid: 7c0aa86722224aa4a835d5286e1bd1f1, type: 2}
+  - {fileID: 2100000, guid: 36d569fbeac2dc642afd0454ecec32e0, type: 2}
   - {fileID: -1444460858095362738, guid: 905545194ab5b06498d46481c5cbcc82, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -20244,7 +20244,7 @@ PrefabInstance:
     - target: {fileID: 3762854197614838666, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: nextLevelSceneName
-      value: Main Menu
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5196294594662226363, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}

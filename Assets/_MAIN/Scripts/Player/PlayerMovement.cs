@@ -65,6 +65,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         rb.drag = movementDrag;
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            anim.SetTrigger("dance");
+        }
     }
 
     private void FixedUpdate()
