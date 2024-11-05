@@ -75,8 +75,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MoveInput();
-        MovePlayer();
         SpeedControl();
+
+        if (!playerController.isSwitching)
+            MovePlayer();
 
         if (isOverweighted)
             DescendSlowly();
@@ -87,7 +89,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void MoveInput()
     {
-        if (!GameManager.Instance.gamePaused && playerController.currPlayerObj == gameObject && electronicScript.isOnline)
+        if (!GameManager.Instance.gamePaused && playerController.currPlayerObj == gameObject && electronicScript.isOnline
+            && !playerController.isSwitching)
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");

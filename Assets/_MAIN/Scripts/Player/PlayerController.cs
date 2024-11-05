@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Debugging")]
     [SerializeField] ControllableElectronic lastSelected;
+    public bool isSwitching;
 
     public delegate void PlayerControllerDelegate();
     public static event PlayerControllerDelegate OnSwitchElectronic;
@@ -61,7 +62,7 @@ public class PlayerController : MonoBehaviour
             controllableObject.outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
 
             // Switch to object when right-clicked
-            if (Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.Space))
+            if ((Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.Space)) && !isSwitching)
             {
                 SwitchPlayerObject(rayHitInfo.collider.gameObject);
 
@@ -108,6 +109,15 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+        StartCoroutine(SwitchPlayerElectronic(objToSwitchTo));
+
+    }
+    
+    IEnumerator SwitchPlayerElectronic(GameObject objToSwitchTo)
+    {
+        ControllableElectronic currPlayerObjScript = currPlayerObj.GetComponent<ControllableElectronic>();
+        CinemachineFreeLook currPlayerObjCam = currPlayerObjScript.objCamera;
+
         // Switches controlled object
         currPlayerObj = objToSwitchTo;
 
@@ -115,18 +125,9 @@ public class PlayerController : MonoBehaviour
         currPlayerObjScript = currPlayerObj.GetComponent<ControllableElectronic>();
         currPlayerObjCam = currPlayerObj.GetComponent<ControllableElectronic>().objCamera;
 
-        // Enables old cam and UI
+        // Enables new cam and UI
         currPlayerObjCam.enabled = true;
         currPlayerObjScript.canvas.SetActive(true);
-
-        // Sets online animation on switched in minibot
-        if ((currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
-            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba) && currPlayerObjScript.isOnline)
-        {
-            currPlayerObjScript.animator.SetBool("isOnline", true);
-            currPlayerObj.GetComponent<Rigidbody>().useGravity = true;
-            currPlayerObj.GetComponent<Rigidbody>().isKinematic = false;
-        }
 
         // Assigns correct y axis value for different electronic types
         if (currPlayerObjScript.thisElectronicType == ElectronicType.Camera)
@@ -137,7 +138,21 @@ public class PlayerController : MonoBehaviour
         else
             currPlayerObjCam.m_YAxis.Value = 0.55f;
 
+        isSwitching = true;
+        yield return new WaitForSeconds(2f);
+        isSwitching = false;
+
+        // Sets online animation on switched in minibot
+        if ((currPlayerObjScript.thisElectronicType == ElectronicType.Humanoid ||
+            currPlayerObjScript.thisElectronicType == ElectronicType.Roomba) && currPlayerObjScript.isOnline)
+        {
+            currPlayerObjScript.animator.SetBool("isOnline", true);
+            currPlayerObj.GetComponent<Rigidbody>().useGravity = true;
+            currPlayerObj.GetComponent<Rigidbody>().isKinematic = false;
+        }
+
         // Debugging
-        Debug.Log("Currently controlling " + currPlayerObj);
+        //Debug.Log("Currently controlling " + currPlayerObj);
     }
 }
+

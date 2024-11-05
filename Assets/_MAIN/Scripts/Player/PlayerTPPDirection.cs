@@ -39,7 +39,7 @@ public class PlayerTPPDirection : MonoBehaviour
         Vector3 inputDir = (orientation.forward * verticalInput) + (orientation.right * horizontalInput);
 
         if ((inputDir != Vector3.zero) && playerController.currPlayerObj == gameObject 
-            && controllableObject.thisElectronicType != ElectronicType.Camera && controllableObject.isOnline)
+            && controllableObject.thisElectronicType != ElectronicType.Camera && controllableObject.isOnline && !playerController.isSwitching)
         {
             playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
