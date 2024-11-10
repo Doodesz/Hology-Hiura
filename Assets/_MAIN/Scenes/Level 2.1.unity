@@ -7591,7 +7591,7 @@ PrefabInstance:
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starB.timeLimit
-      value: 45
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
@@ -7601,7 +7601,7 @@ PrefabInstance:
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starC.timeLimit
-      value: 90
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
@@ -7621,12 +7621,12 @@ PrefabInstance:
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starB.objectiveInstruction
-      value: Selesaikan level dalam 45 detik
+      value: Selesaikan level dalam 30 detik
       objectReference: {fileID: 0}
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starC.objectiveInstruction
-      value: Selesaikan level dalam 90 detik
+      value: Selesaikan level dalam 60 detik
       objectReference: {fileID: 0}
     - target: {fileID: 710479124490082235, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}

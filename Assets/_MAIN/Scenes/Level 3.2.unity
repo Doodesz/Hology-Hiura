@@ -13381,6 +13381,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
+      propertyPath: starB.timeLimit
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
       propertyPath: starA.starKeyName
       value: star a level 3-2
       objectReference: {fileID: 0}
@@ -13393,6 +13398,11 @@ PrefabInstance:
         type: 3}
       propertyPath: starC.starKeyName
       value: star c level 3-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: starB.objectiveInstruction
+      value: Selesaikan level dalam 300 detik
       objectReference: {fileID: 0}
     - target: {fileID: 3762854197614838666, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}

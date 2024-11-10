@@ -26,28 +26,38 @@ public class LevelLockManager : MonoBehaviour
     [System.Serializable]
     public struct LevelHiddenLock
     {
-        public List<string> keysNeeded;
+        public List<string> collectibleKeysNeeded;
         public int collectibleKeysCollected;
+        public List<string> starKeysNeeded;
+        public int starKeysCollected;
         public GameObject lockObj;
 
         public bool IsUnlocked()
         {
             collectibleKeysCollected = 0;
 
-            foreach (string key in keysNeeded)
+            foreach (string key in collectibleKeysNeeded)
             {
                 if (PlayerPrefs.GetInt(key, 0) == 1)
                     collectibleKeysCollected++;
             }
-
-            if (collectibleKeysCollected >= keysNeeded.Count)
+            foreach (string key in starKeysNeeded)
+            {
+                if (PlayerPrefs.GetInt(key, 0) == 1)
+                    starKeysCollected++;
+            }
+            if (collectibleKeysCollected >= collectibleKeysNeeded.Count && starKeysCollected >= starKeysNeeded.Count)
                 return true;
             else 
                 return false;
         }
         public void UnlockLevelHidden()
         {
-            foreach (string key in keysNeeded)
+            foreach (string key in collectibleKeysNeeded)
+            {
+                PlayerPrefs.SetInt(key, 1);
+            }
+            foreach (string key in starKeysNeeded)
             {
                 PlayerPrefs.SetInt(key, 1);
             }
