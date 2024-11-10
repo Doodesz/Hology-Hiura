@@ -20,6 +20,7 @@ public class ObjectiveManager : MonoBehaviour
     [Header("Variables")]
     public List<Objective> objectives;
     [SerializeField] string levelKey;
+    [SerializeField] string nextLevelKey;
 
     [Header("Debugging")]
     [SerializeField] TextMeshProUGUI objectiveText;
@@ -100,8 +101,13 @@ public class ObjectiveManager : MonoBehaviour
 
         BlurManager.Instance.BlurCamera();
         GameManager.Instance.MuteAllSceneSfx();
+        GameManager.Instance.hasCompletedLevel = true;
+        StarsManager.Instance.CompleteLevelCompleteStars();
+        StarsManager.Instance.CompleteNoDisabledBotStars();
+        StarsManager.Instance.CompleteTimeTrialStars();
+        SyncStarsIconNText.Instance.Sync();
 
-        Debug.Log("Level completed!");
+        //Debug.Log("Level completed!");
 
         SaveLevel();
     }
@@ -109,7 +115,8 @@ public class ObjectiveManager : MonoBehaviour
     void SaveLevel()
     {
         PlayerPrefs.SetInt(levelKey, 1);
-        PlayerPrefs.SetInt(MainIngameUI.Instance.GetComponent<LevelCompleteButtons>().nextLevelSceneName, 1);
+        if (nextLevelKey != "-" || nextLevelKey != string.Empty)
+            PlayerPrefs.SetInt(nextLevelKey, 1);
         PlayerPrefs.Save();
         PlayerPrefs.SetString("lastPlayedLevel", MainIngameUI.Instance.GetComponent<LevelCompleteButtons>().nextLevelSceneName);
     }

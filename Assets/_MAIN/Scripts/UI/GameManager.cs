@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public bool isPlayingAVideo;
     public bool isReading;
     public bool isTutorial;
+    public bool hasCompletedLevel;
     [SerializeField] List<AudioSource> audioSources = new List<AudioSource>();
 
     public static GameManager Instance;
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene && !isPlayingAVideo && !isReading && !isTutorial)
+        if (Input.GetKeyDown(KeyCode.Escape) && !exitingScene && !isPlayingAVideo && !isReading && !isTutorial && !hasCompletedLevel)
         {
             OnPauseClicked();
         }
