@@ -6,6 +6,7 @@ using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 public enum ChaosBotState { Patrolling, Chasing, Engaging, Searching }
@@ -54,7 +55,7 @@ public class ChaosBot : MonoBehaviour
     [SerializeField] NavMeshSurface navMeshSurface;
     [SerializeField] LayerMask obstructionMask;
     [SerializeField] bool isCloseToOneOfPlayerObjs;
-    [SerializeField] List<GameObject> oneOfPlayerObjs;
+    [SerializeField] List<GameObject> oneOfClosePlayerObjs;
     [SerializeField] bool electronicIsClose;
     [SerializeField] bool isChargingShot;
     [SerializeField] bool isStuck;
@@ -95,7 +96,7 @@ public class ChaosBot : MonoBehaviour
         { 
             float range = 100f;
 
-            foreach (GameObject obj in oneOfPlayerObjs)
+            foreach (GameObject obj in oneOfClosePlayerObjs)
             {
                 if (Vector3.Distance(obj.transform.position, gameObject.transform.position) < range)
                 {
@@ -143,24 +144,30 @@ public class ChaosBot : MonoBehaviour
                 //Debug.Log("Despotting player");
             }
 
-            // Spot player when exposed for a certain time
+            // Spot player when exposed for a certain time and can be chased
             if (spotValue >= unawareSpotTime)
             {
-                playerSpotted = true;
-                //Debug.Log("Player spotted");
-
                 ai.CalculatePath(lastKnownPlayerPos, ai.path);
+                if (ai.pathStatus != NavMeshPathStatus.PathInvalid 
+                    || Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
+                {
+                    playerSpotted = true;
+                    //Debug.Log("Player spotted");
 
-                if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
-                {
-                    currState = ChaosBotState.Engaging;
-                    //Debug.Log("Engaging player");
+
+                    if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
+                    {
+                        currState = ChaosBotState.Engaging;
+                        //Debug.Log("Engaging player");
+                    }
+                    else 
+                    {
+                        currState = ChaosBotState.Chasing;
+                        //Debug.Log("Chasing player");
+                    }
                 }
-                else if (ai.pathStatus == NavMeshPathStatus.PathComplete)
-                {
-                    currState = ChaosBotState.Chasing;
-                    //Debug.Log("Chasing player");
-                }
+                else
+                    spotValue = unawareSpotTime;
             }
             // Resume patrol when player is out of view and spotting bar is 0
             else if (spotValue <= 0 && patrolScript.patrolInterrupted)
@@ -204,7 +211,7 @@ public class ChaosBot : MonoBehaviour
             ai.CalculatePath(lastKnownPlayerPos, ai.path);
 
             // Chase player
-            if (fov.canSeePlayerElectronic && ai.pathStatus == NavMeshPathStatus.PathComplete)
+            if (fov.canSeePlayerElectronic && ai.pathStatus != NavMeshPathStatus.PathInvalid)
             {
                 ai.SetDestination(fov.lastTarget.transform.position);
                 lastKnownPlayerPos = fov.lastTarget.transform.position;
@@ -224,8 +231,8 @@ public class ChaosBot : MonoBehaviour
                 StartCoroutine(BakeNavMeshRoutine()); 
                 isChargingShot = false;
 
-                if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
-                    oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
+                if (oneOfClosePlayerObjs.Contains(fov.lastTarget.gameObject))
+                    oneOfClosePlayerObjs.Remove(fov.lastTarget.gameObject);
 
                 //Debug.Log("Returning to patrol");
             }
@@ -324,8 +331,8 @@ public class ChaosBot : MonoBehaviour
                 StartCoroutine(BakeNavMeshRoutine()); 
                 isChargingShot = false;
 
-                if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
-                    oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
+                if (oneOfClosePlayerObjs.Contains(fov.lastTarget.gameObject))
+                    oneOfClosePlayerObjs.Remove(fov.lastTarget.gameObject);
 
                 //Debug.Log("Returning to patrol");
             }
@@ -389,8 +396,8 @@ public class ChaosBot : MonoBehaviour
                 StartCoroutine(BakeNavMeshRoutine());
                 isChargingShot = false;
 
-                if (oneOfPlayerObjs.Contains(fov.lastTarget.gameObject))
-                    oneOfPlayerObjs.Remove(fov.lastTarget.gameObject);
+                if (oneOfClosePlayerObjs.Contains(fov.lastTarget.gameObject))
+                    oneOfClosePlayerObjs.Remove(fov.lastTarget.gameObject);
 
                 //Debug.Log("Returning to patrol");
             }
@@ -403,7 +410,8 @@ public class ChaosBot : MonoBehaviour
             {
                 dirToTarget = (fov.lastTarget.transform.position - fovLight.transform.position).normalized;
                 distanceToTarget = Vector3.Distance(fovLight.transform.position, fov.lastTarget.transform.position);
-
+                lastKnownPlayerPos = fov.lastTarget.transform.position;
+                
                 Debug.DrawRay(fovLight.transform.position, dirToTarget, Color.cyan);
             }
             
@@ -452,7 +460,7 @@ public class ChaosBot : MonoBehaviour
                     spotBar.fillAmount = spotValue / searchingSpotTime;
                     spotBar.color = engagingColor;
                 }
-                // Continue to decrease search timer
+                // Else, continue to decrease search timer
                 else
                 {
                     spotValue = 0f;
@@ -464,14 +472,14 @@ public class ChaosBot : MonoBehaviour
                 //Debug.Log("Despotting player");
             }
 
-            // Spot player when in view for a certain time
-            if (spotValue >= searchingSpotTime)
+            // Spot player when in view for a certain time and can be chased
+            ai.CalculatePath(lastKnownPlayerPos, ai.path);
+            if (spotValue >= searchingSpotTime && ai.pathStatus == NavMeshPathStatus.PathComplete)
             {
                 playerSpotted = true;
                 randomSearch.enabled = false;
                 //Debug.Log("Player respotted");
 
-                ai.CalculatePath(lastKnownPlayerPos, ai.path);
 
                 // Switch to engaging state when in range
                 if (Vector3.Distance(transform.position, fov.lastTarget.transform.position) <= engagingRange)
@@ -480,12 +488,15 @@ public class ChaosBot : MonoBehaviour
                     //Debug.Log("Engaging player");
                 }
                 // Otherwise switch to chasing state
-                else if (ai.pathStatus == NavMeshPathStatus.PathComplete)
+                else
                 {
                     currState = ChaosBotState.Chasing;
                     //Debug.Log("Chasing player");
                 }
             }
+            // Limits spotValue if can't be chased
+            else if (spotValue >= searchingSpotTime)
+                spotValue = searchingSpotTime;
 
             if (searchingValue <= 0)
             {
@@ -608,8 +619,8 @@ public class ChaosBot : MonoBehaviour
         { 
             electronicIsClose = true;
 
-            if (!oneOfPlayerObjs.Contains(other.gameObject))
-                oneOfPlayerObjs.Add(other.gameObject);
+            if (!oneOfClosePlayerObjs.Contains(other.gameObject))
+                oneOfClosePlayerObjs.Add(other.gameObject);
         }
     }
 
@@ -619,7 +630,7 @@ public class ChaosBot : MonoBehaviour
             && other.GetComponent<ControllableElectronic>().isOnline)
         {
             electronicIsClose = true;
-            oneOfPlayerObjs.Add(other.gameObject);
+            oneOfClosePlayerObjs.Add(other.gameObject);
         }
     }
 
@@ -627,10 +638,10 @@ public class ChaosBot : MonoBehaviour
     {
         if ((other.gameObject.layer == 7 || other.gameObject.layer == 17))
         {
-            if (oneOfPlayerObjs.Contains(other.gameObject))
-                oneOfPlayerObjs.Remove(other.gameObject);
+            if (oneOfClosePlayerObjs.Contains(other.gameObject))
+                oneOfClosePlayerObjs.Remove(other.gameObject);
         }
-        if (oneOfPlayerObjs.Count == 0)
+        if (oneOfClosePlayerObjs.Count == 0)
             electronicIsClose = false;
     }
 }

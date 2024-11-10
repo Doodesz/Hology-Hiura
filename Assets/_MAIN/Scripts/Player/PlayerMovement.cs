@@ -80,8 +80,8 @@ public class PlayerMovement : MonoBehaviour
         if (!playerController.isSwitching)
             MovePlayer();
 
-        if (isOverweighted)
-            DescendSlowly();
+        //if (isOverweighted)
+        //    DescendSlowly();
 
         if (thisElectronicType == ElectronicType.Drone && !electronicScript.isOnline)
             Descend();

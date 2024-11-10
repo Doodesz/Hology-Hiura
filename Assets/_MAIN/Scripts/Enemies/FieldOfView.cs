@@ -53,7 +53,7 @@ public class FieldOfView : MonoBehaviour
             }
         }
 
-        if (rangeChecks.Length != 0)
+        if (rangeChecks.Length > 0)
         {
             foreach (GameObject obj in targets)
             {
@@ -63,12 +63,16 @@ public class FieldOfView : MonoBehaviour
                 {
                     float distanceToTarget = Vector3.Distance(transform.position, obj.transform.position);
 
-                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget + 10f, obstructionMask)
-                        && (obj.layer == 7 || obj.layer == 17 ) && obj.transform.position.y < transform.position.y + 10f
+                    // !!!!!!!!!!!!!!!!!
+                    // !!! IMPORTANT !!!
+                    // !!!!!!!!!!!!!!!!!
+                    // This shit means if a raycast is casted to the direction of the target and it DOES NOT hit any obstruction masks,
+                    // layer is bot or drone, height is no more than 7 unit above the chaosbot, and is online...
+                    if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask)
+                        && (obj.layer == 7 || obj.layer == 17 ) && obj.transform.position.y < transform.position.y + 7f
                         && obj.TryGetComponent<ControllableElectronic>(out ControllableElectronic script)
                         && script.isOnline == true)
                     {
-
                         canSeePlayerElectronic = true;
                         lastTarget = obj.gameObject;
 
