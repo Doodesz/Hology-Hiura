@@ -19112,6 +19112,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: starB.timeLimit
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: starA.starKeyName
+      value: star a level 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: starB.starKeyName
+      value: star b level 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: starC.starKeyName
+      value: star c level 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
+        type: 3}
+      propertyPath: starB.objectiveInstruction
+      value: Selesaikan level dalam 240 detik
+      objectReference: {fileID: 0}
     - target: {fileID: 3454758911928677448, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: m_Sprite
