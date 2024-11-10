@@ -134,7 +134,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // If this is a drone
-        if (thisElectronicType == ElectronicType.Drone && playerController.currPlayerObj == gameObject)
+        if (!GameManager.Instance.gamePaused && playerController.currPlayerObj == gameObject && electronicScript.isOnline
+            && !playerController.isSwitching)
         {
             if (Input.GetKey(KeyCode.Q))
                 Descend();

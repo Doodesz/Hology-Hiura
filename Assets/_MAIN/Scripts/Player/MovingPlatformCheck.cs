@@ -85,7 +85,7 @@ public class MovingPlatformCheck : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 16)
+        if (other.gameObject.layer == 16 && PlayerController.Instance.currPlayerObj == thisObject)
         {
             isStandingOnMovingPlatform = true;
             platformParent = CheckRootParent(other.transform.gameObject);
