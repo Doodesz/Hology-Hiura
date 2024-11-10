@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   electronic: {fileID: 1927904257602888650}
-  thisObject: {fileID: 0}
+  thisObject: {fileID: 8541148098278607457}
   rb: {fileID: 5671480354475179614}
   platformItemAnchor: {fileID: 0}
   platformParent: {fileID: 0}
@@ -6953,6 +6953,8 @@ MonoBehaviour:
   disabledUISfx: {fileID: 0}
   disabledSfx: {fileID: 8271650835089403011}
   pushSfx: {fileID: 0}
+  idleSfx: {fileID: 0}
+  isPushing: 0
 --- !u!114 &8379127365215579893
 MonoBehaviour:
   m_ObjectHideFlags: 0
