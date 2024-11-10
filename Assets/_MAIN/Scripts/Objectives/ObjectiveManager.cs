@@ -109,6 +109,7 @@ public class ObjectiveManager : MonoBehaviour
     void SaveLevel()
     {
         PlayerPrefs.SetInt(levelKey, 1);
+        PlayerPrefs.SetInt(MainIngameUI.Instance.GetComponent<LevelCompleteButtons>().nextLevelSceneName, 1);
         PlayerPrefs.Save();
         PlayerPrefs.SetString("lastPlayedLevel", MainIngameUI.Instance.GetComponent<LevelCompleteButtons>().nextLevelSceneName);
     }

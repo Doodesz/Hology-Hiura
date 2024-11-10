@@ -199,6 +199,9 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("isOnline", false);
         particle.gameObject.SetActive(true);
         soundManager.PlayDisabled();
+
+        // Fail star
+        StarsManager.Instance.FailNoDisabledBotsStars();
     }
 
     public void EnableMovement()
