@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ObjectiveType { Interact, Exit, Hold };
+public enum ObjectiveType { Interact, EnterArea, Hold, Exit };
 
 public class ObjectiveObject : MonoBehaviour
 {
@@ -12,6 +12,12 @@ public class ObjectiveObject : MonoBehaviour
     public Image objectiveIcon;
     [SerializeField] Image objectiveValueIcon;
     [SerializeField] Computer computer;
+    [SerializeField][Tooltip("Assign if this is an exit")] 
+        BoxCollider exitCollider;
+    [SerializeField][Tooltip("Assign if this is an exit")] 
+        Animator anim;
+    [SerializeField][Tooltip("Assign if this is an exit")] 
+        GameObject exitCube;
 
     [Header("Variables")]
     public bool isCompleted;
@@ -29,9 +35,22 @@ public class ObjectiveObject : MonoBehaviour
         objectiveManager = ObjectiveManager.Instance;
         interactManager = InteractManager.Instance;
 
+        // Enables icon if this object is the first in the objective list
         objectiveIcon.enabled = false;
         if (objectiveManager.objectives[0].objectiveObject == this)
             objectiveIcon.enabled = true;
+
+        // Turns this collider to a collision if type is an exit and on the last of the list
+        if (objectiveManager.objectives[objectiveManager.objectives.Count-1].objectiveObject == this
+            && type == ObjectiveType.Exit)
+        {
+            exitCollider.isTrigger = false;
+        }
+        else if (type == ObjectiveType.EnterArea)
+        {
+            exitCollider.isTrigger = true;
+            exitCube.SetActive(false);
+        }
 
         objectiveValueIcon.fillAmount = 0;
     }
@@ -69,6 +88,12 @@ public class ObjectiveObject : MonoBehaviour
             computer.OnAfterInteraction();
     }
 
+    public void ChangeColliderToTrigger()
+    {
+        exitCollider.isTrigger = true;
+        anim.SetBool("showWall", false);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (!isCompleted && type != ObjectiveType.Hold)
@@ -83,7 +108,8 @@ public class ObjectiveObject : MonoBehaviour
                     canBeInteracted = true;
                     interactManager.SetObjectiveObject(this, true);
                 }
-                else if (type == ObjectiveType.Exit)
+                else if (type == ObjectiveType.EnterArea 
+                    || (type == ObjectiveType.Exit && objectiveManager.currIndex == objectiveManager.objectives.Count-1))
                 {
                     OnInteractCompleted();
                 }
@@ -124,6 +150,31 @@ public class ObjectiveObject : MonoBehaviour
         {
             isCompleted = false;
             objectiveManager.UpdateNewObjective();
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (!isCompleted && (collision.gameObject.layer == 7 || collision.gameObject.layer == 17) 
+            && objectiveManager.currIndex != objectiveManager.objectives.Count - 1 
+            && PlayerController.Instance.currPlayerObj == collision.gameObject
+            && type == ObjectiveType.Exit)
+        {
+            anim.SetBool("showWall", true);
+        }
+        else if (type == ObjectiveType.Exit)
+        {
+            anim.SetBool("showWall", false);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (!isCompleted && (collision.gameObject.layer == 7 || collision.gameObject.layer == 17)
+            && objectiveManager.currIndex != objectiveManager.objectives.Count - 1
+            && PlayerController.Instance.currPlayerObj == collision.gameObject)
+        {
+            anim.SetBool("showWall", false);
         }
     }
 }

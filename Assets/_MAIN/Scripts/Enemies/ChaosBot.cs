@@ -74,6 +74,7 @@ public class ChaosBot : MonoBehaviour
         lastPos = Vector3.zero;
 
         StartCoroutine(BakeNavMeshRoutine());
+        StartCoroutine(UpdateLastPos());
     }
 
     // Update is called once per frame
@@ -81,14 +82,20 @@ public class ChaosBot : MonoBehaviour
     {
         // Determines if stuck or not
         if (lastPos == transform.position)
+        {
             stuckTimeoutValue += Time.deltaTime;
+            anim.SetBool("isMoving", false);
+        }
         else
+        {
             stuckTimeoutValue = 0f;
+            //anim.SetBool("isMoving", true);
+        }
 
         if (stuckTimeoutValue > stuckTimeout)
-        {
             isStuck = true;
-        }
+        else
+            isStuck = false;
 
 
         // Fix for when player enters trigger box but not in chaosbot's view
@@ -228,7 +235,8 @@ public class ChaosBot : MonoBehaviour
                 anim.SetBool("isAlerted", false);
                 randomSearch.enabled = false;
                 StopAllCoroutines();
-                StartCoroutine(BakeNavMeshRoutine()); 
+                StartCoroutine(BakeNavMeshRoutine());
+                StartCoroutine(UpdateLastPos());
                 isChargingShot = false;
 
                 if (oneOfClosePlayerObjs.Contains(fov.lastTarget.gameObject))
@@ -270,12 +278,14 @@ public class ChaosBot : MonoBehaviour
 
                 StopAllCoroutines();
                 StartCoroutine(BakeNavMeshRoutine());
+                StartCoroutine(UpdateLastPos());
             }
             // Interrupt timeout when player is back in view
             else if (fov.canSeePlayerElectronic)
             {
                 StopAllCoroutines();
-                StartCoroutine(BakeNavMeshRoutine()); 
+                StartCoroutine(BakeNavMeshRoutine());
+                StartCoroutine(UpdateLastPos());
                 chaseTimingOut = false;
                 //Debug.Log("Chase continued");
             }
@@ -328,7 +338,8 @@ public class ChaosBot : MonoBehaviour
                 anim.SetBool("isAlerted", false);
                 randomSearch.enabled = false;
                 StopAllCoroutines();
-                StartCoroutine(BakeNavMeshRoutine()); 
+                StartCoroutine(BakeNavMeshRoutine());
+                StartCoroutine(UpdateLastPos());
                 isChargingShot = false;
 
                 if (oneOfClosePlayerObjs.Contains(fov.lastTarget.gameObject))
@@ -350,7 +361,8 @@ public class ChaosBot : MonoBehaviour
                 //Debug.Log("Switching to chasing state");
 
                 StopAllCoroutines();
-                StartCoroutine(BakeNavMeshRoutine()); 
+                StartCoroutine(BakeNavMeshRoutine());
+                StartCoroutine(UpdateLastPos());
                 isChargingShot = false;
             }
             else // Otherwise update lastKnownPlayerPos
@@ -394,6 +406,7 @@ public class ChaosBot : MonoBehaviour
                 randomSearch.enabled = false;
                 StopAllCoroutines();
                 StartCoroutine(BakeNavMeshRoutine());
+                StartCoroutine(UpdateLastPos());
                 isChargingShot = false;
 
                 if (oneOfClosePlayerObjs.Contains(fov.lastTarget.gameObject))
@@ -557,6 +570,15 @@ public class ChaosBot : MonoBehaviour
         chaseTimingOut = false;
     }
 
+    IEnumerator UpdateLastPos()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        lastPos = transform.position;
+
+        StartCoroutine(UpdateLastPos());
+    }
+
     // Smoothly turns towards target
     void LookTowardsTarget()
     {
@@ -572,15 +594,13 @@ public class ChaosBot : MonoBehaviour
 
     IEnumerator BakeNavMeshRoutine()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
 
-        if (isStuck)
+        if (isStuck && (spotValue > 0f || searchingValue > 0f) && currState != ChaosBotState.Engaging)
         {
             navMeshSurface.BuildNavMesh();
-            stuckTimeoutValue = 0f;
-            isStuck = false;
         }
-    
+        
         StartCoroutine(BakeNavMeshRoutine());
     }
 

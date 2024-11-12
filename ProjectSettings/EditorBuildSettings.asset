@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MAIN/Scenes/Level Hidden.unity
     guid: 2329a3ecbe1fc0a4783a14746b9d01fa
+  - enabled: 1
+    path: Assets/_MAIN/Scenes/Credits.unity
+    guid: 5f67de9397ad7094fb96c3b05fe1ba35
   - enabled: 0
     path: Assets/_MAIN/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05

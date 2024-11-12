@@ -75,6 +75,12 @@ public class ObjectiveManager : MonoBehaviour
         }
         else
         {
+            // If currently on the last objective, unlock the exit
+            if (currIndex >= objectives.Count - 1)
+            {
+                UnlockExit();
+            }
+
             // Update instruction and indicator
             objectiveText.text = objectives[currIndex].desc;
 
@@ -83,6 +89,11 @@ public class ObjectiveManager : MonoBehaviour
 
             objectives[currIndex].objectiveObject.objectiveIcon.enabled = true;
         }
+    }
+
+    private void UnlockExit()
+    {
+        objectives[objectives.Count-1].objectiveObject.ChangeColliderToTrigger();
     }
 
     private void CompleteLevel()

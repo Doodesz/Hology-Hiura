@@ -8235,8 +8235,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.86, y: 11.4, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 11.632437, y: 11.4, z: 2.7423198}
+  m_Center: {x: 2.3862185, y: 0, z: 0.87116003}
 --- !u!1001 &1382186875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9171,6 +9171,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 823507754}
     m_Modifications:
+    - target: {fileID: 2866160484958350968, guid: 53854ec3d1ba0874f885f9a0d2c435ca,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2866160484958350968, guid: 53854ec3d1ba0874f885f9a0d2c435ca,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.59
+      objectReference: {fileID: 0}
     - target: {fileID: 3182536456669078574, guid: 53854ec3d1ba0874f885f9a0d2c435ca,
         type: 3}
       propertyPath: m_Name
@@ -9225,6 +9235,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6683967437832984766, guid: 53854ec3d1ba0874f885f9a0d2c435ca,
+        type: 3}
+      propertyPath: type
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8285938839455720048, guid: 53854ec3d1ba0874f885f9a0d2c435ca,
         type: 3}
@@ -11634,7 +11649,7 @@ PrefabInstance:
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starB.timeLimit
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
@@ -11644,7 +11659,7 @@ PrefabInstance:
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starC.timeLimit
-      value: 60
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
@@ -11664,12 +11679,12 @@ PrefabInstance:
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starB.objectiveInstruction
-      value: Selesaikan level dalam 30 detik
+      value: Selesaikan level dalam 60 detik
       objectReference: {fileID: 0}
     - target: {fileID: 103834353184487708, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}
       propertyPath: starC.objectiveInstruction
-      value: Selesaikan level dalam 60 detik
+      value: Selesaikan level dalam 90 detik
       objectReference: {fileID: 0}
     - target: {fileID: 3762854197614838666, guid: 5b01c013893a7324ca92c04f74f6cb1c,
         type: 3}

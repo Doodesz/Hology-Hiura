@@ -15,6 +15,7 @@ public class Patrol : MonoBehaviour
     public Transform[] patrolPoints;
     public int targetPoint;
     [SerializeField] float turnSpeed;
+    [SerializeField] float stationaryDuration;
 
     [Header("Debugging")]
     [SerializeField] float speed;
@@ -86,7 +87,7 @@ public class Patrol : MonoBehaviour
         stopped = true;
         anim.SetBool("isMoving", false);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(stationaryDuration);
 
         stopped = false;
         ChangeTargetPatrolPoint();
@@ -109,12 +110,13 @@ public class Patrol : MonoBehaviour
         patrolInterrupted = true;
         stopped = true;
         anim.SetBool("isMoving", false);
+        StopAllCoroutines();
     }
 
     public void ResumePatrol()
     {
         patrolInterrupted = false;
         stopped = false;
-        anim.SetBool("isMoving", true);
+        StartCoroutine(Wait());
     }
 }

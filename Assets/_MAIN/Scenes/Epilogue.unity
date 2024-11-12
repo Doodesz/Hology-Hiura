@@ -472,7 +472,7 @@ PrefabInstance:
     - target: {fileID: 6689255116412314389, guid: e94077628e02b8b44a9fd07149aa7864,
         type: 3}
       propertyPath: targetScene
-      value: MainMenu
+      value: Credits
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

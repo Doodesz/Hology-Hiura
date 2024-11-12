@@ -461,12 +461,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   isCloseToOneOfPlayerObjs: 0
-  oneOfPlayerObjs: []
+  oneOfClosePlayerObjs: []
   electronicIsClose: 0
   isChargingShot: 0
   isStuck: 0
   stuckTimeoutValue: 0
-  stuckTimeout: 3.5
+  stuckTimeout: 1
   lastPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1448831706016909290
 MonoBehaviour:
@@ -487,6 +487,7 @@ MonoBehaviour:
   patrolPoints: []
   targetPoint: 0
   turnSpeed: 0
+  stationaryDuration: 7
   speed: 2
   stopped: 0
   patrolInterrupted: 0
@@ -503,8 +504,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raySource: {fileID: 1376229932290381370}
-  radius: 25
-  angle: 100
+  radius: 20
+  angle: 80
   targetMask:
     serializedVersion: 2
     m_Bits: 131200

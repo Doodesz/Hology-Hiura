@@ -6953,7 +6953,7 @@ MonoBehaviour:
   soundManager: {fileID: 1468813370019341080}
   dronePlatform: {fileID: 2650679905329744708}
   rb: {fileID: 0}
-  moveSpeed: 20
+  moveSpeed: 30
   movementDrag: 4
   isPushing: 0
   walkSpeed: 0

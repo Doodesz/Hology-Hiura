@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.drag = movementDrag;
 
-        if (Input.GetKeyUp(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.F) && playerController.currPlayerObj == gameObject)
         {
             anim.SetTrigger("dance");
         }
