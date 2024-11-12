@@ -16,4 +16,9 @@ public class LevelCompleteButtons : MonoBehaviour
     {
         GameManager.Instance.QuitToMainMenu();
     }
+
+    public void RestartCurrentLevel()
+    {
+        GameManager.Instance.GoToScene(SceneManager.GetActiveScene().name);
+    }
 }
