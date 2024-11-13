@@ -89,7 +89,7 @@ public class ChaosBot : MonoBehaviour
         else
         {
             stuckTimeoutValue = 0f;
-            //anim.SetBool("isMoving", true);
+            anim.SetBool("isMoving", true);
         }
 
         if (stuckTimeoutValue > stuckTimeout)
